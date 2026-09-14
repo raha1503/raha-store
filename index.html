@@ -3,107 +3,929 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>RAHA | Your Everyday Shopping Destination</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body{
-  font-family:Arial,sans-serif;
-  background:#f7f7f7;
-  color:#111;
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  color: #111;
 }
 
-/* HEADER */
-
-header{
-  background:#000;
-  color:#d4af37;
-  padding:15px;
-  position:sticky;
-  top:0;
-  z-index:100;
+header {
+  background: #000;
+  color: #d4af37;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.header{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
+.header {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
 }
 
-.logo{
-  font-size:28px;
-  font-weight:bold;
-  letter-spacing:5px;
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 5px;
 }
 
-.cart{
-  background:#d4af37;
-  color:#000;
-  border:0;
-  padding:10px 15px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
+.cart-button {
+  background: #d4af37;
+  color: #000;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* HERO */
-
-.hero{
-  background:#000;
-  color:white;
-  text-align:center;
-  padding:60px 20px;
+.hero {
+  background: #000;
+  color: white;
+  text-align: center;
+  padding: 55px 20px;
 }
 
-.hero h1{
-  font-size:42px;
-  color:#d4af37;
-  margin-bottom:12px;
+.hero h1 {
+  font-size: 42px;
+  color: #d4af37;
+  margin-bottom: 12px;
 }
 
-.hero p{
-  font-size:18px;
-  margin-bottom:20px;
+.hero p {
+  font-size: 18px;
 }
+
+.search {
+  max-width: 600px;
+  margin: 25px auto 0;
+  display: flex;
+}
+
+.search input {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px 0 0 8px;
+  font-size: 16px;
+}
+
+.search button {
+  padding: 14px 20px;
+  border: 0;
+  background: #d4af37;
+  border-radius: 0 8px 8px 0;
+}
+
+.categories {
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 0 15px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.categories button {
+  white-space: nowrap;
+  padding: 10px 18px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.products {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.product img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: #eee;
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-info h3 {
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0 12px;
+}
+
+.add-button {
+  width: 100%;
+  padding: 11px;
+  background: #000;
+  color: #d4af37;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+/* CART */
+
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+  box-shadow: -5px 0 20px rgba(0,0,0,.25);
+  transition: right .3s ease;
+  overflow-y: auto;
+}
+
+.cart-panel.open {
+  right: 0;
+}
+
+.cart-header {
+  background: #000;
+  color: #d4af37;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background: #d4af37;
+  color: #000;
+  border: 0;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cart-items {
+  padding: 15px;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.cart-item h3 {
+  margin-bottom: 6px;
+}
+
+.cart-item-price {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.quantity button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: #000;
+  color: #d4af37;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.remove-button {
+  border: 0;
+  background: #ddd;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-total {
+  padding: 20px;
+  border-top: 2px solid #ddd;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.checkout-button {
+  width: calc(100% - 30px);
+  margin: 0 15px 20px;
+  padding: 14px;
+  background: #000;
+  color: #d4af37;
+  border: 0;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* CHECKOUT */
+
+.checkout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.checkout-overlay.open {
+  display: block;
+}
+
+.checkout-box {
+  max-width: 500px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.checkout-box h2 {
+  margin-bottom: 20px;
+}
+
+.checkout-box label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.checkout-box input,
+.checkout-box textarea,
+.checkout-box select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.checkout-box textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkout-total {
+  margin-top: 18px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.checkout-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.whatsapp-button {
+  flex: 1;
+  padding: 13px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-button {
+  background: #ddd;
+}
+
+.whatsapp-button {
+  background: #25D366;
+  color: white;
+}
+
+footer {
+  background: #000;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+footer h2 {
+  color: #d4af37;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin-top: 7px;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .product img {
+    height: 180px;
+  }
+
+  .cart-panel {
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header">
+    <div class="logo">RAHA</div>
+
+    <button class="cart-button" onclick="openCart()">
+      🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>RAHA</h1>
+  <p>Your Everyday Shopping Destination</p>
+
+  <div class="search">
+    <input
+      id="searchBox"
+      type="text"
+      placeholder="Search products..."
+      oninput="searchProducts()"
+    >
+    <button>🔎</button>
+  </div>
+</section>
+
+<div class="categories">
+  <button onclick="filterProducts('All')">All</button>
+  <button onclick="filterProducts('Jewellery')">💎 Jewellery</button>
+  <button onclick="filterProducts('Fashion')">👕 Fashion</button>
+  <button onclick="filterProducts('Gifts')">🎁 Gifts</button>
+  <button onclick="filterProducts('Accessories')">👜 Accessories</button>
+  <button onclick="filterProducts('Home')">🏠 Home</button>
+</div>
+
+<section class="products" id="products"></section>
+
+<!-- CART PANEL -->
+
+<div class="cart-panel" id="cartPanel">
+
+  <div class="cart-header">
+    <h2>🛒 Your RAHA Cart</h2>
+
+    <button class="close-button" onclick="closeCart()">
+      ✕
+    </button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-total" id="cartTotal">
+    Total: ₹0
+  </div>
+
+  <button class="checkout-button" onclick="openCheckout()">
+    Proceed to Checkout
+  </button>
+
+</div>
+
+<!-- CHECKOUT -->
+
+<div class="checkout-overlay" id="checkoutOverlay">
+
+  <div class="checkout-box">
+
+    <h2>📦 RAHA Checkout</h2>
+
+    <label for="customerName">Full Name</label>
+    <input
+      id="customerName"
+      type="text"
+      placeholder="Enter your full name"
+    >
+
+    <label for="customerPhone">Mobile Number</label>
+    <input
+      id="customerPhone"
+      type="tel"
+      placeholder="Enter your mobile number"
+    >
+
+    <label for="customerAddress">Full Delivery Address</label>
+    <textarea
+      id="customerAddress"
+      placeholder="House / Street / Area / City"
+    ></textarea>
+
+    <label for="customerPincode">Pincode</label>
+    <input
+      id="customerPincode"
+      type="text"
+      placeholder="Enter pincode"
+    >
+
+    <label for="customerState">State</label>
+    <select id="customerState">
+      <option value="">Select State</option>
+      <option>Tamil Nadu</option>
+      <option>Andhra Pradesh</option>
+      <option>Karnataka</option>
+      <option>Kerala</option>
+      <option>Telangana</option>
+      <option>Maharashtra</option>
+      <option>Other State</option>
+    </select>
+
+    <div class="checkout-total" id="checkoutTotal">
+      Order Total: ₹0
+    </div>
+
+    <div class="checkout-actions">
+
+      <button class="cancel-button" onclick="closeCheckout()">
+        Cancel
+      </button>
+
+      <button class="whatsapp-button" onclick="orderOnWhatsApp()">
+        📲 Order on WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <h2>RAHA</h2>
+  <p>Your Everyday Shopping Destination</p>
+  <p>All India Delivery</p>
+  <p>📱 WhatsApp Orders Available</p>
+</footer>
+
+<script>
+
+const products = [
+  {
+    id: 1,
+    name: "Sample Jewellery",
+    price: 299,
+    category: "Jewellery",
+    image: "https://via.placeholder.com/500x500?text=RAHA+Jewellery"
+  },
+  {
+    id: 2,
+    name: "Sample T-Shirt",
+    price: 499,
+    category: "Fashion",
+    image: "https://via.placeholder.com/500x500?text=RAHA+Fashion"
+  },
+  {
+    id: 3,
+    name: "Sample Gift",
+    price: 399,
+    category: "Gifts",
+    image: "https://via.placeholder.com/500x500?text=RAHA+Gift"
+  },
+  {
+    id: 4,
+    name: "Sample Accessories",
+    price: 199,
+    category: "Accessories",
+    image: "https://via.placeholder.com/500x500?text=RAHA+Accessories"
+  }
+];
+
+let cart = [];
+
+
+/* DISPLAY PRODUCTS */
+
+function displayProducts(list) {
+
+  const container = document.getElementById("products");
+
+  container.innerHTML = "";
+
+  if (list.length === 0) {
+    container.innerHTML = '<div class="empty">No products found.</div>';
+    return;
+  }
+
+  list.forEach(function(product) {
+
+    container.innerHTML += `
+      <div class="product">
+
+        <img src="${product.image}" alt="${product.name}">
+
+        <div class="product-info">
+
+          <h3>${product.name}</h3>
+
+          <div class="price">₹${product.price}</div>
+
+          <button
+            class="add-button"
+            onclick="addToCart(${product.id})"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+    `;
+  });
+}
+
+
+/* ADD TO CART */
+
+function addToCart(id) {
+
+  const product = products.find(function(item) {
+    return item.id === id;
+  });
+
+  if (!product) {
+    return;
+  }
+
+  const existing = cart.find(function(item) {
+    return item.id === id;
+  });
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1
+    });
+  }
+
+  updateCartCount();
+
+  alert("Added to Cart 🛒");
+}
+
+
+/* CART COUNT */
+
+function updateCartCount() {
+
+  const count = cart.reduce(function(total, item) {
+    return total + item.quantity;
+  }, 0);
+
+  document.getElementById("cartCount").textContent = count;
+}
+
+
+/* OPEN CART */
+
+function openCart() {
+
+  document
+    .getElementById("cartPanel")
+    .classList.add("open");
+
+  renderCart();
+}
+
+
+/* CLOSE CART */
+
+function closeCart() {
+
+  document
+    .getElementById("cartPanel")
+    .classList.remove("open");
+}
+
+
+/* RENDER CART */
+
+function renderCart() {
+
+  const itemsBox = document.getElementById("cartItems");
+  const totalBox = document.getElementById("cartTotal");
+
+  itemsBox.innerHTML = "";
+
+  if (cart.length === 0) {
+
+    itemsBox.innerHTML =
+      '<p class="empty">Your cart is empty.</p>';
+
+    totalBox.textContent = "Total: ₹0";
+
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach(function(item) {
+
+    const subtotal = item.price * item.quantity;
+
+    total += subtotal;
+
+    itemsBox.innerHTML += `
+      <div class="cart-item">
+
+        <h3>${item.name}</h3>
+
+        <div class="cart-item-price">
+          ₹${item.price} each
+        </div>
+
+        <div class="quantity">
+
+          <button onclick="changeQuantity(${item.id}, -1)">
+            −
+          </button>
+
+          <strong>${item.quantity}</strong>
+
+          <button onclick="changeQuantity(${item.id}, 1)">
+            +
+          </button>
+
+        </div>
+
+        <p>
+          Subtotal:
+          <strong>₹${subtotal}</strong>
+        </p>
+
+        <button
+          class="remove-button"
+          onclick="removeFromCart(${item.id})"
+        >
+          🗑️ Remove
+        </button>
+
+      </div>
+    `;
+  });
+
+  totalBox.textContent = "Total: ₹" + total;
+}
+
+
+/* CHANGE QUANTITY */
+
+function changeQuantity(id, change) {
+
+  const item = cart.find(function(product) {
+    return product.id === id;
+  });
+
+  if (!item) {
+    return;
+  }
+
+  item.quantity += change;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(function(product) {
+      return product.id !== id;
+    });
+  }
+
+  updateCartCount();
+  renderCart();
+}
+
+
+/* REMOVE FROM CART */
+
+function removeFromCart(id) {
+
+  cart = cart.filter(function(item) {
+    return item.id !== id;
+  });
+
+  updateCartCount();
+  renderCart();
+}
+
+
+/* GET TOTAL */
+
+function getCartTotal() {
+
+  return cart.reduce(function(total, item) {
+    return total + (item.price * item.quantity);
+  }, 0);
+}
+
+
+/* OPEN CHECKOUT */
+
+function openCheckout() {
+
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
+
+  document.getElementById("checkoutTotal").textContent =
+    "Order Total: ₹" + getCartTotal();
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList.add("open");
+}
+
+
+/* CLOSE CHECKOUT */
+
+function closeCheckout() {
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList.remove("open");
+}
+
+
+/* WHATSAPP ORDER */
+
+function orderOnWhatsApp() {
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  const pincode =
+    document.getElementById("customerPincode").value.trim();
+
+  const state =
+    document.getElementById("customerState").value;
+
+  if (!name || !phone || !address || !pincode || !state) {
+
+    alert("Please fill all delivery details.");
+
+    return;
+  }
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+  let message = "RAHA ORDER\n\n";
+
+  cart.forEach(function(item) {
+
+    const subtotal = item.price * item.quantity;
+
+    message +=
+      item.name +
+      " x " +
+      item.quantity +
+      " = ₹" +
+      subtotal +
+      "\n";
+  });
+
+  message +=
+    "\nTOTAL: ₹" +
+    getCartTotal();
+
+  message +=
+    "\n\nCUSTOMER DETAILS\n" +
+    "Name: " + name +
+    "\nMobile: " + phone +
+    "\nAddress: " + address +
+    "\nPincode: " + pincode +
+    "\nState: " + state;
+
+  const whatsappNumber = "918903188257";
+
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+
 
 /* SEARCH */
 
-.search{
-  max-width:600px;
-  margin:25px auto;
-  display:flex;
+function searchProducts() {
+
+  const text =
+    document
+      .getElementById("searchBox")
+      .value
+      .toLowerCase();
+
+  const filtered = products.filter(function(product) {
+
+    return (
+      product.name.toLowerCase().includes(text) ||
+      product.category.toLowerCase().includes(text)
+    );
+  });
+
+  displayProducts(filtered);
 }
 
-.search input{
-  width:100%;
-  padding:15px;
-  border:1px solid #ddd;
-  border-radius:8px 0 0 8px;
-  font-size:16px;
+
+/* CATEGORY FILTER */
+
+function filterProducts(category) {
+
+  if (category === "All") {
+    displayProducts(products);
+    return;
+  }
+
+  const filtered = products.filter(function(product) {
+    return product.category === category;
+  });
+
+  displayProducts(filtered);
 }
 
-.search button{
-  padding:15px 20px;
-  border:0;
-  background:#d4af37;
-  cursor:pointer;
-  border-radius:0 8px 8px 0;
-}
 
-/* CATEGORIES */
+/* START */
 
-.categories{
-  max-width:1200px;
-  margin:25px auto;
-  padding:0 15px;
-  display:flex;
+displayProducts(products);
+
+</script>
+
+</body>
+</html>
