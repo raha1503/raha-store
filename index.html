@@ -3,20 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>RAHA - Your Everyday Shopping Destination</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
 }
 
 body{
   background:#f7f7f7;
   color:#222;
 }
+
+/* HEADER */
 
 header{
   background:#080808;
@@ -45,6 +49,8 @@ header{
   font-weight:bold;
   cursor:pointer;
 }
+
+/* HERO */
 
 .hero{
   background:#111;
@@ -77,6 +83,8 @@ header{
   font-size:16px;
 }
 
+/* CATEGORIES */
+
 .categories{
   display:flex;
   gap:10px;
@@ -98,6 +106,8 @@ header{
   background:#d4af37;
 }
 
+/* PRODUCTS */
+
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
@@ -112,11 +122,17 @@ header{
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 3px 12px rgba(0,0,0,.1);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-3px);
 }
 
 .product img{
   width:100%;
-  height:220px;
+  height:240px;
   object-fit:cover;
 }
 
@@ -151,12 +167,109 @@ header{
   color:#000;
 }
 
+/* PRODUCT DETAILS */
+
+.details-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+  padding:15px;
+}
+
+.details-overlay.active{
+  display:flex;
+}
+
+.details-box{
+  background:white;
+  width:900px;
+  max-width:100%;
+  max-height:95vh;
+  overflow-y:auto;
+  border-radius:14px;
+  padding:25px;
+}
+
+.details-close{
+  float:right;
+  background:#111;
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.details-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  margin-top:15px;
+}
+
+.details-image{
+  width:100%;
+  height:450px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#f5f5f5;
+}
+
+.details-info h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.details-description{
+  line-height:1.6;
+  margin:15px 0;
+  color:#555;
+}
+
+.detail-label{
+  display:block;
+  font-weight:bold;
+  margin:15px 0 7px;
+}
+
+.details-info select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:7px;
+  font-size:15px;
+}
+
+.stock{
+  color:green;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.details-add{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:#d4af37;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+}
+
 /* CART */
+
 .cart-panel{
   position:fixed;
-  right:-420px;
+  right:-450px;
   top:0;
-  width:400px;
+  width:430px;
   max-width:95%;
   height:100%;
   background:white;
@@ -190,6 +303,21 @@ header{
 .cart-item{
   border-bottom:1px solid #ddd;
   padding:15px 0;
+  display:flex;
+  gap:12px;
+}
+
+.cart-item-image{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+  flex-shrink:0;
+  background:#f5f5f5;
+}
+
+.cart-item-info{
+  flex:1;
 }
 
 .cart-item-name{
@@ -197,11 +325,18 @@ header{
   margin-bottom:5px;
 }
 
+.cart-item-option{
+  font-size:14px;
+  color:#666;
+  margin-top:3px;
+}
+
 .cart-controls{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-top:8px;
+  gap:8px;
+  margin-top:9px;
+  flex-wrap:wrap;
 }
 
 .qty-btn{
@@ -241,6 +376,7 @@ header{
 }
 
 /* CHECKOUT */
+
 .checkout-overlay{
   position:fixed;
   inset:0;
@@ -268,7 +404,6 @@ header{
 
 .checkout-box h2{
   margin-bottom:20px;
-  color:#111;
 }
 
 .form-group{
@@ -321,6 +456,7 @@ header{
 }
 
 /* FOOTER */
+
 footer{
   background:#080808;
   color:white;
@@ -334,7 +470,9 @@ footer span{
 }
 
 /* MOBILE */
+
 @media(max-width:600px){
+
   .hero h1{
     font-size:34px;
   }
@@ -346,7 +484,7 @@ footer span{
   }
 
   .product img{
-    height:160px;
+    height:180px;
   }
 
   .product-info{
@@ -366,87 +504,215 @@ footer span{
     max-width:100%;
   }
 
+  .details-content{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .details-image{
+    height:300px;
+  }
+
+  .details-info h2{
+    font-size:24px;
+  }
+
   .checkout-buttons{
     flex-direction:column;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
-  <div class="logo">RAHA</div>
-  <button class="cart-btn" onclick="openCart()">
+
+  <div class="logo">
+    RAHA
+  </div>
+
+  <button
+    class="cart-btn"
+    onclick="openCart()"
+  >
     🛒 Cart (<span id="cartCount">0</span>)
   </button>
+
 </header>
 
+
+<!-- HERO -->
+
 <section class="hero">
+
   <h1>RAHA</h1>
-  <p>Your Everyday Shopping Destination</p>
+
+  <p>
+    Your Everyday Shopping Destination
+  </p>
 
   <div class="search-box">
+
     <input
       type="text"
       id="searchInput"
       placeholder="Search products..."
       onkeyup="searchProducts()"
     >
+
   </div>
+
 </section>
 
+
+<!-- CATEGORIES -->
+
 <div class="categories">
-  <button onclick="filterProducts('All')">All</button>
-  <button onclick="filterProducts('Jewellery')">Jewellery</button>
-  <button onclick="filterProducts('Fashion')">Fashion</button>
-  <button onclick="filterProducts('Gifts')">Gifts</button>
-  <button onclick="filterProducts('Accessories')">Accessories</button>
-  <button onclick="filterProducts('Home & Lifestyle')">Home & Lifestyle</button>
-  <button onclick="filterProducts('Other Products')">Other Products</button>
+
+  <button onclick="filterProducts('All')">
+    All
+  </button>
+
+  <button onclick="filterProducts('Jewellery')">
+    Jewellery
+  </button>
+
+  <button onclick="filterProducts('Fashion')">
+    Fashion
+  </button>
+
+  <button onclick="filterProducts('Gifts')">
+    Gifts
+  </button>
+
+  <button onclick="filterProducts('Accessories')">
+    Accessories
+  </button>
+
+  <button onclick="filterProducts('Home & Lifestyle')">
+    Home & Lifestyle
+  </button>
+
+  <button onclick="filterProducts('Other Products')">
+    Other Products
+  </button>
+
 </div>
 
-<section class="products" id="products"></section>
+
+<!-- PRODUCTS -->
+
+<section
+  class="products"
+  id="products"
+></section>
+
+
+<!-- PRODUCT DETAILS -->
+
+<div
+  class="details-overlay"
+  id="detailsOverlay"
+>
+
+  <div class="details-box">
+
+    <button
+      class="details-close"
+      onclick="closeDetails()"
+    >
+      ✕
+    </button>
+
+    <div id="detailsContent"></div>
+
+  </div>
+
+</div>
+
 
 <!-- CART -->
-<div class="cart-panel" id="cartPanel">
+
+<div
+  class="cart-panel"
+  id="cartPanel"
+>
 
   <div class="cart-header">
-    <h2>🛒 Your Cart</h2>
-    <button class="close-btn" onclick="closeCart()">✕</button>
+
+    <h2>
+      🛒 Your Cart
+    </h2>
+
+    <button
+      class="close-btn"
+      onclick="closeCart()"
+    >
+      ✕
+    </button>
+
   </div>
 
   <div id="cartItems"></div>
 
   <div class="cart-total">
+
     Total: ₹<span id="cartTotal">0</span>
+
   </div>
 
-  <button class="checkout-btn" onclick="openCheckout()">
+  <button
+    class="checkout-btn"
+    onclick="openCheckout()"
+  >
     Proceed to Checkout
   </button>
 
 </div>
 
+
 <!-- CHECKOUT -->
-<div class="checkout-overlay" id="checkoutOverlay">
+
+<div
+  class="checkout-overlay"
+  id="checkoutOverlay"
+>
 
   <div class="checkout-box">
 
-    <h2>📦 Delivery Details</h2>
+    <h2>
+      📦 Delivery Details
+    </h2>
+
 
     <div class="form-group">
-      <label>Full Name</label>
+
+      <label>
+        Full Name
+      </label>
+
       <input
         type="text"
         id="customerName"
         placeholder="Enter your full name"
         required
       >
+
     </div>
 
+
     <div class="form-group">
-      <label>Mobile Number</label>
+
+      <label>
+        Mobile Number
+      </label>
+
       <input
         type="tel"
         id="customerPhone"
@@ -454,22 +720,40 @@ footer span{
         maxlength="10"
         required
       >
+
     </div>
 
+
     <div class="form-group">
-      <label>Full Delivery Address</label>
+
+      <label>
+        Full Delivery Address
+      </label>
+
       <textarea
         id="customerAddress"
         placeholder="House No, Street, Area"
         required
       ></textarea>
+
     </div>
 
-    <div class="form-group">
-      <label>State</label>
 
-      <select id="customerState" onchange="loadDistricts()" required>
-        <option value="">Select State / Union Territory</option>
+    <div class="form-group">
+
+      <label>
+        State
+      </label>
+
+      <select
+        id="customerState"
+        onchange="loadDistricts()"
+        required
+      >
+
+        <option value="">
+          Select State / Union Territory
+        </option>
 
         <option>Andhra Pradesh</option>
         <option>Arunachal Pradesh</option>
@@ -499,7 +783,6 @@ footer span{
         <option>Uttar Pradesh</option>
         <option>Uttarakhand</option>
         <option>West Bengal</option>
-
         <option>Andaman and Nicobar Islands</option>
         <option>Chandigarh</option>
         <option>Dadra and Nagar Haveli and Daman and Diu</option>
@@ -508,19 +791,37 @@ footer span{
         <option>Ladakh</option>
         <option>Lakshadweep</option>
         <option>Puducherry</option>
+
       </select>
+
     </div>
 
-    <div class="form-group">
-      <label>District</label>
 
-      <select id="customerDistrict" required>
-        <option value="">First select your State</option>
+    <div class="form-group">
+
+      <label>
+        District
+      </label>
+
+      <select
+        id="customerDistrict"
+        required
+      >
+
+        <option value="">
+          First select your State
+        </option>
+
       </select>
+
     </div>
 
+
     <div class="form-group">
-      <label>Pincode</label>
+
+      <label>
+        Pincode
+      </label>
 
       <input
         type="text"
@@ -529,7 +830,9 @@ footer span{
         maxlength="6"
         required
       >
+
     </div>
+
 
     <div class="checkout-buttons">
 
@@ -550,64 +853,209 @@ footer span{
     </div>
 
   </div>
+
 </div>
 
+
+<!-- FOOTER -->
+
 <footer>
-  <p>© 2026 <span>RAHA</span> - Your Everyday Shopping Destination</p>
+
+  <p>
+    © 2026 <span>RAHA</span> -
+    Your Everyday Shopping Destination
+  </p>
+
 </footer>
+
 
 <script>
 
-/* =========================
-   PRODUCTS
-========================= */
+
+/* =====================================
+   PRODUCT DATABASE
+===================================== */
 
 const products = [
 
   {
     id:1,
-    name:"Sample Jewellery",
+
+    name:"Elegant Gold Jewellery",
+
     price:299,
+
     category:"Jewellery",
-    image:"https://via.placeholder.com/500x500?text=RAHA+Jewellery"
+
+    description:
+      "Elegant jewellery designed for everyday styling and special occasions.",
+
+    sizes:[
+      "Free Size"
+    ],
+
+    colors:[
+      "Gold",
+      "Silver"
+    ],
+
+    stock:20,
+
+    images:{
+
+      "Gold":
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=85",
+
+      "Silver":
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=85"
+
+    }
+
   },
+
 
   {
     id:2,
-    name:"Sample T-Shirt",
+
+    name:"Classic T-Shirt",
+
     price:499,
+
     category:"Fashion",
-    image:"https://via.placeholder.com/500x500?text=RAHA+Fashion"
+
+    description:
+      "Comfortable everyday T-shirt with a clean and modern style.",
+
+    sizes:[
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+
+    colors:[
+      "Black",
+      "White",
+      "Blue"
+    ],
+
+    stock:15,
+
+    images:{
+
+      "Black":
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
+
+      "White":
+        "https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=900&q=85",
+
+      "Blue":
+        "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=900&q=85"
+
+    }
+
   },
+
 
   {
     id:3,
-    name:"Sample Gift",
+
+    name:"Premium Gift Box",
+
     price:399,
+
     category:"Gifts",
-    image:"https://via.placeholder.com/500x500?text=RAHA+Gift"
+
+    description:
+      "A stylish gift box suitable for birthdays, celebrations and special occasions.",
+
+    sizes:[
+      "Standard"
+    ],
+
+    colors:[
+      "Red",
+      "Gold"
+    ],
+
+    stock:10,
+
+    images:{
+
+      "Red":
+        "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=85",
+
+      "Gold":
+        "https://5.imimg.com/data5/AB/WY/MY-14108330/gift-boxes.jpg"
+
+    }
+
   },
+
 
   {
     id:4,
-    name:"Sample Accessories",
-    price:199,
+
+    name:"Stylish Handbag",
+
+    price:799,
+
     category:"Accessories",
-    image:"https://via.placeholder.com/500x500?text=RAHA+Accessories"
+
+    description:
+      "Stylish handbag designed for everyday use with a modern premium look.",
+
+    sizes:[
+      "Standard"
+    ],
+
+    colors:[
+      "Black",
+      "Brown"
+    ],
+
+    stock:12,
+
+    images:{
+
+      "Black":
+        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",
+
+      "Brown":
+        "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=85"
+
+    }
+
   }
 
 ];
 
+
 let cart = [];
 
+let selectedProduct = null;
 
-/* =========================
+
+/* =====================================
+   DEFAULT PRODUCT IMAGE
+===================================== */
+
+function getProductImage(product){
+
+  return product.images[product.colors[0]];
+
+}
+
+
+/* =====================================
    DISPLAY PRODUCTS
-========================= */
+===================================== */
 
 function displayProducts(list){
 
-  const container = document.getElementById("products");
+  const container =
+    document.getElementById("products");
 
   container.innerHTML = "";
 
@@ -615,16 +1063,21 @@ function displayProducts(list){
 
     container.innerHTML += `
 
-      <div class="product">
+      <div
+        class="product"
+        onclick="openDetails(${product.id})"
+      >
 
         <img
-          src="${product.image}"
+          src="${getProductImage(product)}"
           alt="${product.name}"
         >
 
         <div class="product-info">
 
-          <h3>${product.name}</h3>
+          <h3>
+            ${product.name}
+          </h3>
 
           <div class="price">
             ₹${product.price}
@@ -632,7 +1085,7 @@ function displayProducts(list){
 
           <button
             class="add-btn"
-            onclick="addToCart(${product.id})"
+            onclick="event.stopPropagation(); addToCart(${product.id})"
           >
             Add to Cart 🛒
           </button>
@@ -648,13 +1101,215 @@ function displayProducts(list){
 }
 
 
-/* =========================
-   ADD TO CART
-========================= */
+/* =====================================
+   OPEN PRODUCT DETAILS
+===================================== */
 
-function addToCart(id){
+function openDetails(id){
 
-  const existing = cart.find(item => item.id === id);
+  selectedProduct =
+    products.find(
+      product => product.id === id
+    );
+
+  if(!selectedProduct){
+    return;
+  }
+
+  const sizeOptions =
+    selectedProduct.sizes
+      .map(size =>
+        `<option value="${size}">
+          ${size}
+        </option>`
+      )
+      .join("");
+
+
+  const colorOptions =
+    selectedProduct.colors
+      .map(color =>
+        `<option value="${color}">
+          ${color}
+        </option>`
+      )
+      .join("");
+
+
+  const firstColor =
+    selectedProduct.colors[0];
+
+
+  document.getElementById(
+    "detailsContent"
+  ).innerHTML = `
+
+    <div class="details-content">
+
+      <div>
+
+        <img
+          id="detailsImage"
+          class="details-image"
+          src="${selectedProduct.images[firstColor]}"
+          alt="${selectedProduct.name}"
+        >
+
+      </div>
+
+
+      <div class="details-info">
+
+        <h2>
+          ${selectedProduct.name}
+        </h2>
+
+        <div class="price">
+          ₹${selectedProduct.price}
+        </div>
+
+
+        <p class="details-description">
+          ${selectedProduct.description}
+        </p>
+
+
+        <label class="detail-label">
+          Size
+        </label>
+
+        <select id="selectedSize">
+
+          ${sizeOptions}
+
+        </select>
+
+
+        <label class="detail-label">
+          Colour
+        </label>
+
+        <select
+          id="selectedColor"
+          onchange="changeProductColor()"
+        >
+
+          ${colorOptions}
+
+        </select>
+
+
+        <div class="stock">
+
+          ✓ ${selectedProduct.stock}
+          items available
+
+        </div>
+
+
+        <button
+          class="details-add"
+          onclick="addDetailedProductToCart()"
+        >
+
+          🛒 Add to Cart
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    "detailsOverlay"
+  ).classList.add("active");
+
+}
+
+
+/* =====================================
+   CHANGE PRODUCT IMAGE BY COLOR
+===================================== */
+
+function changeProductColor(){
+
+  if(!selectedProduct){
+    return;
+  }
+
+  const color =
+    document.getElementById(
+      "selectedColor"
+    ).value;
+
+
+  const image =
+    selectedProduct.images[color];
+
+
+  if(image){
+
+    document.getElementById(
+      "detailsImage"
+    ).src = image;
+
+  }
+
+}
+
+
+/* =====================================
+   CLOSE PRODUCT DETAILS
+===================================== */
+
+function closeDetails(){
+
+  document.getElementById(
+    "detailsOverlay"
+  ).classList.remove("active");
+
+  selectedProduct = null;
+
+}
+
+
+/* =====================================
+   ADD DETAILED PRODUCT
+===================================== */
+
+function addDetailedProductToCart(){
+
+  if(!selectedProduct){
+    return;
+  }
+
+
+  const size =
+    document.getElementById(
+      "selectedSize"
+    ).value;
+
+
+  const color =
+    document.getElementById(
+      "selectedColor"
+    ).value;
+
+
+  const image =
+    selectedProduct.images[color];
+
+
+  const existing =
+    cart.find(item =>
+      item.id === selectedProduct.id &&
+      item.size === size &&
+      item.color === color
+    );
+
 
   if(existing){
 
@@ -662,14 +1317,103 @@ function addToCart(id){
 
   }else{
 
-    const product = products.find(item => item.id === id);
-
     cart.push({
-      ...product,
+
+      id:selectedProduct.id,
+
+      name:selectedProduct.name,
+
+      price:selectedProduct.price,
+
+      category:selectedProduct.category,
+
+      size:size,
+
+      color:color,
+
+      image:image,
+
       quantity:1
+
     });
 
   }
+
+
+  updateCartCount();
+
+  closeDetails();
+
+  alert("Added to Cart 🛒");
+
+}
+
+
+/* =====================================
+   QUICK ADD TO CART
+===================================== */
+
+function addToCart(id){
+
+  const product =
+    products.find(
+      item => item.id === id
+    );
+
+
+  if(!product){
+    return;
+  }
+
+
+  const size =
+    product.sizes[0];
+
+
+  const color =
+    product.colors[0];
+
+
+  const image =
+    product.images[color];
+
+
+  const existing =
+    cart.find(item =>
+      item.id === id &&
+      item.size === size &&
+      item.color === color
+    );
+
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+
+      id:product.id,
+
+      name:product.name,
+
+      price:product.price,
+
+      category:product.category,
+
+      size:size,
+
+      color:color,
+
+      image:image,
+
+      quantity:1
+
+    });
+
+  }
+
 
   updateCartCount();
 
@@ -678,146 +1422,195 @@ function addToCart(id){
 }
 
 
-/* =========================
+/* =====================================
    CART COUNT
-========================= */
+===================================== */
 
 function updateCartCount(){
 
-  const count = cart.reduce(
-    (total,item) => total + item.quantity,
-    0
-  );
+  const count =
+    cart.reduce(
+      (total,item) =>
+        total + item.quantity,
+      0
+    );
 
-  document.getElementById("cartCount").textContent = count;
+
+  document.getElementById(
+    "cartCount"
+  ).textContent = count;
 
 }
 
 
-/* =========================
+/* =====================================
    OPEN CART
-========================= */
+===================================== */
 
 function openCart(){
 
-  document.getElementById("cartPanel")
-    .classList.add("active");
+  document.getElementById(
+    "cartPanel"
+  ).classList.add("active");
+
 
   renderCart();
 
 }
 
 
-/* =========================
+/* =====================================
    CLOSE CART
-========================= */
+===================================== */
 
 function closeCart(){
 
-  document.getElementById("cartPanel")
-    .classList.remove("active");
+  document.getElementById(
+    "cartPanel"
+  ).classList.remove("active");
 
 }
 
 
-/* =========================
+/* =====================================
    RENDER CART
-========================= */
+===================================== */
 
 function renderCart(){
 
   const container =
-    document.getElementById("cartItems");
+    document.getElementById(
+      "cartItems"
+    );
+
 
   container.innerHTML = "";
+
 
   if(cart.length === 0){
 
     container.innerHTML =
       "<p>Your cart is empty.</p>";
 
-    document.getElementById("cartTotal")
-      .textContent = "0";
+    document.getElementById(
+      "cartTotal"
+    ).textContent = "0";
 
     return;
 
   }
 
-  cart.forEach(item => {
 
-    const subtotal =
-      item.price * item.quantity;
+  cart.forEach(
+    (item,index) => {
 
-    container.innerHTML += `
+      const subtotal =
+        item.price *
+        item.quantity;
 
-      <div class="cart-item">
 
-        <div class="cart-item-name">
-          ${item.name}
+      container.innerHTML += `
+
+        <div class="cart-item">
+
+          <img
+            class="cart-item-image"
+            src="${item.image}"
+            alt="${item.name}"
+          >
+
+
+          <div class="cart-item-info">
+
+            <div class="cart-item-name">
+              ${item.name}
+            </div>
+
+            <div>
+              ₹${item.price}
+            </div>
+
+            <div class="cart-item-option">
+              Size: ${item.size}
+            </div>
+
+            <div class="cart-item-option">
+              Colour: ${item.color}
+            </div>
+
+            <div class="cart-item-option">
+              Subtotal: ₹${subtotal}
+            </div>
+
+
+            <div class="cart-controls">
+
+              <button
+                class="qty-btn"
+                onclick="changeQuantity(${index},-1)"
+              >
+                −
+              </button>
+
+              <span>
+                ${item.quantity}
+              </span>
+
+              <button
+                class="qty-btn"
+                onclick="changeQuantity(${index},1)"
+              >
+                +
+              </button>
+
+              <button
+                class="remove-btn"
+                onclick="removeFromCart(${index})"
+              >
+                Remove
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <div>
-          ₹${item.price} × ${item.quantity}
-          = ₹${subtotal}
-        </div>
+      `;
 
-        <div class="cart-controls">
+    }
+  );
 
-          <button
-            class="qty-btn"
-            onclick="changeQuantity(${item.id},-1)"
-          >
-            −
-          </button>
 
-          <span>${item.quantity}</span>
-
-          <button
-            class="qty-btn"
-            onclick="changeQuantity(${item.id},1)"
-          >
-            +
-          </button>
-
-          <button
-            class="remove-btn"
-            onclick="removeFromCart(${item.id})"
-          >
-            Remove
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-  document.getElementById("cartTotal")
-    .textContent = getCartTotal();
+  document.getElementById(
+    "cartTotal"
+  ).textContent =
+    getCartTotal();
 
 }
 
 
-/* =========================
+/* =====================================
    CHANGE QUANTITY
-========================= */
+===================================== */
 
-function changeQuantity(id,change){
+function changeQuantity(index,change){
 
-  const item = cart.find(item => item.id === id);
+  if(!cart[index]){
+    return;
+  }
 
-  if(!item) return;
 
-  item.quantity += change;
+  cart[index].quantity += change;
 
-  if(item.quantity <= 0){
 
-    cart = cart.filter(item => item.id !== id);
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
 
   }
 
+
   updateCartCount();
 
   renderCart();
@@ -825,13 +1618,13 @@ function changeQuantity(id,change){
 }
 
 
-/* =========================
+/* =====================================
    REMOVE ITEM
-========================= */
+===================================== */
 
-function removeFromCart(id){
+function removeFromCart(index){
 
-  cart = cart.filter(item => item.id !== id);
+  cart.splice(index,1);
 
   updateCartCount();
 
@@ -840,24 +1633,26 @@ function removeFromCart(id){
 }
 
 
-/* =========================
+/* =====================================
    CART TOTAL
-========================= */
+===================================== */
 
 function getCartTotal(){
 
   return cart.reduce(
     (total,item) =>
-      total + (item.price * item.quantity),
+      total +
+      item.price *
+      item.quantity,
     0
   );
 
 }
 
 
-/* =========================
+/* =====================================
    CHECKOUT
-========================= */
+===================================== */
 
 function openCheckout(){
 
@@ -869,23 +1664,26 @@ function openCheckout(){
 
   }
 
-  document.getElementById("checkoutOverlay")
-    .classList.add("active");
+
+  document.getElementById(
+    "checkoutOverlay"
+  ).classList.add("active");
 
 }
 
 
 function closeCheckout(){
 
-  document.getElementById("checkoutOverlay")
-    .classList.remove("active");
+  document.getElementById(
+    "checkoutOverlay"
+  ).classList.remove("active");
 
 }
 
 
-/* =========================
-   INDIAN STATE → DISTRICTS
-========================= */
+/* =====================================
+   DISTRICTS
+===================================== */
 
 const districts = {
 
@@ -953,7 +1751,6 @@ const districts = {
 "Biswanath",
 "Bongaigaon",
 "Charaideo",
-"Charaideo",
 "Darrang",
 "Dhemaji",
 "Dhubri",
@@ -1003,8 +1800,8 @@ const districts = {
 "Kishanganj",
 "Lakhisarai",
 "Madhubani",
-"Munger",
 "Madhepura",
+"Munger",
 "Muzaffarpur",
 "Nalanda",
 "Nawada",
@@ -1103,7 +1900,6 @@ const districts = {
 "Charkhi Dadri",
 "Faridabad",
 "Fatehabad",
-"Firozpur Jhirka",
 "Gurugram",
 "Hisar",
 "Jhajjar",
@@ -1236,21 +2032,18 @@ const districts = {
 "Guna",
 "Gwalior",
 "Harda",
-"Narmadapuram",
 "Indore",
 "Jabalpur",
 "Jhabua",
 "Katni",
 "Khandwa",
 "Khargone",
-"Maihar",
 "Mandla",
 "Mandsaur",
-"Mauganj",
 "Morena",
+"Narmadapuram",
 "Narsinghpur",
 "Neemuch",
-"Niwas",
 "Panna",
 "Raisen",
 "Rajgarh",
@@ -1325,7 +2118,7 @@ const districts = {
 "Pherzawl",
 "Senapati",
 "Tamenglong",
-" Tengnoupal",
+"Tengnoupal",
 "Thoubal",
 "Ukhrul"
 ],
@@ -1367,8 +2160,7 @@ const districts = {
 "Mon",
 "Niuland",
 "Noklak",
-" Peren",
-"Phokhung",
+"Peren",
 "Shamator",
 "Tuensang",
 "Wokha",
@@ -1424,7 +2216,6 @@ const districts = {
 "Malerkotla",
 "Mansa",
 "Moga",
-"Mohali",
 "Muktsar",
 "Nawanshahr",
 "Pathankot",
@@ -1462,7 +2253,6 @@ const districts = {
 "Jhunjhunu",
 "Jodhpur",
 "Karauli",
-"Kekri",
 "Kota",
 "Khairthal-Tijara",
 "Nagaur",
@@ -1580,7 +2370,6 @@ const districts = {
 "Amethi",
 "Amroha",
 "Auraiya",
-"Ayodhya",
 "Azamgarh",
 "Baghpat",
 "Bahraich",
@@ -1590,7 +2379,6 @@ const districts = {
 "Barabanki",
 "Bareilly",
 "Basti",
-"Bahraich",
 "Bijnor",
 "Budaun",
 "Bulandshahr",
@@ -1770,44 +2558,63 @@ const districts = {
 };
 
 
-/* =========================
+/* =====================================
    LOAD DISTRICTS
-========================= */
+===================================== */
 
 function loadDistricts(){
 
   const state =
-    document.getElementById("customerState").value;
+    document.getElementById(
+      "customerState"
+    ).value;
+
 
   const districtSelect =
-    document.getElementById("customerDistrict");
+    document.getElementById(
+      "customerDistrict"
+    );
+
 
   districtSelect.innerHTML =
     '<option value="">Select District</option>';
 
-  if(!state) return;
 
-  const stateDistricts =
+  if(!state){
+    return;
+  }
+
+
+  const list =
     districts[state] || [];
 
-  stateDistricts.forEach(district => {
+
+  list.forEach(district => {
 
     const option =
       document.createElement("option");
 
-    option.value = district;
-    option.textContent = district;
 
-    districtSelect.appendChild(option);
+    option.value =
+      district;
+
+
+    option.textContent =
+      district;
+
+
+    districtSelect.appendChild(
+      option
+    );
 
   });
 
 }
 
 
-/* =========================
+/* =====================================
    WHATSAPP ORDER
-========================= */
+===================================== */
 
 function orderOnWhatsApp(){
 
@@ -1819,51 +2626,81 @@ function orderOnWhatsApp(){
 
   }
 
+
   const name =
-    document.getElementById("customerName").value.trim();
+    document.getElementById(
+      "customerName"
+    ).value.trim();
+
 
   const phone =
-    document.getElementById("customerPhone").value.trim();
+    document.getElementById(
+      "customerPhone"
+    ).value.trim();
+
 
   const address =
-    document.getElementById("customerAddress").value.trim();
+    document.getElementById(
+      "customerAddress"
+    ).value.trim();
+
 
   const state =
-    document.getElementById("customerState").value;
+    document.getElementById(
+      "customerState"
+    ).value;
+
 
   const district =
-    document.getElementById("customerDistrict").value;
+    document.getElementById(
+      "customerDistrict"
+    ).value;
+
 
   const pincode =
-    document.getElementById("customerPincode").value.trim();
+    document.getElementById(
+      "customerPincode"
+    ).value.trim();
 
 
-  if(!name ||
-     !phone ||
-     !address ||
-     !state ||
-     !district ||
-     !pincode){
+  if(
+    !name ||
+    !phone ||
+    !address ||
+    !state ||
+    !district ||
+    !pincode
+  ){
 
-    alert("Please fill all delivery details.");
-
-    return;
-
-  }
-
-
-  if(!/^[0-9]{10}$/.test(phone)){
-
-    alert("Please enter a valid 10-digit mobile number.");
+    alert(
+      "Please fill all delivery details."
+    );
 
     return;
 
   }
 
 
-  if(!/^[0-9]{6}$/.test(pincode)){
+  if(
+    !/^[0-9]{10}$/.test(phone)
+  ){
 
-    alert("Please enter a valid 6-digit pincode.");
+    alert(
+      "Please enter a valid 10-digit mobile number."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !/^[0-9]{6}$/.test(pincode)
+  ){
+
+    alert(
+      "Please enter a valid 6-digit pincode."
+    );
 
     return;
 
@@ -1877,23 +2714,41 @@ function orderOnWhatsApp(){
   message +=
     "*CUSTOMER DETAILS*%0A";
 
-  message +=
-    "Name: " + encodeURIComponent(name) + "%0A";
 
   message +=
-    "Mobile: " + encodeURIComponent(phone) + "%0A";
+    "Name: " +
+    encodeURIComponent(name) +
+    "%0A";
+
 
   message +=
-    "Address: " + encodeURIComponent(address) + "%0A";
+    "Mobile: " +
+    encodeURIComponent(phone) +
+    "%0A";
+
 
   message +=
-    "District: " + encodeURIComponent(district) + "%0A";
+    "Address: " +
+    encodeURIComponent(address) +
+    "%0A";
+
 
   message +=
-    "State: " + encodeURIComponent(state) + "%0A";
+    "District: " +
+    encodeURIComponent(district) +
+    "%0A";
+
 
   message +=
-    "Pincode: " + encodeURIComponent(pincode) + "%0A%0A";
+    "State: " +
+    encodeURIComponent(state) +
+    "%0A";
+
+
+  message +=
+    "Pincode: " +
+    encodeURIComponent(pincode) +
+    "%0A%0A";
 
 
   message +=
@@ -1903,13 +2758,19 @@ function orderOnWhatsApp(){
   cart.forEach(item => {
 
     const subtotal =
-      item.price * item.quantity;
+      item.price *
+      item.quantity;
+
 
     message +=
       "• " +
       encodeURIComponent(item.name) +
       " × " +
       item.quantity +
+      " | Size: " +
+      encodeURIComponent(item.size) +
+      " | Colour: " +
+      encodeURIComponent(item.color) +
       " = ₹" +
       subtotal +
       "%0A";
@@ -1922,11 +2783,10 @@ function orderOnWhatsApp(){
     getCartTotal() +
     "*%0A%0A";
 
+
   message +=
     "Payment: UPI after WhatsApp confirmation";
 
-
-  /* YOUR WHATSAPP NUMBER */
 
   const whatsappNumber =
     "918903188257";
@@ -1939,36 +2799,42 @@ function orderOnWhatsApp(){
     message;
 
 
-  window.open(url,"_blank");
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
 
-/* =========================
+/* =====================================
    SEARCH
-========================= */
+===================================== */
 
 function searchProducts(){
 
   const search =
-    document.getElementById("searchInput")
-      .value
-      .toLowerCase();
+    document.getElementById(
+      "searchInput"
+    ).value.toLowerCase();
+
 
   const filtered =
     products.filter(product =>
-      product.name.toLowerCase()
+      product.name
+        .toLowerCase()
         .includes(search)
     );
+
 
   displayProducts(filtered);
 
 }
 
 
-/* =========================
-   CATEGORY FILTER
-========================= */
+/* =====================================
+   CATEGORY
+===================================== */
 
 function filterProducts(category){
 
@@ -1980,19 +2846,22 @@ function filterProducts(category){
 
   }
 
+
   const filtered =
-    products.filter(product =>
-      product.category === category
+    products.filter(
+      product =>
+        product.category === category
     );
+
 
   displayProducts(filtered);
 
 }
 
 
-/* =========================
+/* =====================================
    START WEBSITE
-========================= */
+===================================== */
 
 displayProducts(products);
 
