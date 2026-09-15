@@ -8,7 +8,6 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type"
     };
 
-    // Handle browser CORS request
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
@@ -16,7 +15,6 @@ export default {
       });
     }
 
-    // GET all products
     if (url.pathname === "/api/products" && request.method === "GET") {
       try {
         const result = await env.DB
@@ -40,7 +38,6 @@ export default {
       }
     }
 
-    // ADD a new product
     if (url.pathname === "/api/products" && request.method === "POST") {
       try {
         const product = await request.json();
@@ -99,8 +96,27 @@ export default {
       }
     }
 
-    // API status
     if (url.pathname === "/" || url.pathname === "/api") {
       return Response.json(
         {
-         
+          success: true,
+          message: "RAHA API is working"
+        },
+        {
+          headers: corsHeaders
+        }
+      );
+    }
+
+    return Response.json(
+      {
+        success: false,
+        error: "Not Found"
+      },
+      {
+        status: 404,
+        headers: corsHeaders
+      }
+    );
+  }
+};
