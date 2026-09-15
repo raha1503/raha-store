@@ -3582,6 +3582,30 @@ window.addEventListener("load", () => {
     });
   }
 });
+  const RAHA_API = "https://raha-api.rahastudio14.workers.dev";
+
+async function loadProductsFromAPI() {
+  try {
+    const response = await fetch(`${RAHA_API}/api/products`);
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.products)) {
+      throw new Error("Invalid product data");
+    }
+
+    console.log("RAHA API products:", data.products);
+
+  } catch (error) {
+    console.error("RAHA API error:", error);
+  }
+}
+
+loadProductsFromAPI();
 </script>
 
 </body>
