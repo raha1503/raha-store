@@ -13,13 +13,20 @@
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#050505;
   color:#fff;
 }
 
-button,input,select,textarea{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -27,59 +34,74 @@ button{
   cursor:pointer;
 }
 
+/* ================= HEADER ================= */
+
 header{
   position:sticky;
   top:0;
   z-index:1000;
   background:#050505;
-  border-bottom:1px solid #30270e;
+  border-bottom:1px solid #332a0d;
 }
 
 .topbar{
   max-width:1200px;
   margin:auto;
   padding:14px 18px;
-  display:flex;
+  display:grid;
+  grid-template-columns:auto minmax(250px,1fr) auto;
   align-items:center;
-  justify-content:space-between;
-  gap:15px;
+  gap:20px;
 }
 
 .logo{
+  color:#d4af37;
   font-size:30px;
   font-weight:900;
   letter-spacing:4px;
-  color:#d4af37;
 }
 
 .tagline{
   color:#999;
   font-size:12px;
-  margin-top:3px;
+  margin-top:4px;
 }
 
-.search{
-  flex:1;
-  max-width:450px;
-}
+/* SEARCH */
 
-.search input{
+.searchBox{
   width:100%;
-  background:#111;
-  border:1px solid #393016;
-  color:#fff;
-  padding:12px 15px;
-  border-radius:25px;
+}
+
+.searchBox input{
+  width:100%;
+  height:44px;
+  padding:0 18px;
+  border-radius:24px;
+  border:1px solid #5a4813;
   outline:none;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+}
+
+.searchBox input::placeholder{
+  color:#888;
+}
+
+.searchBox input:focus{
+  border-color:#d4af37;
+  box-shadow:0 0 10px rgba(212,175,55,.15);
 }
 
 .cartBtn{
-  border:1px solid #d4af37;
+  background:#0e0e0e;
   color:#d4af37;
-  background:#0c0c0c;
+  border:1px solid #d4af37;
+  border-radius:23px;
   padding:11px 17px;
-  border-radius:22px;
   font-weight:bold;
+  white-space:nowrap;
 }
 
 .cartBtn:hover{
@@ -87,10 +109,12 @@ header{
   color:#000;
 }
 
+/* CATEGORIES */
+
 .categories{
+  border-top:1px solid #181818;
   overflow-x:auto;
-  border-top:1px solid #171717;
-  padding:10px 15px;
+  padding:9px 15px;
 }
 
 .categoryWrap{
@@ -102,41 +126,49 @@ header{
 
 .cat{
   white-space:nowrap;
-  background:#101010;
-  border:1px solid #30270e;
-  color:#ccc;
   padding:9px 14px;
   border-radius:20px;
+  border:1px solid #332a0d;
+  background:#101010;
+  color:#bbb;
 }
 
-.cat.active,
-.cat:hover{
+.cat:hover,
+.cat.active{
   background:#d4af37;
   color:#000;
 }
 
+/* ================= HERO ================= */
+
 .hero{
   max-width:1200px;
   margin:20px auto;
-  padding:45px 25px;
-  border:1px solid #30270e;
+  padding:50px 25px;
+  border:1px solid #332a0d;
   border-radius:18px;
   background:
-    radial-gradient(circle at 80% 20%,rgba(212,175,55,.18),transparent 35%),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(212,175,55,.20),
+      transparent 35%
+    ),
     linear-gradient(135deg,#111,#050505);
 }
 
 .hero h1{
   color:#d4af37;
-  font-size:42px;
+  font-size:44px;
   margin-bottom:10px;
 }
 
 .hero p{
-  color:#bbb;
-  max-width:650px;
+  max-width:680px;
+  color:#aaa;
   line-height:1.6;
 }
+
+/* ================= PRODUCTS ================= */
 
 .container{
   max-width:1200px;
@@ -146,19 +178,19 @@ header{
 
 .sectionTitle{
   color:#d4af37;
-  margin:25px 0 15px;
+  margin:28px 0 16px;
   font-size:24px;
 }
 
 .products{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:15px;
+  gap:16px;
 }
 
 .product{
   background:#101010;
-  border:1px solid #27200d;
+  border:1px solid #29220d;
   border-radius:15px;
   overflow:hidden;
   transition:.2s;
@@ -170,12 +202,12 @@ header{
   border-color:#d4af37;
 }
 
-.product img{
+.productImage{
   width:100%;
   height:230px;
   object-fit:cover;
-  background:#181818;
   display:block;
+  background:#181818;
 }
 
 .productInfo{
@@ -184,11 +216,12 @@ header{
 
 .productName{
   font-weight:bold;
-  margin-bottom:7px;
+  font-size:16px;
+  margin-bottom:6px;
 }
 
 .productCat{
-  color:#999;
+  color:#888;
   font-size:12px;
   margin-bottom:8px;
 }
@@ -208,7 +241,7 @@ header{
 .buyBtn,
 .addBtn{
   flex:1;
-  padding:10px;
+  padding:10px 6px;
   border-radius:8px;
   font-weight:bold;
 }
@@ -220,7 +253,7 @@ header{
 }
 
 .addBtn{
-  background:#181818;
+  background:#171717;
   color:#d4af37;
   border:1px solid #d4af37;
 }
@@ -236,57 +269,49 @@ header{
 }
 
 .noProducts{
-  text-align:center;
-  padding:50px;
-  color:#aaa;
-}
-
-footer{
-  border-top:1px solid #29200b;
-  padding:30px 18px;
+  grid-column:1/-1;
   text-align:center;
   color:#888;
+  padding:60px 20px;
 }
 
-.gold{
-  color:#d4af37;
-}
-
-/* MODAL */
+/* ================= MODAL ================= */
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
   z-index:3000;
-  background:rgba(0,0,0,.85);
-  overflow:auto;
+  background:rgba(0,0,0,.88);
+  overflow-y:auto;
   padding:20px;
 }
 
 .modalBox{
-  max-width:850px;
-  margin:25px auto;
+  position:relative;
+  max-width:900px;
+  margin:20px auto;
   background:#101010;
   border:1px solid #d4af37;
   border-radius:16px;
   overflow:hidden;
-  position:relative;
 }
 
 .close{
   position:absolute;
   right:12px;
-  top:10px;
-  z-index:5;
+  top:12px;
+  z-index:20;
   width:38px;
   height:38px;
   border-radius:50%;
-  border:1px solid #d4af37;
   background:#050505;
+  border:1px solid #d4af37;
   color:#d4af37;
-  font-size:22px;
+  font-size:23px;
 }
+
+/* ================= PRODUCT DETAILS ================= */
 
 .productDetail{
   display:grid;
@@ -295,25 +320,27 @@ footer{
 
 .detailImage{
   width:100%;
-  height:450px;
+  height:480px;
   object-fit:cover;
+  display:block;
   background:#181818;
 }
 
 .detailInfo{
-  padding:28px;
+  padding:30px;
 }
 
 .detailInfo h2{
   color:#d4af37;
-  margin-bottom:10px;
+  font-size:27px;
+  margin-bottom:8px;
   padding-right:35px;
 }
 
 .detailDescription{
   color:#aaa;
   line-height:1.6;
-  margin:15px 0;
+  margin:14px 0 20px;
 }
 
 .field{
@@ -322,32 +349,35 @@ footer{
 
 .field label{
   display:block;
-  color:#aaa;
+  color:#bbb;
+  font-size:14px;
   margin-bottom:7px;
 }
 
-.field select,
-.checkout input,
-.checkout textarea{
+.field select{
   width:100%;
-  background:#090909;
-  color:#fff;
-  border:1px solid #38300f;
   padding:12px;
+  background:#080808;
+  color:#fff;
+  border:1px solid #403512;
   border-radius:8px;
   outline:none;
+}
+
+.field select:focus{
+  border-color:#d4af37;
 }
 
 .detailButtons{
   display:flex;
   gap:10px;
-  margin-top:20px;
+  margin-top:22px;
 }
 
 .detailBuy,
 .detailAdd{
   flex:1;
-  padding:13px;
+  padding:14px;
   border-radius:9px;
   font-weight:bold;
 }
@@ -374,14 +404,23 @@ footer{
   color:#000;
 }
 
-/* CART */
+/* ================= CART ================= */
+
+.checkout{
+  padding:28px;
+}
+
+.checkout h2{
+  color:#d4af37;
+  margin-bottom:18px;
+}
 
 .cartItem{
   display:grid;
   grid-template-columns:75px 1fr auto;
   gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid #292929;
+  padding:14px 0;
+  border-bottom:1px solid #282828;
 }
 
 .cartItem img{
@@ -398,6 +437,7 @@ footer{
 .cartMeta{
   color:#999;
   font-size:12px;
+  line-height:1.6;
   margin-top:4px;
 }
 
@@ -409,23 +449,28 @@ footer{
 }
 
 .qty button{
-  width:27px;
-  height:27px;
-  background:#222;
-  color:#fff;
-  border:1px solid #444;
+  width:28px;
+  height:28px;
   border-radius:5px;
+  background:#222;
+  border:1px solid #444;
+  color:#fff;
+}
+
+.qty button:hover{
+  border-color:#d4af37;
 }
 
 .cartPrice{
   color:#d4af37;
   font-weight:bold;
+  white-space:nowrap;
 }
 
 .cartTotal{
   display:flex;
   justify-content:space-between;
-  padding:18px 0;
+  padding:20px 0;
   font-size:20px;
 }
 
@@ -439,16 +484,11 @@ footer{
   font-weight:bold;
 }
 
-/* CHECKOUT */
-
-.checkout{
-  padding:25px;
+.checkoutBtn:hover{
+  background:#fff;
 }
 
-.checkout h2{
-  color:#d4af37;
-  margin-bottom:18px;
-}
+/* ================= CHECKOUT ================= */
 
 .checkoutGrid{
   display:grid;
@@ -456,24 +496,42 @@ footer{
   gap:14px;
 }
 
-.checkoutGrid > div label{
+.checkoutField label{
   display:block;
   color:#aaa;
   margin-bottom:7px;
 }
 
-.checkout .full{
+.checkoutField input,
+.checkoutField textarea,
+.checkoutField select{
+  width:100%;
+  padding:12px;
+  background:#080808;
+  color:#fff;
+  border:1px solid #3c3212;
+  border-radius:8px;
+  outline:none;
+}
+
+.checkoutField input:focus,
+.checkoutField textarea:focus,
+.checkoutField select:focus{
+  border-color:#d4af37;
+}
+
+.full{
   grid-column:1/-1;
 }
 
 .whatsappBtn{
   width:100%;
-  margin-top:15px;
+  margin-top:18px;
   padding:15px;
-  background:#25d366;
-  color:#fff;
   border:0;
   border-radius:9px;
+  background:#25d366;
+  color:#fff;
   font-weight:bold;
   font-size:16px;
 }
@@ -488,30 +546,79 @@ footer{
   border-radius:8px;
 }
 
+/* ================= FOOTER ================= */
+
+footer{
+  border-top:1px solid #29210b;
+  padding:30px 18px;
+  text-align:center;
+  color:#888;
+}
+
+.gold{
+  color:#d4af37;
+}
+
+/* ================= MOBILE ================= */
+
 @media(max-width:900px){
+
   .products{
     grid-template-columns:repeat(3,1fr);
   }
+
 }
 
-@media(max-width:650px){
+@media(max-width:700px){
+
+  /*
+    IMPORTANT:
+    SEARCH GETS ITS OWN FULL ROW
+  */
 
   .topbar{
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "brand cart"
+      "search search";
+    gap:12px;
+    padding:13px 14px;
   }
 
-  .logo{
-    font-size:25px;
+  .brand{
+    grid-area:brand;
   }
 
-  .search{
-    order:3;
-    max-width:none;
+  .cartBtn{
+    grid-area:cart;
+  }
+
+  .searchBox{
+    grid-area:search;
     width:100%;
   }
 
+  .searchBox input{
+    height:46px;
+    font-size:15px;
+  }
+
+  .logo{
+    font-size:26px;
+  }
+
+  .tagline{
+    font-size:11px;
+  }
+
+  .hero{
+    margin:14px;
+    padding:35px 20px;
+  }
+
   .hero h1{
-    font-size:32px;
+    font-size:34px;
   }
 
   .products{
@@ -519,8 +626,29 @@ footer{
     gap:10px;
   }
 
-  .product img{
-    height:180px;
+  .productImage{
+    height:190px;
+  }
+
+  .productInfo{
+    padding:11px;
+  }
+
+  .productName{
+    font-size:14px;
+  }
+
+  .price{
+    font-size:18px;
+  }
+
+  .productActions{
+    flex-direction:column;
+  }
+
+  .buyBtn,
+  .addBtn{
+    width:100%;
   }
 
   .productDetail{
@@ -531,6 +659,10 @@ footer{
     height:300px;
   }
 
+  .detailInfo{
+    padding:22px;
+  }
+
   .detailButtons{
     flex-direction:column;
   }
@@ -539,17 +671,18 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .checkout .full{
+  .full{
     grid-column:auto;
   }
 
   .modal{
-    padding:10px;
+    padding:8px;
   }
 
   .modalBox{
-    margin:10px auto;
+    margin:8px auto;
   }
+
 }
 
 @media(max-width:380px){
@@ -558,76 +691,119 @@ footer{
     grid-template-columns:1fr;
   }
 
+  .productImage{
+    height:230px;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
   <div class="topbar">
 
-    <div>
+    <div class="brand">
+
       <div class="logo">RAHA</div>
+
       <div class="tagline">
         Your Everyday Shopping Destination
       </div>
+
     </div>
 
-    <div class="search">
+
+    <!-- SEARCH IS NOW CLEARLY VISIBLE -->
+
+    <div class="searchBox">
+
       <input
         id="searchInput"
         type="search"
-        placeholder="Search products..."
+        placeholder="🔎 Search products..."
+        autocomplete="off"
         oninput="searchProducts()"
       >
+
     </div>
 
-    <button class="cartBtn" onclick="openCart()">
-      🛒 Cart <span id="cartCount">0</span>
+
+    <button
+      class="cartBtn"
+      onclick="openCart()"
+    >
+      🛒 Cart
+      <span id="cartCount">0</span>
     </button>
 
   </div>
 
+
   <div class="categories">
-    <div class="categoryWrap" id="categoryWrap"></div>
+
+    <div
+      class="categoryWrap"
+      id="categoryWrap"
+    ></div>
+
   </div>
 
 </header>
 
+
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
   <h1>RAHA</h1>
 
   <p>
-    Discover jewellery, fashion, gifts, accessories, electronics,
-    beauty, footwear, bags, watches and more — all in one place.
+    Discover jewellery, fashion, gifts, accessories,
+    home & lifestyle products, electronics, footwear,
+    beauty, bags, watches and more.
   </p>
 
 </section>
 
 
+<!-- ================= PRODUCTS ================= -->
+
 <main class="container">
 
-  <h2 class="sectionTitle" id="sectionTitle">
+  <h2
+    class="sectionTitle"
+    id="sectionTitle"
+  >
     All Products
   </h2>
 
-  <div class="products" id="products"></div>
+  <div
+    class="products"
+    id="products"
+  ></div>
 
 </main>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-  <div class="gold">RAHA</div>
+  <div class="gold">
+    RAHA
+  </div>
 
-  <p>Your Everyday Shopping Destination</p>
+  <p>
+    Your Everyday Shopping Destination
+  </p>
 
   <p style="margin-top:8px;">
-    All India Delivery
+    🇮🇳 All India Delivery
   </p>
 
   <p style="margin-top:8px;">
@@ -641,9 +817,12 @@ footer{
 </footer>
 
 
-<!-- PRODUCT DETAILS -->
+<!-- ================= PRODUCT MODAL ================= -->
 
-<div class="modal" id="productModal">
+<div
+  class="modal"
+  id="productModal"
+>
 
   <div class="modalBox">
 
@@ -654,15 +833,19 @@ footer{
       ×
     </button>
 
+
     <div class="productDetail">
 
       <div>
+
         <img
           id="detailImage"
           class="detailImage"
           alt="Product"
         >
+
       </div>
+
 
       <div class="detailInfo">
 
@@ -672,6 +855,7 @@ footer{
           class="price"
           id="detailPrice"
         ></div>
+
 
         <div
           class="detailDescription"
@@ -683,7 +867,9 @@ footer{
 
         <div class="field">
 
-          <label>Colour</label>
+          <label>
+            Colour
+          </label>
 
           <select
             id="detailColour"
@@ -697,7 +883,9 @@ footer{
 
         <div class="field">
 
-          <label>Size</label>
+          <label>
+            Size
+          </label>
 
           <select
             id="detailSize"
@@ -710,9 +898,13 @@ footer{
 
         <div class="field">
 
-          <label>Quantity</label>
+          <label>
+            Quantity
+          </label>
 
-          <select id="detailQuantity">
+          <select
+            id="detailQuantity"
+          >
 
             <option value="1">1</option>
             <option value="2">2</option>
@@ -731,14 +923,15 @@ footer{
             class="detailBuy"
             onclick="buyNowFromDetail()"
           >
-            Buy Now
+            ⚡ Buy Now
           </button>
+
 
           <button
             class="detailAdd"
             onclick="addFromDetail()"
           >
-            Add to Cart
+            🛒 Add to Cart
           </button>
 
         </div>
@@ -752,9 +945,12 @@ footer{
 </div>
 
 
-<!-- CART -->
+<!-- ================= CART MODAL ================= -->
 
-<div class="modal" id="cartModal">
+<div
+  class="modal"
+  id="cartModal"
+>
 
   <div class="modalBox">
 
@@ -765,15 +961,21 @@ footer{
       ×
     </button>
 
+
     <div class="checkout">
 
-      <h2>🛒 Your Cart</h2>
+      <h2>
+        🛒 Your Cart
+      </h2>
 
       <div id="cartItems"></div>
 
+
       <div class="cartTotal">
 
-        <span>Total</span>
+        <span>
+          Total
+        </span>
 
         <strong
           class="gold"
@@ -783,6 +985,7 @@ footer{
         </strong>
 
       </div>
+
 
       <button
         class="checkoutBtn"
@@ -798,9 +1001,12 @@ footer{
 </div>
 
 
-<!-- CHECKOUT -->
+<!-- ================= CHECKOUT MODAL ================= -->
 
-<div class="modal" id="checkoutModal">
+<div
+  class="modal"
+  id="checkoutModal"
+>
 
   <div class="modalBox">
 
@@ -811,15 +1017,22 @@ footer{
       ×
     </button>
 
+
     <div class="checkout">
 
-      <h2>📦 Delivery Details</h2>
+      <h2>
+        📦 Delivery Details
+      </h2>
+
 
       <div class="checkoutGrid">
 
-        <div>
 
-          <label>Full Name</label>
+        <div class="checkoutField">
+
+          <label>
+            Full Name
+          </label>
 
           <input
             id="customerName"
@@ -829,9 +1042,11 @@ footer{
         </div>
 
 
-        <div>
+        <div class="checkoutField">
 
-          <label>Mobile Number</label>
+          <label>
+            Mobile Number
+          </label>
 
           <input
             id="customerPhone"
@@ -844,9 +1059,11 @@ footer{
         </div>
 
 
-        <div class="full">
+        <div class="checkoutField full">
 
-          <label>Full Address</label>
+          <label>
+            Full Address
+          </label>
 
           <textarea
             id="customerAddress"
@@ -857,9 +1074,11 @@ footer{
         </div>
 
 
-        <div>
+        <div class="checkoutField">
 
-          <label>Pincode</label>
+          <label>
+            Pincode
+          </label>
 
           <input
             id="customerPincode"
@@ -871,9 +1090,11 @@ footer{
         </div>
 
 
-        <div>
+        <div class="checkoutField">
 
-          <label>State / UT</label>
+          <label>
+            State / UT
+          </label>
 
           <select
             id="customerState"
@@ -889,11 +1110,15 @@ footer{
         </div>
 
 
-        <div>
+        <div class="checkoutField">
 
-          <label>District</label>
+          <label>
+            District
+          </label>
 
-          <select id="customerDistrict">
+          <select
+            id="customerDistrict"
+          >
 
             <option value="">
               Select District
@@ -931,7 +1156,7 @@ footer{
 <script>
 
 /* =========================================================
-   PRODUCT IMAGES
+   IMAGE URLs
    ========================================================= */
 
 const img1 =
@@ -966,8 +1191,8 @@ price:299,
 category:"Jewellery",
 description:"Elegant jewellery for everyday style.",
 colours:{
-"Gold":img1,
-"Silver":img2
+Gold:img1,
+Silver:img2
 },
 sizes:["Free Size"]
 },
@@ -977,10 +1202,10 @@ id:2,
 name:"Classic Earrings",
 price:199,
 category:"Jewellery",
-description:"Simple and stylish earrings.",
+description:"Simple and stylish earrings for everyday use.",
 colours:{
-"Gold":img1,
-"Silver":img2
+Gold:img1,
+Silver:img2
 },
 sizes:["Free Size"]
 },
@@ -992,8 +1217,8 @@ price:249,
 category:"Jewellery",
 description:"Modern bracelet for everyday wear.",
 colours:{
-"Gold":img1,
-"Silver":img2,
+Gold:img1,
+Silver:img2,
 "Rose Gold":img3
 },
 sizes:["Free Size"]
@@ -1006,9 +1231,9 @@ price:499,
 category:"Fashion",
 description:"Comfortable everyday T-shirt.",
 colours:{
-"Black":img4,
-"White":img3,
-"Blue":img2
+Black:img4,
+White:img3,
+Blue:img2
 },
 sizes:["S","M","L","XL","XXL"]
 },
@@ -1020,9 +1245,9 @@ price:699,
 category:"Fashion",
 description:"Smart casual shirt for daily wear.",
 colours:{
-"Black":img4,
-"White":img3,
-"Blue":img2
+Black:img4,
+White:img3,
+Blue:img2
 },
 sizes:["M","L","XL","XXL"]
 },
@@ -1034,9 +1259,9 @@ price:899,
 category:"Fashion",
 description:"Warm and comfortable hoodie.",
 colours:{
-"Black":img4,
-"Grey":img3,
-"Blue":img2
+Black:img4,
+Grey:img3,
+Blue:img2
 },
 sizes:["M","L","XL","XXL"]
 },
@@ -1048,8 +1273,8 @@ price:399,
 category:"Gifts",
 description:"Beautiful gift box for special occasions.",
 colours:{
-"Red":img3,
-"Gold":img1
+Red:img3,
+Gold:img1
 },
 sizes:["Standard"]
 },
@@ -1059,10 +1284,10 @@ id:8,
 name:"Cute Teddy Bear",
 price:599,
 category:"Gifts",
-description:"Soft teddy bear gift.",
+description:"Soft teddy bear gift for special occasions.",
 colours:{
-"Brown":img3,
-"White":img2
+Brown:img3,
+White:img2
 },
 sizes:["Small","Medium","Large"]
 },
@@ -1074,9 +1299,9 @@ price:299,
 category:"Gifts",
 description:"Elegant decorative photo frame.",
 colours:{
-"Black":img4,
-"Gold":img1,
-"White":img3
+Black:img4,
+Gold:img1,
+White:img3
 },
 sizes:["Standard"]
 },
@@ -1088,8 +1313,8 @@ price:349,
 category:"Accessories",
 description:"Compact everyday wallet.",
 colours:{
-"Black":img4,
-"Brown":img3
+Black:img4,
+Brown:img3
 },
 sizes:["Standard"]
 },
@@ -1101,8 +1326,8 @@ price:449,
 category:"Accessories",
 description:"Stylish sunglasses for daily use.",
 colours:{
-"Black":img4,
-"Brown":img3
+Black:img4,
+Brown:img3
 },
 sizes:["Standard"]
 },
@@ -1114,8 +1339,8 @@ price:399,
 category:"Accessories",
 description:"Classic belt with durable finish.",
 colours:{
-"Black":img4,
-"Brown":img3
+Black:img4,
+Brown:img3
 },
 sizes:["28","30","32","34","36","38"]
 },
@@ -1125,10 +1350,10 @@ id:13,
 name:"Decorative Table Lamp",
 price:799,
 category:"Home & Lifestyle",
-description:"Modern decorative lamp.",
+description:"Modern decorative lamp for your home.",
 colours:{
-"Black":img4,
-"White":img3
+Black:img4,
+White:img3
 },
 sizes:["Standard"]
 },
@@ -1140,9 +1365,9 @@ price:299,
 category:"Home & Lifestyle",
 description:"Soft decorative cushion.",
 colours:{
-"Red":img3,
-"Blue":img2,
-"Grey":img4
+Red:img3,
+Blue:img2,
+Grey:img4
 },
 sizes:["Standard"]
 },
@@ -1154,9 +1379,9 @@ price:399,
 category:"Home & Lifestyle",
 description:"Reusable stainless steel bottle.",
 colours:{
-"Black":img4,
-"Silver":img2,
-"Blue":img3
+Black:img4,
+Silver:img2,
+Blue:img3
 },
 sizes:["500ml","750ml","1L"]
 },
@@ -1168,8 +1393,8 @@ price:799,
 category:"Electronics",
 description:"Compact wireless earbuds.",
 colours:{
-"Black":img4,
-"White":img3
+Black:img4,
+White:img3
 },
 sizes:["Standard"]
 },
@@ -1181,8 +1406,8 @@ price:1299,
 category:"Electronics",
 description:"Modern smartwatch for everyday use.",
 colours:{
-"Black":img4,
-"Silver":img2
+Black:img4,
+Silver:img2
 },
 sizes:["Standard"]
 },
@@ -1192,10 +1417,10 @@ id:18,
 name:"Power Bank",
 price:899,
 category:"Electronics",
-description:"Portable power bank.",
+description:"Portable power bank for everyday charging.",
 colours:{
-"Black":img4,
-"White":img3
+Black:img4,
+White:img3
 },
 sizes:["10000mAh","20000mAh"]
 },
@@ -1207,8 +1432,8 @@ price:999,
 category:"Footwear",
 description:"Comfortable everyday sneakers.",
 colours:{
-"Black":img4,
-"White":img3
+Black:img4,
+White:img3
 },
 sizes:["6","7","8","9","10"]
 },
@@ -1220,8 +1445,8 @@ price:599,
 category:"Footwear",
 description:"Comfortable casual sandals.",
 colours:{
-"Black":img4,
-"Brown":img3
+Black:img4,
+Brown:img3
 },
 sizes:["6","7","8","9","10"]
 },
@@ -1233,9 +1458,9 @@ price:299,
 category:"Footwear",
 description:"Lightweight everyday slippers.",
 colours:{
-"Black":img4,
-"Blue":img2,
-"Grey":img3
+Black:img4,
+Blue:img2,
+Grey:img3
 },
 sizes:["6","7","8","9","10"]
 },
@@ -1247,8 +1472,8 @@ price:699,
 category:"Beauty",
 description:"Fresh and elegant fragrance.",
 colours:{
-"Classic":img1,
-"Fresh":img3
+Classic:img1,
+Fresh:img3
 },
 sizes:["50ml","100ml"]
 },
@@ -1258,10 +1483,10 @@ id:23,
 name:"Beauty Makeup Kit",
 price:599,
 category:"Beauty",
-description:"Useful makeup kit.",
+description:"Useful makeup kit for everyday use.",
 colours:{
-"Natural":img3,
-"Classic":img1
+Natural:img3,
+Classic:img1
 },
 sizes:["Standard"]
 },
@@ -1273,7 +1498,7 @@ price:499,
 category:"Beauty",
 description:"Daily face care essentials.",
 colours:{
-"Original":img3
+Original:img3
 },
 sizes:["Standard"]
 },
@@ -1285,8 +1510,8 @@ price:799,
 category:"Bags",
 description:"Stylish handbag for everyday use.",
 colours:{
-"Black":img4,
-"Brown":img3
+Black:img4,
+Brown:img3
 },
 sizes:["Standard"]
 },
@@ -1298,9 +1523,9 @@ price:899,
 category:"Bags",
 description:"Spacious backpack for college and travel.",
 colours:{
-"Black":img4,
-"Blue":img2,
-"Grey":img3
+Black:img4,
+Blue:img2,
+Grey:img3
 },
 sizes:["Standard"]
 },
@@ -1312,9 +1537,9 @@ price:499,
 category:"Bags",
 description:"Compact sling bag.",
 colours:{
-"Black":img4,
-"Brown":img3,
-"Cream":img1
+Black:img4,
+Brown:img3,
+Cream:img1
 },
 sizes:["Standard"]
 },
@@ -1326,9 +1551,9 @@ price:999,
 category:"Watches",
 description:"Classic analog watch.",
 colours:{
-"Black":img4,
-"Brown":img3,
-"Silver":img2
+Black:img4,
+Brown:img3,
+Silver:img2
 },
 sizes:["Standard"]
 },
@@ -1340,9 +1565,9 @@ price:799,
 category:"Watches",
 description:"Sporty everyday watch.",
 colours:{
-"Black":img4,
-"Blue":img2,
-"Red":img3
+Black:img4,
+Blue:img2,
+Red:img3
 },
 sizes:["Standard"]
 },
@@ -1354,9 +1579,9 @@ price:1499,
 category:"Watches",
 description:"Premium luxury style watch.",
 colours:{
-"Gold":img1,
-"Silver":img2,
-"Black":img4
+Gold:img1,
+Silver:img2,
+Black:img4
 },
 sizes:["Standard"]
 }
@@ -2259,11 +2484,10 @@ const indiaLocations = {
    VARIABLES
    ========================================================= */
 
-let currentCategory = "All";
+let currentCategory="All";
+let currentProduct=null;
 
-let currentProduct = null;
-
-let cart =
+let cart=
   JSON.parse(
     localStorage.getItem("rahaCart") || "[]"
   );
@@ -2273,49 +2497,48 @@ let cart =
    CATEGORIES
    ========================================================= */
 
-const categories = [
-"All",
-"Jewellery",
-"Fashion",
-"Gifts",
-"Accessories",
-"Home & Lifestyle",
-"Electronics",
-"Footwear",
-"Beauty",
-"Bags",
-"Watches"
+const categories=[
+  "All",
+  "Jewellery",
+  "Fashion",
+  "Gifts",
+  "Accessories",
+  "Home & Lifestyle",
+  "Electronics",
+  "Footwear",
+  "Beauty",
+  "Bags",
+  "Watches"
 ];
 
 
 function renderCategories(){
 
-  const box =
+  const box=
     document.getElementById("categoryWrap");
 
-  box.innerHTML = "";
+  box.innerHTML="";
 
   categories.forEach(category=>{
 
-    const button =
+    const button=
       document.createElement("button");
 
-    button.className =
+    button.className=
       "cat " +
       (
-        currentCategory === category
-          ? "active"
-          : ""
+        currentCategory===category
+        ? "active"
+        : ""
       );
 
-    button.textContent = category;
+    button.textContent=category;
 
-    button.onclick = ()=>{
+    button.onclick=()=>{
 
-      currentCategory = category;
+      currentCategory=category;
 
       renderCategories();
-
       renderProducts();
 
     };
@@ -2328,29 +2551,44 @@ function renderCategories(){
 
 
 /* =========================================================
-   FILTER PRODUCTS
+   SEARCH
+   ========================================================= */
+
+function searchProducts(){
+
+  renderProducts();
+
+}
+
+
+/* =========================================================
+   FILTER
    ========================================================= */
 
 function getFilteredProducts(){
 
-  const search =
-    document.getElementById("searchInput")
+  const search=
+    document
+      .getElementById("searchInput")
       .value
       .toLowerCase()
       .trim();
 
   return products.filter(product=>{
 
-    const categoryMatch =
-      currentCategory === "All" ||
-      product.category === currentCategory;
+    const categoryMatch=
+      currentCategory==="All" ||
+      product.category===currentCategory;
 
-    const searchMatch =
+    const searchMatch=
       !search ||
       product.name
         .toLowerCase()
         .includes(search) ||
       product.category
+        .toLowerCase()
+        .includes(search) ||
+      product.description
         .toLowerCase()
         .includes(search);
 
@@ -2367,25 +2605,26 @@ function getFilteredProducts(){
 
 function renderProducts(){
 
-  const box =
+  const box=
     document.getElementById("products");
 
-  const list =
+  const list=
     getFilteredProducts();
 
   document.getElementById("sectionTitle")
-    .textContent =
-      currentCategory === "All"
-        ? "All Products"
-        : currentCategory;
+    .textContent=
+      currentCategory==="All"
+      ? "All Products"
+      : currentCategory;
 
-  box.innerHTML = "";
+  box.innerHTML="";
+
 
   if(!list.length){
 
-    box.innerHTML =
+    box.innerHTML=
       `<div class="noProducts">
-        No products found.
+        🔎 No products found.
       </div>`;
 
     return;
@@ -2395,32 +2634,28 @@ function renderProducts(){
 
   list.forEach(product=>{
 
-    const firstColour =
+    const firstColour=
       Object.keys(product.colours)[0];
 
-    const firstImage =
+    const firstImage=
       product.colours[firstColour];
 
 
-    const card =
+    const card=
       document.createElement("div");
 
-    card.className = "product";
+    card.className="product";
 
 
     /*
-      Clicking the product card opens
-      the full product information.
+      Clicking the product itself opens details.
+      Button clicks are handled separately.
     */
 
-    card.onclick = function(event){
+    card.onclick=function(event){
 
-      if(
-        event.target.closest("button")
-      ){
-
+      if(event.target.closest("button")){
         return;
-
       }
 
       openProduct(product.id);
@@ -2428,9 +2663,10 @@ function renderProducts(){
     };
 
 
-    card.innerHTML = `
+    card.innerHTML=`
 
       <img
+        class="productImage"
         src="${firstImage}"
         alt="${product.name}"
       >
@@ -2455,19 +2691,20 @@ function renderProducts(){
             class="buyBtn"
             onclick="buyNowFromCard(${product.id})"
           >
-            Buy Now
+            ⚡ Buy Now
           </button>
 
           <button
             class="addBtn"
             onclick="addFromCard(${product.id})"
           >
-            Add to Cart
+            🛒 Add to Cart
           </button>
 
         </div>
 
       </div>
+
     `;
 
 
@@ -2478,133 +2715,119 @@ function renderProducts(){
 }
 
 
-function searchProducts(){
-
-  renderProducts();
-
-}
-
-
 /* =========================================================
    OPEN PRODUCT
    ========================================================= */
 
 function openProduct(id){
 
-  currentProduct =
+  currentProduct=
     products.find(
-      product => product.id === id
+      product=>product.id===id
     );
 
   if(!currentProduct) return;
 
 
   document.getElementById("detailName")
-    .textContent =
+    .textContent=
       currentProduct.name;
 
 
   document.getElementById("detailPrice")
-    .textContent =
-      "₹" + currentProduct.price;
+    .textContent=
+      "₹"+currentProduct.price;
 
 
   document.getElementById("detailDescription")
-    .textContent =
+    .textContent=
       currentProduct.description;
 
 
-  const colourSelect =
+  const colourSelect=
     document.getElementById("detailColour");
 
-  const sizeSelect =
+  const sizeSelect=
     document.getElementById("detailSize");
 
 
-  colourSelect.innerHTML = "";
-
-  sizeSelect.innerHTML = "";
+  colourSelect.innerHTML="";
+  sizeSelect.innerHTML="";
 
 
   /* COLOURS */
 
-  const colours =
-    Object.keys(
-      currentProduct.colours
-    );
+  Object.keys(currentProduct.colours)
+    .forEach(colour=>{
 
+      const option=
+        document.createElement("option");
 
-  colours.forEach(colour=>{
+      option.value=colour;
+      option.textContent=colour;
 
-    const option =
-      document.createElement("option");
+      colourSelect.appendChild(option);
 
-    option.value = colour;
-
-    option.textContent = colour;
-
-    colourSelect.appendChild(option);
-
-  });
+    });
 
 
   /* SIZES */
 
-  const sizes =
+  const sizes=
     currentProduct.sizes &&
     currentProduct.sizes.length
-      ? currentProduct.sizes
-      : ["Free Size"];
+    ? currentProduct.sizes
+    : ["Free Size"];
 
 
   sizes.forEach(size=>{
 
-    const option =
+    const option=
       document.createElement("option");
 
-    option.value = size;
-
-    option.textContent = size;
+    option.value=size;
+    option.textContent=size;
 
     sizeSelect.appendChild(option);
 
   });
 
 
-  /*
-    Always show colour and size.
-    If the real product has one option,
-    that option is selected automatically.
-  */
+  document.getElementById("detailQuantity")
+    .value="1";
+
 
   changeColourImage();
 
 
   document.getElementById("productModal")
-    .style.display = "block";
+    .style.display="block";
 
 }
 
 
 /* =========================================================
-   CHANGE IMAGE WHEN COLOUR CHANGES
+   COLOUR IMAGE CHANGE
    ========================================================= */
 
 function changeColourImage(){
 
   if(!currentProduct) return;
 
-  const colour =
+
+  const colour=
     document.getElementById("detailColour")
       .value;
 
-  const image =
+
+  const image=
     currentProduct.colours[colour];
+
 
   if(image){
 
     document.getElementById("detailImage")
-      .src = image;
+      .src=image;
 
   }
 
@@ -2612,7 +2835,7 @@ function changeColourImage(){
 
 
 /* =========================================================
-   GET SELECTED PRODUCT OPTIONS
+   GET SELECTED OPTIONS
    ========================================================= */
 
 function getSelectedProductOptions(){
@@ -2620,35 +2843,39 @@ function getSelectedProductOptions(){
   if(!currentProduct) return null;
 
 
-  const colour =
+  const colour=
     document.getElementById("detailColour")
       .value;
 
 
-  const size =
+  const size=
     document.getElementById("detailSize")
       .value;
 
 
-  const quantity =
+  const quantity=
     Number(
       document.getElementById("detailQuantity")
         .value
     );
 
 
-  const image =
-    currentProduct.colours[colour];
+  return{
 
-
-  return {
     productId:currentProduct.id,
+
     name:currentProduct.name,
+
     price:currentProduct.price,
+
     colour:colour,
+
     size:size,
-    image:image,
+
+    image:currentProduct.colours[colour],
+
     quantity:quantity
+
   };
 
 }
@@ -2660,7 +2887,7 @@ function getSelectedProductOptions(){
 
 function addFromDetail(){
 
-  const item =
+  const item=
     getSelectedProductOptions();
 
   if(!item) return;
@@ -2668,12 +2895,11 @@ function addFromDetail(){
 
   addItemToCart(item);
 
-
   closeModal("productModal");
 
 
   alert(
-    currentProduct.name +
+    item.name+
     " added to cart 🛒"
   );
 
@@ -2682,21 +2908,24 @@ function addFromDetail(){
 
 function addItemToCart(item){
 
-  const existing =
+  const existing=
     cart.find(existingItem=>
 
-      existingItem.productId === item.productId &&
+      existingItem.productId===
+      item.productId &&
 
-      existingItem.colour === item.colour &&
+      existingItem.colour===
+      item.colour &&
 
-      existingItem.size === item.size
+      existingItem.size===
+      item.size
 
     );
 
 
   if(existing){
 
-    existing.quantity += item.quantity;
+    existing.quantity+=item.quantity;
 
   }else{
 
@@ -2711,22 +2940,14 @@ function addItemToCart(item){
 
 
 /* =========================================================
-   ADD FROM PRODUCT CARD
+   CARD ADD TO CART
    ========================================================= */
 
 function addFromCard(id){
 
-  currentProduct =
-    products.find(
-      product=>product.id===id
-    );
-
-  if(!currentProduct) return;
-
-
   /*
-    Card Add to Cart opens product information first,
-    so customer can select colour and size.
+    Customer must choose colour and size.
+    Therefore open the product details.
   */
 
   openProduct(id);
@@ -2735,22 +2956,14 @@ function addFromCard(id){
 
 
 /* =========================================================
-   BUY NOW FROM CARD
+   CARD BUY NOW
    ========================================================= */
 
 function buyNowFromCard(id){
 
-  currentProduct =
-    products.find(
-      product=>product.id===id
-    );
-
-  if(!currentProduct) return;
-
-
   /*
-    Buy Now opens product information first.
-    Customer must select colour/size.
+    Customer must choose colour and size.
+    Therefore open the product details.
   */
 
   openProduct(id);
@@ -2759,23 +2972,22 @@ function buyNowFromCard(id){
 
 
 /* =========================================================
-   BUY NOW FROM PRODUCT DETAILS
+   BUY NOW FROM DETAILS
    ========================================================= */
 
 function buyNowFromDetail(){
 
-  const item =
+  const item=
     getSelectedProductOptions();
 
   if(!item) return;
 
 
   /*
-    Buy Now replaces the current cart
-    with only the selected product.
+    Buy Now = checkout only this product.
   */
 
-  cart = [item];
+  cart=[item];
 
   saveCart();
 
@@ -2804,15 +3016,15 @@ function saveCart(){
 
 function updateCartCount(){
 
-  const count =
+  const count=
     cart.reduce(
       (total,item)=>
-        total + item.quantity,
+        total+item.quantity,
       0
     );
 
   document.getElementById("cartCount")
-    .textContent = count;
+    .textContent=count;
 
 }
 
@@ -2821,8 +3033,8 @@ function cartTotalValue(){
 
   return cart.reduce(
     (total,item)=>
-      total +
-      item.price *
+      total+
+      item.price*
       item.quantity,
     0
   );
@@ -2839,7 +3051,7 @@ function openCart(){
   renderCart();
 
   document.getElementById("cartModal")
-    .style.display = "block";
+    .style.display="block";
 
 }
 
@@ -2850,21 +3062,21 @@ function openCart(){
 
 function renderCart(){
 
-  const box =
+  const box=
     document.getElementById("cartItems");
 
-  box.innerHTML = "";
+  box.innerHTML="";
 
 
   if(!cart.length){
 
-    box.innerHTML =
+    box.innerHTML=
       `<div class="noProducts">
-        Your cart is empty.
+        🛒 Your cart is empty.
       </div>`;
 
     document.getElementById("cartTotal")
-      .textContent = "₹0";
+      .textContent="₹0";
 
     return;
 
@@ -2873,13 +3085,13 @@ function renderCart(){
 
   cart.forEach((item,index)=>{
 
-    const row =
+    const row=
       document.createElement("div");
 
-    row.className = "cartItem";
+    row.className="cartItem";
 
 
-    row.innerHTML = `
+    row.innerHTML=`
 
       <img
         src="${item.image}"
@@ -2925,7 +3137,7 @@ function renderCart(){
           <button
             onclick="removeCartItem(${index})"
             style="
-              margin-left:8px;
+              margin-left:7px;
               color:#ff7777;
             "
           >
@@ -2937,7 +3149,7 @@ function renderCart(){
       </div>
 
       <div class="cartPrice">
-        ₹${item.price * item.quantity}
+        ₹${item.price*item.quantity}
       </div>
 
     `;
@@ -2949,8 +3161,8 @@ function renderCart(){
 
 
   document.getElementById("cartTotal")
-    .textContent =
-      "₹" + cartTotalValue();
+    .textContent=
+      "₹"+cartTotalValue();
 
 }
 
@@ -2961,10 +3173,13 @@ function renderCart(){
 
 function changeQty(index,change){
 
-  cart[index].quantity += change;
+  if(!cart[index]) return;
 
 
-  if(cart[index].quantity <= 0){
+  cart[index].quantity+=change;
+
+
+  if(cart[index].quantity<=0){
 
     cart.splice(index,1);
 
@@ -3007,22 +3222,22 @@ function openCheckout(){
   closeModal("cartModal");
 
   document.getElementById("checkoutModal")
-    .style.display = "block";
+    .style.display="block";
 
 }
 
 
 /* =========================================================
-   LOAD STATES
+   STATES
    ========================================================= */
 
 function loadStates(){
 
-  const stateSelect =
+  const stateSelect=
     document.getElementById("customerState");
 
 
-  stateSelect.innerHTML =
+  stateSelect.innerHTML=
     `<option value="">
       Select State / UT
     </option>`;
@@ -3032,12 +3247,11 @@ function loadStates(){
     .sort()
     .forEach(state=>{
 
-      const option =
+      const option=
         document.createElement("option");
 
-      option.value = state;
-
-      option.textContent = state;
+      option.value=state;
+      option.textContent=state;
 
       stateSelect.appendChild(option);
 
@@ -3047,21 +3261,21 @@ function loadStates(){
 
 
 /* =========================================================
-   LOAD DISTRICTS
+   DISTRICTS
    ========================================================= */
 
 function loadDistricts(){
 
-  const state =
+  const state=
     document.getElementById("customerState")
       .value;
 
 
-  const districtSelect =
+  const districtSelect=
     document.getElementById("customerDistrict");
 
 
-  districtSelect.innerHTML =
+  districtSelect.innerHTML=
     `<option value="">
       Select District
     </option>`;
@@ -3070,7 +3284,7 @@ function loadDistricts(){
   if(!state) return;
 
 
-  const districts =
+  const districts=
     indiaLocations[state] || [];
 
 
@@ -3079,12 +3293,11 @@ function loadDistricts(){
     .sort()
     .forEach(district=>{
 
-      const option =
+      const option=
         document.createElement("option");
 
-      option.value = district;
-
-      option.textContent = district;
+      option.value=district;
+      option.textContent=district;
 
       districtSelect.appendChild(option);
 
@@ -3108,32 +3321,32 @@ function sendWhatsAppOrder(){
   }
 
 
-  const name =
+  const name=
     document.getElementById("customerName")
       .value.trim();
 
 
-  const phone =
+  const phone=
     document.getElementById("customerPhone")
       .value.trim();
 
 
-  const address =
+  const address=
     document.getElementById("customerAddress")
       .value.trim();
 
 
-  const pincode =
+  const pincode=
     document.getElementById("customerPincode")
       .value.trim();
 
 
-  const state =
+  const state=
     document.getElementById("customerState")
       .value;
 
 
-  const district =
+  const district=
     document.getElementById("customerDistrict")
       .value;
 
@@ -3180,9 +3393,7 @@ function sendWhatsAppOrder(){
 
   if(!state){
 
-    alert(
-      "Please select your state / UT."
-    );
+    alert("Please select your State / UT.");
 
     return;
 
@@ -3191,123 +3402,119 @@ function sendWhatsAppOrder(){
 
   if(!district){
 
-    alert(
-      "Please select your district."
-    );
+    alert("Please select your District.");
 
     return;
 
   }
 
 
-  let message =
+  let message=
     "🛍️ *RAHA NEW ORDER*%0A%0A";
 
 
-  message +=
+  message+=
     "*CUSTOMER DETAILS*%0A";
 
 
-  message +=
-    "Name: " +
-    encodeURIComponent(name) +
+  message+=
+    "Name: "+
+    encodeURIComponent(name)+
     "%0A";
 
 
-  message +=
-    "Mobile: " +
-    encodeURIComponent(phone) +
+  message+=
+    "Mobile: "+
+    encodeURIComponent(phone)+
     "%0A";
 
 
-  message +=
-    "Address: " +
-    encodeURIComponent(address) +
+  message+=
+    "Address: "+
+    encodeURIComponent(address)+
     "%0A";
 
 
-  message +=
-    "Pincode: " +
-    encodeURIComponent(pincode) +
+  message+=
+    "Pincode: "+
+    encodeURIComponent(pincode)+
     "%0A";
 
 
-  message +=
-    "State: " +
-    encodeURIComponent(state) +
+  message+=
+    "State: "+
+    encodeURIComponent(state)+
     "%0A";
 
 
-  message +=
-    "District: " +
-    encodeURIComponent(district) +
+  message+=
+    "District: "+
+    encodeURIComponent(district)+
     "%0A%0A";
 
 
-  message +=
+  message+=
     "*ORDER ITEMS*%0A";
 
 
   cart.forEach((item,index)=>{
 
-    message +=
-      "%0A" +
-      (index + 1) +
-      ". " +
-      encodeURIComponent(item.name);
+    message+=
+      "%0A"+
+      (index+1)+
+      ". "+
+      encodeURIComponent(item.name)+
+      "%0A";
 
+    message+=
+      "Quantity: "+
+      item.quantity+
+      "%0A";
 
-    message +=
-      "%0AQty: " +
-      item.quantity;
+    message+=
+      "Colour: "+
+      encodeURIComponent(item.colour)+
+      "%0A";
 
+    message+=
+      "Size: "+
+      encodeURIComponent(item.size)+
+      "%0A";
 
-    message +=
-      "%0APrice: ₹" +
-      (item.price * item.quantity);
-
-
-    message +=
-      "%0AColour: " +
-      encodeURIComponent(item.colour);
-
-
-    message +=
-      "%0ASize: " +
-      encodeURIComponent(item.size);
-
-
-    message += "%0A";
+    message+=
+      "Price: ₹"+
+      (item.price*item.quantity)+
+      "%0A";
 
   });
 
 
-  message +=
-    "%0A*PRODUCT TOTAL: ₹" +
-    cartTotalValue() +
+  message+=
+    "%0A*PRODUCT TOTAL: ₹"+
+    cartTotalValue()+
     "*";
 
 
-  message +=
-    "%0A%0A📦 Delivery charge: To be confirmed by RAHA";
+  message+=
+    "%0A%0A📦 Delivery charge: To be confirmed";
 
 
-  message +=
+  message+=
     "%0A💳 Payment: UPI after WhatsApp confirmation";
 
 
-  message +=
+  message+=
     "%0A%0APlease confirm availability and final delivery charge.";
 
 
-  const whatsappNumber =
+  const whatsappNumber=
     "918903188257";
 
 
-  const url =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
+  const url=
+    "https://wa.me/"+
+    whatsappNumber+
+    "?text="+
     message;
 
 
@@ -3317,24 +3524,24 @@ function sendWhatsAppOrder(){
 
 
 /* =========================================================
-   MODALS
+   CLOSE MODALS
    ========================================================= */
 
 function closeModal(id){
 
   document.getElementById(id)
-    .style.display = "none";
+    .style.display="none";
 
 }
 
 
-window.onclick = function(event){
+window.onclick=function(event){
 
   if(
     event.target.classList.contains("modal")
   ){
 
-    event.target.style.display = "none";
+    event.target.style.display="none";
 
   }
 
@@ -3342,7 +3549,7 @@ window.onclick = function(event){
 
 
 /* =========================================================
-   START WEBSITE
+   START
    ========================================================= */
 
 renderCategories();
