@@ -3610,13 +3610,28 @@ async function loadProductsFromAPI() {
       throw new Error("Invalid product data");
     }
 
-    console.log("RAHA API products:", data.products);
+    const apiProducts = data.products.map(p => ({
+      id: p.id,
+      name: p.name,
+      price: Number(p.price),
+      category: p.category,
+      description: p.description || "",
+      stock: Number(p.stock || 0),
+      sizes: p.sizes ? p.sizes.split(",").map(x => x.trim()) : [],
+      colors: p.colors ? p.colors.split(",").map(x => x.trim()) : [],
+      images: p.images ? p.images.split(",").map(x => x.trim()) : []
+    }));
+
+    if (apiProducts.length > 0) {
+      products = apiProducts;
+      renderCategories();
+      renderProducts();
+    }
 
   } catch (error) {
     console.error("RAHA API error:", error);
   }
 }
-
 loadProductsFromAPI();
   function clearCart() {
 
