@@ -3618,6 +3618,18 @@ async function loadProductsFromAPI() {
 }
 
 loadProductsFromAPI();
+  function clearCart() {
+  if (cart.length === 0) {
+    showToast("Cart is already empty");
+    return;
+  }
+
+  cart = [];
+  updateCartCount();
+  renderCart();
+
+  showToast("✓ Cart cleared");
+  }
   function showToast(message) {
   const oldToast = document.getElementById("rahaToast");
   if (oldToast) oldToast.remove();
