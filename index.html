@@ -2613,6 +2613,20 @@ function getFilteredProducts(){
    RENDER PRODUCTS
    ========================================================= */
 
+  function getStockText(stock) {
+
+  stock = Number(stock || 0);
+
+  if (stock <= 0) {
+    return `<span class="stock out">Out of Stock</span>`;
+  }
+
+  if (stock <= 5) {
+    return `<span class="stock low">Only ${stock} left</span>`;
+  }
+
+  return `<span class="stock in">In Stock</span>`;
+}
 function renderProducts(){
 
   const box=
@@ -3679,6 +3693,25 @@ loadProductsFromAPI();
     toast.remove();
   }, 2500);
 }
+  .stock{
+  display:inline-block;
+  margin-top:6px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.stock.in{
+  color:#4caf50;
+}
+
+.stock.low{
+  color:#ff9800;
+}
+
+.stock.out{
+  color:#f44336;
+}
+  
 </script>
 
 </body>
