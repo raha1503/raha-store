@@ -4086,6 +4086,60 @@ loadProductsFromAPI();
   }, 2500);
 }
   
+.sortBox{
+  max-width:1200px;
+  margin:10px auto 0;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+}
+
+.sortBox label{
+  color:#aaa;
+  font-size:14px;
+}
+
+.sortBox select{
+  background:#101010;
+  color:#d4af37;
+  border:1px solid #5a4813;
+  border-radius:8px;
+  padding:9px 12px;
+  outline:none;
+}
+
+.sortBox select:focus{
+  border-color:#d4af37;
+}
+
+.stock{
+  display:inline-block;
+  margin-top:6px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.stock.in{
+  color:#4caf50;
+}
+
+.stock.low{
+  color:#ff9800;
+}
+
+.stock.out{
+  color:#f44336;
+}
+
+@media(max-width:600px){
+
+  .sortBox{
+    justify-content:flex-start;
+    padding:0 5px;
+  }
+
+}
   
 </script>
 
