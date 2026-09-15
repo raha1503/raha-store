@@ -3624,18 +3624,41 @@ async function loadProductsFromAPI() {
       throw new Error("Invalid product data");
     }
 
-    const apiProducts = data.products.map(p => ({
-      id: p.id,
-      name: p.name,
-      price: Number(p.price),
-      category: p.category,
-      description: p.description || "",
-      stock: Number(p.stock || 0),
-      sizes: p.sizes ? p.sizes.split(",").map(x => x.trim()) : [],
-      colors: p.colors ? p.colors.split(",").map(x => x.trim()) : [],
-      images: p.images ? p.images.split(",").map(x => x.trim()) : []
-    }));
+    const apiProducts = data.products.map(p => {
 
+  const colorList = p.colors
+    ? p.colors.split(",").map(x => x.trim()).filter(Boolean)
+    : [];
+
+  const imageList = p.images
+    ? p.images.split(",").map(x => x.trim()).filter(Boolean)
+    : [];
+
+  const colours = {};
+
+  colorList.forEach((color, index) => {
+    colours[color] =
+      imageList[index] ||
+      imageList[0] ||
+      "";
+  });
+
+  return {
+    id: p.id,
+    name: p.name,
+    price: Number(p.price),
+    category: p.category,
+    description: p.description || "",
+    stock: Number(p.stock || 0),
+
+    sizes: p.sizes
+      ? p.sizes.split(",").map(x => x.trim()).filter(Boolean)
+      : [],
+
+    colours: colours
+  };
+
+});
     if (apiProducts.length > 0) {
       products = apiProducts;
       renderCategories();
