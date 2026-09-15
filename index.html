@@ -754,6 +754,48 @@ footer{
       class="categoryWrap"
       id="categoryWrap"
     ></div>
+    <div class="sortBox">
+
+  <label for="sortBy">
+    Sort By:
+  </label>
+
+  <select
+    id="sortBy"
+    onchange="changeSort(this.value)"
+  >
+
+    <option value="recommended">
+      Recommended
+    </option>
+
+    <option value="newest">
+      Newest
+    </option>
+
+    <option value="priceLow">
+      Price: Low → High
+    </option>
+
+    <option value="priceHigh">
+      Price: High → Low
+    </option>
+
+    <option value="nameAZ">
+      Name: A → Z
+    </option>
+
+    <option value="nameZA">
+      Name: Z → A
+    </option>
+
+    <option value="stock">
+      Stock: Available First
+    </option>
+
+  </select>
+
+    </div>
 
   </div>
 
