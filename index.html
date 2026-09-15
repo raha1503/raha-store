@@ -3560,6 +3560,28 @@ loadStates();
 
 updateCartCount();
 
+  // Remember scroll position after refresh
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+const RAHA_SCROLL_KEY = "rahaScrollY";
+
+window.addEventListener("scroll", () => {
+  sessionStorage.setItem(RAHA_SCROLL_KEY, String(window.scrollY));
+}, { passive: true });
+
+window.addEventListener("load", () => {
+  const savedPosition = sessionStorage.getItem(RAHA_SCROLL_KEY);
+
+  if (savedPosition !== null) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo(0, Number(savedPosition));
+      });
+    });
+  }
+});
 </script>
 
 </body>
