@@ -2883,7 +2883,9 @@ function renderProducts(){
 }
 function renderProducts(){
 
-  const box = document.getElementById("products");
+  const box = 
+    
+    document.getElementById("products");
   const list = getFilteredProducts();
 
   document.getElementById("sectionTitle").textContent =
@@ -2997,114 +2999,8 @@ function renderProducts(){
 
 }
 
-  const box=
-    document.getElementById("products");
-
-  const list=
-    getFilteredProducts();
-
-  document.getElementById("sectionTitle")
-    .textContent=
-      currentCategory==="All"
-      ? "All Products"
-      : currentCategory;
-
-  box.innerHTML="";
 
 
-  if(!list.length){
-
-    box.innerHTML=
-      `<div class="noProducts">
-        🔎 No products found.
-      </div>`;
-
-    return;
-
-  }
-
-
-  list.forEach(product=>{
-
-    const firstColour=
-      Object.keys(product.colours)[0];
-
-    const firstImage=
-      product.colours[firstColour];
-
-
-    const card=
-      document.createElement("div");
-
-    card.className="product";
-
-
-    /*
-      Clicking the product itself opens details.
-      Button clicks are handled separately.
-    */
-
-    card.onclick=function(event){
-
-      if(event.target.closest("button")){
-        return;
-      }
-
-      openProduct(product.id);
-
-    };
-
-
-    card.innerHTML=`
-
-      <img
-        class="productImage"
-        src="${firstImage}"
-        alt="${product.name}"
-      >
-
-      <div class="productInfo">
-
-        <div class="productName">
-          ${product.name}
-        </div>
-
-        <div class="productCat">
-          ${product.category}
-        </div>
-
-        <div class="price">
-          ₹${product.price}
-        </div>
-
-        <div class="productActions">
-
-          <button
-            class="buyBtn"
-            onclick="buyNowFromCard(${product.id})"
-          >
-            ⚡ Buy Now
-          </button>
-
-          <button
-            class="addBtn"
-            onclick="addFromCard(${product.id})"
-          >
-            🛒 Add to Cart
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    box.appendChild(card);
-
-  });
-
-}
 
 
 /* =========================================================
