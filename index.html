@@ -2629,6 +2629,121 @@ function getFilteredProducts(){
 }
 function renderProducts(){
 
+  const box = document.getElementById("products");
+  const list = getFilteredProducts();
+
+  document.getElementById("sectionTitle").textContent =
+    currentCategory === "All"
+      ? "All Products"
+      : currentCategory;
+
+  box.innerHTML = "";
+
+  if(!list.length){
+
+    box.innerHTML = `
+      <div class="noProducts">
+        🔎 No products found.
+      </div>
+    `;
+
+    return;
+  }
+
+  list.forEach(product => {
+
+    const colours = product.colours || {};
+    const colourNames = Object.keys(colours);
+
+    const firstColour = colourNames.length
+      ? colourNames[0]
+      : "";
+
+    const firstImage =
+      colours[firstColour] ||
+      product.images?.[0] ||
+      "https://via.placeholder.com/600x600?text=RAHA";
+
+    const stock = Number(product.stock || 0);
+
+    let stockText = "";
+
+    if(stock <= 0){
+      stockText = `<span class="stock out">Out of Stock</span>`;
+    }
+    else if(stock <= 5){
+      stockText = `<span class="stock low">Only ${stock} left</span>`;
+    }
+    else{
+      stockText = `<span class="stock in">In Stock</span>`;
+    }
+
+    const card = document.createElement("div");
+
+    card.className = "product";
+
+    card.onclick = function(event){
+
+      if(event.target.closest("button")){
+        return;
+      }
+
+      openProduct(product.id);
+
+    };
+
+    card.innerHTML = `
+
+      <img
+        class="productImage"
+        src="${firstImage}"
+        alt="${product.name}"
+      >
+
+      <div class="productInfo">
+
+        <div class="productName">
+          ${product.name}
+        </div>
+
+        <div class="productCat">
+          ${product.category}
+        </div>
+
+        <div class="price">
+          ₹${product.price}
+        </div>
+
+        ${stockText}
+
+        <div class="productActions">
+
+          <button
+            class="buyBtn"
+            onclick="buyNowFromCard(${product.id})"
+          >
+            ⚡ Buy Now
+          </button>
+
+          <button
+            class="addBtn"
+            onclick="addFromCard(${product.id})"
+          >
+            🛒 Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    box.appendChild(card);
+
+  });
+
+}
+
   const box=
     document.getElementById("products");
 
