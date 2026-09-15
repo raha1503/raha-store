@@ -3634,6 +3634,18 @@ loadProductsFromAPI();
 
   showToast("✓ Cart cleared");
   }
+  function openCheckout() {
+
+  if (cart.length === 0) {
+    showToast("Your cart is empty");
+    return;
+  }
+
+  closeModal("cartModal");
+  openModal("checkoutModal");
+
+  }
+  
   function showToast(message) {
   const oldToast = document.getElementById("rahaToast");
   if (oldToast) oldToast.remove();
