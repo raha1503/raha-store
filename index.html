@@ -3,2869 +3,995 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RAHA - Your Everyday Shopping Destination</title>
+<title>RAHA | Your Everyday Shopping Destination</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:#f7f7f7;
-  color:#222;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080808;
+  color:#fff;
 }
 
-/* HEADER */
-
 header{
-  background:#080808;
-  color:#d4af37;
-  padding:18px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
   position:sticky;
   top:0;
   z-index:1000;
+  background:#050505;
+  border-bottom:1px solid #d4af37;
+}
+
+.nav{
+  max-width:1250px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
 .logo{
-  font-size:28px;
+  color:#d4af37;
+  font-size:30px;
   font-weight:bold;
-  letter-spacing:3px;
+  letter-spacing:5px;
 }
 
-.cart-btn{
+.search{
+  flex:1;
+}
+
+.search input{
+  width:100%;
+  padding:12px 18px;
+  border-radius:25px;
+  border:1px solid #444;
+  background:#151515;
+  color:#fff;
+  outline:none;
+}
+
+.cartBtn{
+  border:0;
   background:#d4af37;
   color:#000;
-  border:none;
-  padding:10px 16px;
-  border-radius:8px;
+  padding:12px 18px;
+  border-radius:25px;
   font-weight:bold;
   cursor:pointer;
 }
 
-/* HERO */
-
 .hero{
-  background:#111;
-  color:white;
   text-align:center;
-  padding:55px 20px;
+  padding:65px 20px;
+  background:linear-gradient(135deg,#070707,#1b1608);
 }
 
 .hero h1{
   color:#d4af37;
-  font-size:42px;
-  margin-bottom:10px;
+  font-size:52px;
+  letter-spacing:6px;
 }
 
 .hero p{
+  color:#ddd;
+  margin-top:10px;
   font-size:18px;
-  margin-bottom:25px;
 }
-
-.search-box{
-  max-width:600px;
-  margin:auto;
-}
-
-.search-box input{
-  width:100%;
-  padding:15px;
-  border-radius:8px;
-  border:none;
-  font-size:16px;
-}
-
-/* CATEGORIES */
 
 .categories{
+  max-width:1250px;
+  margin:25px auto;
+  padding:0 18px;
   display:flex;
   gap:10px;
   overflow-x:auto;
-  padding:20px;
-  background:white;
 }
 
-.categories button{
+.category{
   white-space:nowrap;
-  padding:10px 15px;
+  padding:10px 18px;
   border:1px solid #d4af37;
-  background:white;
-  border-radius:20px;
+  border-radius:25px;
+  color:#d4af37;
   cursor:pointer;
 }
 
-.categories button:hover{
+.category.active,
+.category:hover{
   background:#d4af37;
+  color:#000;
 }
 
-/* PRODUCTS */
+.title{
+  max-width:1250px;
+  margin:35px auto 15px;
+  padding:0 18px;
+  color:#d4af37;
+}
 
 .products{
+  max-width:1250px;
+  margin:auto;
+  padding:0 18px 40px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:20px;
-  padding:25px;
-  max-width:1200px;
-  margin:auto;
 }
 
 .product{
-  background:white;
-  border-radius:12px;
+  background:#121212;
+  border:1px solid #292929;
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.1);
-  cursor:pointer;
   transition:.2s;
 }
 
 .product:hover{
-  transform:translateY(-3px);
+  transform:translateY(-4px);
+  border-color:#d4af37;
 }
 
 .product img{
   width:100%;
-  height:240px;
+  height:230px;
   object-fit:cover;
+  cursor:pointer;
 }
 
-.product-info{
-  padding:15px;
+.info{
+  padding:14px;
 }
 
-.product-info h3{
-  margin-bottom:8px;
+.info h3{
+  font-size:16px;
+  margin-bottom:7px;
 }
 
 .price{
-  color:#b08a00;
+  color:#d4af37;
   font-size:20px;
   font-weight:bold;
-  margin-bottom:12px;
-}
-
-.add-btn{
-  width:100%;
-  padding:11px;
-  border:none;
-  background:#111;
-  color:#d4af37;
-  border-radius:7px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.add-btn:hover{
-  background:#d4af37;
-  color:#000;
-}
-
-/* PRODUCT DETAILS */
-
-.details-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.78);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:2500;
-  padding:15px;
-}
-
-.details-overlay.active{
-  display:flex;
-}
-
-.details-box{
-  background:white;
-  width:900px;
-  max-width:100%;
-  max-height:95vh;
-  overflow-y:auto;
-  border-radius:14px;
-  padding:25px;
-}
-
-.details-close{
-  float:right;
-  background:#111;
-  color:white;
-  border:none;
-  padding:8px 12px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.details-content{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-  margin-top:15px;
-}
-
-.details-image{
-  width:100%;
-  height:450px;
-  object-fit:cover;
-  border-radius:10px;
-  background:#f5f5f5;
-}
-
-.details-info h2{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.details-description{
-  line-height:1.6;
-  margin:15px 0;
-  color:#555;
-}
-
-.detail-label{
-  display:block;
-  font-weight:bold;
-  margin:15px 0 7px;
-}
-
-.details-info select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:7px;
-  font-size:15px;
 }
 
 .stock{
-  color:green;
-  font-weight:bold;
-  margin-top:15px;
+  color:#aaa;
+  font-size:13px;
+  margin:7px 0;
 }
 
-.details-add{
+.view{
   width:100%;
-  padding:14px;
-  margin-top:20px;
+  padding:11px;
   background:#d4af37;
   color:#000;
-  border:none;
+  border:0;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:rgba(0,0,0,.9);
+  overflow:auto;
+  padding:20px;
+}
+
+.modal{
+  max-width:720px;
+  margin:25px auto;
+  background:#111;
+  border:1px solid #d4af37;
+  border-radius:15px;
+  padding:20px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:16px;
+  top:8px;
+  font-size:30px;
+  color:#d4af37;
+  cursor:pointer;
+  z-index:5;
+}
+
+.detailImg{
+  width:100%;
+  height:390px;
+  object-fit:contain;
+  background:#080808;
+  border-radius:10px;
+}
+
+.modal h2{
+  color:#d4af37;
+  margin:15px 0 8px;
+}
+
+.modal p{
+  color:#ccc;
+}
+
+.optionBox{
+  margin-top:12px;
+}
+
+.optionBox label{
+  display:block;
+  margin-bottom:6px;
+  color:#ddd;
+}
+
+select,
+input,
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#181818;
+  color:#fff;
+}
+
+.fullBtn{
+  width:100%;
+  padding:13px;
+  margin-top:15px;
+  background:#d4af37;
+  color:#000;
+  border:0;
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  font-size:16px;
 }
 
-/* CART */
-
-.cart-panel{
-  position:fixed;
-  right:-450px;
-  top:0;
-  width:430px;
-  max-width:95%;
-  height:100%;
-  background:white;
-  z-index:2000;
-  box-shadow:-5px 0 20px rgba(0,0,0,.3);
-  padding:20px;
-  transition:.3s;
-  overflow-y:auto;
-}
-
-.cart-panel.active{
-  right:0;
-}
-
-.cart-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.close-btn{
-  background:#111;
-  color:white;
-  border:none;
-  padding:8px 12px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.cart-item{
-  border-bottom:1px solid #ddd;
-  padding:15px 0;
+.cartItem{
   display:flex;
   gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid #333;
 }
 
-.cart-item-image{
-  width:80px;
-  height:80px;
+.cartItem img{
+  width:78px;
+  height:78px;
   object-fit:cover;
   border-radius:8px;
-  flex-shrink:0;
-  background:#f5f5f5;
 }
 
-.cart-item-info{
+.cartInfo{
   flex:1;
 }
 
-.cart-item-name{
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.cart-item-option{
-  font-size:14px;
-  color:#666;
+.variant{
+  color:#aaa;
+  font-size:13px;
   margin-top:3px;
 }
 
-.cart-controls{
+.qty{
   display:flex;
   align-items:center;
-  gap:8px;
-  margin-top:9px;
-  flex-wrap:wrap;
+  gap:9px;
+  margin-top:8px;
 }
 
-.qty-btn{
-  border:none;
-  background:#111;
-  color:white;
+.qty button{
   width:28px;
   height:28px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.remove-btn{
-  border:none;
-  background:#c00;
-  color:white;
-  padding:5px 8px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.cart-total{
-  font-size:22px;
-  font-weight:bold;
-  margin:20px 0;
-}
-
-.checkout-btn{
-  width:100%;
-  padding:14px;
+  border:0;
   background:#d4af37;
   color:#000;
-  border:none;
-  border-radius:8px;
+  border-radius:5px;
   font-weight:bold;
   cursor:pointer;
 }
 
-/* CHECKOUT */
-
-.checkout-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:3000;
-  padding:15px;
+.remove{
+  color:#ff7777;
+  font-size:13px;
+  margin-top:5px;
+  cursor:pointer;
 }
 
-.checkout-overlay.active{
-  display:flex;
-}
-
-.checkout-box{
-  background:white;
-  width:600px;
-  max-width:100%;
-  max-height:95vh;
-  overflow-y:auto;
-  border-radius:12px;
-  padding:25px;
-}
-
-.checkout-box h2{
-  margin-bottom:20px;
-}
-
-.form-group{
-  margin-bottom:15px;
-}
-
-.form-group label{
-  display:block;
-  margin-bottom:6px;
+.total{
+  text-align:right;
+  color:#d4af37;
+  font-size:23px;
   font-weight:bold;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:7px;
-  font-size:15px;
-}
-
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.checkout-buttons{
-  display:flex;
-  gap:10px;
   margin-top:20px;
 }
 
-.checkout-buttons button{
-  flex:1;
-  padding:13px;
-  border:none;
-  border-radius:7px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.cancel-btn{
-  background:#ddd;
-}
-
-.whatsapp-btn{
-  background:#25D366;
-  color:white;
-}
-
-/* FOOTER */
-
 footer{
-  background:#080808;
-  color:white;
+  border-top:1px solid #333;
   text-align:center;
-  padding:25px;
-  margin-top:30px;
+  padding:30px;
+  color:#999;
 }
-
-footer span{
-  color:#d4af37;
-}
-
-/* MOBILE */
 
 @media(max-width:600px){
 
+  .nav{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    font-size:25px;
+  }
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
   .hero h1{
-    font-size:34px;
+    font-size:38px;
   }
 
   .products{
     grid-template-columns:repeat(2,1fr);
-    padding:12px;
     gap:12px;
+    padding:0 10px 30px;
   }
 
   .product img{
-    height:180px;
+    height:175px;
   }
 
-  .product-info{
+  .info{
     padding:10px;
   }
 
-  .product-info h3{
-    font-size:15px;
+  .info h3{
+    font-size:14px;
   }
 
   .price{
     font-size:17px;
   }
 
-  .cart-panel{
-    width:100%;
-    max-width:100%;
+  .detailImg{
+    height:280px;
   }
-
-  .details-content{
-    grid-template-columns:1fr;
-    gap:15px;
-  }
-
-  .details-image{
-    height:300px;
-  }
-
-  .details-info h2{
-    font-size:24px;
-  }
-
-  .checkout-buttons{
-    flex-direction:column;
-  }
-
 }
-
 </style>
 </head>
 
 <body>
 
-
-<!-- HEADER -->
-
 <header>
+<div class="nav">
 
-  <div class="logo">
-    RAHA
-  </div>
+<div class="logo">RAHA</div>
 
-  <button
-    class="cart-btn"
-    onclick="openCart()"
-  >
-    🛒 Cart (<span id="cartCount">0</span>)
-  </button>
+<div class="search">
+<input id="searchInput"
+       type="text"
+       placeholder="Search products..."
+       oninput="renderProducts()">
+</div>
 
+<button class="cartBtn" onclick="openCart()">
+🛒 Cart (<span id="cartCount">0</span>)
+</button>
+
+</div>
 </header>
 
 
-<!-- HERO -->
-
 <section class="hero">
-
-  <h1>RAHA</h1>
-
-  <p>
-    Your Everyday Shopping Destination
-  </p>
-
-  <div class="search-box">
-
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search products..."
-      onkeyup="searchProducts()"
-    >
-
-  </div>
-
+<h1>RAHA</h1>
+<p>Your Everyday Shopping Destination</p>
 </section>
 
 
-<!-- CATEGORIES -->
+<div class="categories" id="categories"></div>
 
-<div class="categories">
+<h2 class="title">Featured Products</h2>
 
-  <button onclick="filterProducts('All')">
-    All
-  </button>
-
-  <button onclick="filterProducts('Jewellery')">
-    Jewellery
-  </button>
-
-  <button onclick="filterProducts('Fashion')">
-    Fashion
-  </button>
-
-  <button onclick="filterProducts('Gifts')">
-    Gifts
-  </button>
-
-  <button onclick="filterProducts('Accessories')">
-    Accessories
-  </button>
-
-  <button onclick="filterProducts('Home & Lifestyle')">
-    Home & Lifestyle
-  </button>
-
-  <button onclick="filterProducts('Other Products')">
-    Other Products
-  </button>
-
-</div>
+<div class="products" id="products"></div>
 
 
-<!-- PRODUCTS -->
-
-<section
-  class="products"
-  id="products"
-></section>
+<footer>
+<p>© 2026 RAHA</p>
+<p style="margin-top:8px">
+Your Everyday Shopping Destination
+</p>
+<p style="margin-top:8px">
+🇮🇳 Delivery Across India
+</p>
+</footer>
 
 
 <!-- PRODUCT DETAILS -->
 
-<div
-  class="details-overlay"
-  id="detailsOverlay"
->
+<div class="overlay" id="productOverlay">
 
-  <div class="details-box">
+<div class="modal">
 
-    <button
-      class="details-close"
-      onclick="closeDetails()"
-    >
-      ✕
-    </button>
+<span class="close" onclick="closeProduct()">×</span>
 
-    <div id="detailsContent"></div>
+<img id="detailImage"
+     class="detailImg"
+     src=""
+     alt="Product">
 
-  </div>
+<h2 id="detailName"></h2>
 
+<p id="detailDescription"></p>
+
+<p class="price" id="detailPrice"></p>
+
+<p class="stock" id="detailStock"></p>
+
+
+<div class="optionBox" id="sizeBox">
+
+<label>Size</label>
+
+<select id="sizeSelect"></select>
+
+</div>
+
+
+<div class="optionBox" id="colorBox">
+
+<label>Colour</label>
+
+<select id="colorSelect"
+        onchange="changeColourImage()">
+</select>
+
+</div>
+
+
+<button class="fullBtn"
+        onclick="addToCart()">
+🛒 Add to Cart
+</button>
+
+</div>
 </div>
 
 
 <!-- CART -->
 
-<div
-  class="cart-panel"
-  id="cartPanel"
->
+<div class="overlay" id="cartOverlay">
 
-  <div class="cart-header">
+<div class="modal">
 
-    <h2>
-      🛒 Your Cart
-    </h2>
+<span class="close" onclick="closeCart()">×</span>
 
-    <button
-      class="close-btn"
-      onclick="closeCart()"
-    >
-      ✕
-    </button>
+<h2>🛒 Your Cart</h2>
 
-  </div>
+<div id="cartItems"></div>
 
-  <div id="cartItems"></div>
+<div class="total">
+Total: ₹<span id="cartTotal">0</span>
+</div>
 
-  <div class="cart-total">
+<button class="fullBtn"
+        onclick="openCheckout()">
+Proceed to Checkout
+</button>
 
-    Total: ₹<span id="cartTotal">0</span>
-
-  </div>
-
-  <button
-    class="checkout-btn"
-    onclick="openCheckout()"
-  >
-    Proceed to Checkout
-  </button>
-
+</div>
 </div>
 
 
 <!-- CHECKOUT -->
 
-<div
-  class="checkout-overlay"
-  id="checkoutOverlay"
->
+<div class="overlay" id="checkoutOverlay">
 
-  <div class="checkout-box">
+<div class="modal">
 
-    <h2>
-      📦 Delivery Details
-    </h2>
+<span class="close" onclick="closeCheckout()">×</span>
 
+<h2>Checkout</h2>
 
-    <div class="form-group">
+<label>Full Name *</label>
+<input id="customerName"
+       placeholder="Enter your full name">
 
-      <label>
-        Full Name
-      </label>
+<br><br>
 
-      <input
-        type="text"
-        id="customerName"
-        placeholder="Enter your full name"
-        required
-      >
+<label>Mobile Number *</label>
+<input id="customerPhone"
+       maxlength="10"
+       placeholder="10 digit mobile number">
 
-    </div>
+<br><br>
 
+<label>Full Address *</label>
+<textarea id="customerAddress"
+          rows="4"
+          placeholder="House number, street, area, city"></textarea>
 
-    <div class="form-group">
+<br>
 
-      <label>
-        Mobile Number
-      </label>
+<label>Pincode *</label>
+<input id="customerPincode"
+       maxlength="6"
+       placeholder="6 digit pincode">
 
-      <input
-        type="tel"
-        id="customerPhone"
-        placeholder="10-digit mobile number"
-        maxlength="10"
-        required
-      >
+<br><br>
 
-    </div>
+<label>State *</label>
+<select id="customerState"
+        onchange="loadDistricts()">
+</select>
 
+<br><br>
 
-    <div class="form-group">
+<label>District *</label>
+<select id="customerDistrict">
+<option value="">Select District</option>
+</select>
 
-      <label>
-        Full Delivery Address
-      </label>
+<button class="fullBtn"
+        onclick="sendWhatsAppOrder()">
+📱 Order on WhatsApp
+</button>
 
-      <textarea
-        id="customerAddress"
-        placeholder="House No, Street, Area"
-        required
-      ></textarea>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        State
-      </label>
-
-      <select
-        id="customerState"
-        onchange="loadDistricts()"
-        required
-      >
-
-        <option value="">
-          Select State / Union Territory
-        </option>
-
-        <option>Andhra Pradesh</option>
-        <option>Arunachal Pradesh</option>
-        <option>Assam</option>
-        <option>Bihar</option>
-        <option>Chhattisgarh</option>
-        <option>Goa</option>
-        <option>Gujarat</option>
-        <option>Haryana</option>
-        <option>Himachal Pradesh</option>
-        <option>Jharkhand</option>
-        <option>Karnataka</option>
-        <option>Kerala</option>
-        <option>Madhya Pradesh</option>
-        <option>Maharashtra</option>
-        <option>Manipur</option>
-        <option>Meghalaya</option>
-        <option>Mizoram</option>
-        <option>Nagaland</option>
-        <option>Odisha</option>
-        <option>Punjab</option>
-        <option>Rajasthan</option>
-        <option>Sikkim</option>
-        <option>Tamil Nadu</option>
-        <option>Telangana</option>
-        <option>Tripura</option>
-        <option>Uttar Pradesh</option>
-        <option>Uttarakhand</option>
-        <option>West Bengal</option>
-        <option>Andaman and Nicobar Islands</option>
-        <option>Chandigarh</option>
-        <option>Dadra and Nagar Haveli and Daman and Diu</option>
-        <option>Delhi</option>
-        <option>Jammu and Kashmir</option>
-        <option>Ladakh</option>
-        <option>Lakshadweep</option>
-        <option>Puducherry</option>
-
-      </select>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        District
-      </label>
-
-      <select
-        id="customerDistrict"
-        required
-      >
-
-        <option value="">
-          First select your State
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        Pincode
-      </label>
-
-      <input
-        type="text"
-        id="customerPincode"
-        placeholder="6-digit pincode"
-        maxlength="6"
-        required
-      >
-
-    </div>
-
-
-    <div class="checkout-buttons">
-
-      <button
-        class="cancel-btn"
-        onclick="closeCheckout()"
-      >
-        Cancel
-      </button>
-
-      <button
-        class="whatsapp-btn"
-        onclick="orderOnWhatsApp()"
-      >
-        📲 Order on WhatsApp
-      </button>
-
-    </div>
-
-  </div>
+<p style="font-size:13px;margin-top:12px;color:#999">
+UPI payment will be provided through WhatsApp after
+RAHA confirms your order.
+</p>
 
 </div>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-  <p>
-    © 2026 <span>RAHA</span> -
-    Your Everyday Shopping Destination
-  </p>
-
-</footer>
+</div>
 
 
 <script>
 
+/* ==================================
+   PRODUCT DATA
+   Each colour has its OWN IMAGE.
+================================== */
 
-/* =====================================
-   PRODUCT DATABASE
-===================================== */
+const products=[
 
-const products = [
+{
+id:1,
+name:"Elegant Gold Necklace",
+price:299,
+category:"Jewellery",
+stock:20,
+description:"Elegant necklace for everyday style.",
+sizes:[],
+colours:{
+"Gold":"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-  {
-    id:1,
+{
+id:2,
+name:"Classic Earrings",
+price:199,
+category:"Jewellery",
+stock:25,
+description:"Beautiful earrings for everyday and special occasions.",
+sizes:[],
+colours:{
+"Gold":"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    name:"Elegant Gold Jewellery",
+{
+id:3,
+name:"Fashion Bracelet",
+price:249,
+category:"Jewellery",
+stock:18,
+description:"Stylish bracelet with a premium look.",
+sizes:[],
+colours:{
+"Gold":"https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=900&q=85",
+"Rose Gold":"https://images.unsplash.com/photo-1619119069152-a2b331eb392a?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    price:299,
+{
+id:4,
+name:"Classic T-Shirt",
+price:499,
+category:"Fashion",
+stock:15,
+description:"Comfortable T-shirt for everyday wear.",
+sizes:["S","M","L","XL","XXL"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    category:"Jewellery",
+{
+id:5,
+name:"Casual Shirt",
+price:699,
+category:"Fashion",
+stock:12,
+description:"Smart casual shirt for everyday use.",
+sizes:["M","L","XL","XXL"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    description:
-      "Elegant jewellery designed for everyday styling and special occasions.",
+{
+id:6,
+name:"Comfort Hoodie",
+price:899,
+category:"Fashion",
+stock:10,
+description:"Warm and comfortable hoodie.",
+sizes:["M","L","XL","XXL"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85",
+"Grey":"https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    sizes:[
-      "Free Size"
-    ],
+{
+id:7,
+name:"Premium Gift Box",
+price:399,
+category:"Gifts",
+stock:10,
+description:"Beautiful gift box for special occasions.",
+sizes:[],
+colours:{
+"Red":"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=85",
+"Gold":"https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    colors:[
-      "Gold",
-      "Silver"
-    ],
+{
+id:8,
+name:"Cute Teddy Bear",
+price:599,
+category:"Gifts",
+stock:8,
+description:"Soft teddy bear perfect for gifting.",
+sizes:["Small","Medium","Large"],
+colours:{
+"Brown":"https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    stock:20,
+{
+id:9,
+name:"Decorative Photo Frame",
+price:299,
+category:"Gifts",
+stock:14,
+description:"Elegant frame for memorable moments.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?auto=format&fit=crop&w=900&q=85",
+"Gold":"https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1580137189272-c9379f8864fd?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    images:{
+{
+id:10,
+name:"Classic Wallet",
+price:349,
+category:"Accessories",
+stock:20,
+description:"Compact wallet with stylish design.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-      "Gold":
-        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=85",
+{
+id:11,
+name:"Premium Sunglasses",
+price:449,
+category:"Accessories",
+stock:16,
+description:"Modern sunglasses for everyday style.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-      "Silver":
-        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=85"
+{
+id:12,
+name:"Leather Belt",
+price:399,
+category:"Accessories",
+stock:18,
+description:"Classic belt with premium finish.",
+sizes:["28","30","32","34","36","38"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    }
+{
+id:13,
+name:"Decorative Table Lamp",
+price:799,
+category:"Home & Lifestyle",
+stock:7,
+description:"Beautiful lamp for home decoration.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-  },
+{
+id:14,
+name:"Decorative Cushion",
+price:299,
+category:"Home & Lifestyle",
+stock:20,
+description:"Soft cushion for your home.",
+sizes:[],
+colours:{
+"Red":"https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=900&q=85",
+"Grey":"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=85"
+}
+},
 
+{
+id:15,
+name:"Stainless Steel Bottle",
+price:399,
+category:"Home & Lifestyle",
+stock:25,
+description:"Reusable stainless steel water bottle.",
+sizes:["500ml","750ml","1L"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1625708458528-802ec79b1edc?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1598032895397-b9472444bf93?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-  {
-    id:2,
+{
+id:16,
+name:"Wireless Earbuds",
+price:799,
+category:"Electronics",
+stock:12,
+description:"Wireless earbuds with clear sound.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    name:"Classic T-Shirt",
+{
+id:17,
+name:"Smart Watch",
+price:1299,
+category:"Electronics",
+stock:9,
+description:"Modern smartwatch for everyday use.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1544117519-31a4b719223d?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    price:499,
+{
+id:18,
+name:"Power Bank",
+price:899,
+category:"Electronics",
+stock:13,
+description:"Portable power bank for your devices.",
+sizes:["10000mAh","20000mAh"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1609592424732-0c7c4e7d2b1c?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1609592424732-0c7c4e7d2b1c?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    category:"Fashion",
+{
+id:19,
+name:"Classic Sneakers",
+price:999,
+category:"Footwear",
+stock:10,
+description:"Comfortable sneakers for everyday wear.",
+sizes:["6","7","8","9","10"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",
+"White":"https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    description:
-      "Comfortable everyday T-shirt with a clean and modern style.",
+{
+id:20,
+name:"Casual Sandals",
+price:599,
+category:"Footwear",
+stock:15,
+description:"Comfortable sandals for daily use.",
+sizes:["6","7","8","9","10"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    sizes:[
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
+{
+id:21,
+name:"Everyday Slippers",
+price:299,
+category:"Footwear",
+stock:20,
+description:"Lightweight slippers for everyday comfort.",
+sizes:["6","7","8","9","10"],
+colours:{
+"Black":"https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=900&q=85",
+"Grey":"https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    colors:[
-      "Black",
-      "White",
-      "Blue"
-    ],
+{
+id:22,
+name:"Premium Perfume",
+price:699,
+category:"Beauty",
+stock:10,
+description:"Elegant fragrance for everyday use.",
+sizes:["50ml","100ml"],
+colours:{
+"Classic":"https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85",
+"Fresh":"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    stock:15,
+{
+id:23,
+name:"Beauty Makeup Kit",
+price:599,
+category:"Beauty",
+stock:8,
+description:"Compact beauty kit for everyday styling.",
+sizes:[],
+colours:{
+"Natural":"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
+"Classic":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    images:{
+{
+id:24,
+name:"Face Care Set",
+price:499,
+category:"Beauty",
+stock:12,
+description:"Simple daily face care set.",
+sizes:[],
+colours:{
+"Original":"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-      "Black":
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
+{
+id:25,
+name:"Stylish Handbag",
+price:799,
+category:"Bags",
+stock:8,
+description:"Stylish handbag suitable for everyday use.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-      "White":
-        "https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=900&q=85",
+{
+id:26,
+name:"College Backpack",
+price:899,
+category:"Bags",
+stock:12,
+description:"Spacious backpack for college and travel.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-      "Blue":
-        "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=900&q=85"
+{
+id:27,
+name:"Sling Bag",
+price:499,
+category:"Bags",
+stock:15,
+description:"Compact sling bag for daily use.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=85",
+"Cream":"https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-    }
+{
+id:28,
+name:"Classic Analog Watch",
+price:999,
+category:"Watches",
+stock:10,
+description:"Classic watch with elegant design.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85",
+"Brown":"https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-  },
+{
+id:29,
+name:"Sports Watch",
+price:799,
+category:"Watches",
+stock:14,
+description:"Sporty watch for active lifestyle.",
+sizes:[],
+colours:{
+"Black":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",
+"Blue":"https://images.unsplash.com/photo-1544117519-31a4b719223d?auto=format&fit=crop&w=900&q=85",
+"Red":"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85"
+}
+},
 
-
-  {
-    id:3,
-
-    name:"Premium Gift Box",
-
-    price:399,
-
-    category:"Gifts",
-
-    description:
-      "A stylish gift box suitable for birthdays, celebrations and special occasions.",
-
-    sizes:[
-      "Standard"
-    ],
-
-    colors:[
-      "Red",
-      "Gold"
-    ],
-
-    stock:10,
-
-    images:{
-
-      "Red":
-        "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=85",
-
-      "Gold":
-        "https://5.imimg.com/data5/AB/WY/MY-14108330/gift-boxes.jpg"
-
-    }
-
-  },
-
-
-  {
-    id:4,
-
-    name:"Stylish Handbag",
-
-    price:799,
-
-    category:"Accessories",
-
-    description:
-      "Stylish handbag designed for everyday use with a modern premium look.",
-
-    sizes:[
-      "Standard"
-    ],
-
-    colors:[
-      "Black",
-      "Brown"
-    ],
-
-    stock:12,
-
-    images:{
-
-      "Black":
-        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",
-
-      "Brown":
-        "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=85"
-
-    }
-
-  }
+{
+id:30,
+name:"Luxury Style Watch",
+price:1499,
+category:"Watches",
+stock:6,
+description:"Premium-looking watch for special occasions.",
+sizes:[],
+colours:{
+"Gold":"https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=85",
+"Silver":"https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=900&q=85",
+"Black":"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85"
+}
+}
 
 ];
 
 
-let cart = [];
-
-let selectedProduct = null;
-
-
-/* =====================================
-   DEFAULT PRODUCT IMAGE
-===================================== */
-
-function getProductImage(product){
-
-  return product.images[product.colors[0]];
-
-}
-
-
-/* =====================================
-   DISPLAY PRODUCTS
-===================================== */
-
-function displayProducts(list){
-
-  const container =
-    document.getElementById("products");
-
-  container.innerHTML = "";
-
-  list.forEach(product => {
-
-    container.innerHTML += `
-
-      <div
-        class="product"
-        onclick="openDetails(${product.id})"
-      >
-
-        <img
-          src="${getProductImage(product)}"
-          alt="${product.name}"
-        >
-
-        <div class="product-info">
-
-          <h3>
-            ${product.name}
-          </h3>
-
-          <div class="price">
-            ₹${product.price}
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="event.stopPropagation(); addToCart(${product.id})"
-          >
-            Add to Cart 🛒
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =====================================
-   OPEN PRODUCT DETAILS
-===================================== */
-
-function openDetails(id){
-
-  selectedProduct =
-    products.find(
-      product => product.id === id
-    );
-
-  if(!selectedProduct){
-    return;
-  }
-
-  const sizeOptions =
-    selectedProduct.sizes
-      .map(size =>
-        `<option value="${size}">
-          ${size}
-        </option>`
-      )
-      .join("");
-
-
-  const colorOptions =
-    selectedProduct.colors
-      .map(color =>
-        `<option value="${color}">
-          ${color}
-        </option>`
-      )
-      .join("");
-
-
-  const firstColor =
-    selectedProduct.colors[0];
-
-
-  document.getElementById(
-    "detailsContent"
-  ).innerHTML = `
-
-    <div class="details-content">
-
-      <div>
-
-        <img
-          id="detailsImage"
-          class="details-image"
-          src="${selectedProduct.images[firstColor]}"
-          alt="${selectedProduct.name}"
-        >
-
-      </div>
-
-
-      <div class="details-info">
-
-        <h2>
-          ${selectedProduct.name}
-        </h2>
-
-        <div class="price">
-          ₹${selectedProduct.price}
-        </div>
-
-
-        <p class="details-description">
-          ${selectedProduct.description}
-        </p>
-
-
-        <label class="detail-label">
-          Size
-        </label>
-
-        <select id="selectedSize">
-
-          ${sizeOptions}
-
-        </select>
-
-
-        <label class="detail-label">
-          Colour
-        </label>
-
-        <select
-          id="selectedColor"
-          onchange="changeProductColor()"
-        >
-
-          ${colorOptions}
-
-        </select>
-
-
-        <div class="stock">
-
-          ✓ ${selectedProduct.stock}
-          items available
-
-        </div>
-
-
-        <button
-          class="details-add"
-          onclick="addDetailedProductToCart()"
-        >
-
-          🛒 Add to Cart
-
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  document.getElementById(
-    "detailsOverlay"
-  ).classList.add("active");
-
-}
-
-
-/* =====================================
-   CHANGE PRODUCT IMAGE BY COLOR
-===================================== */
-
-function changeProductColor(){
-
-  if(!selectedProduct){
-    return;
-  }
-
-  const color =
-    document.getElementById(
-      "selectedColor"
-    ).value;
-
-
-  const image =
-    selectedProduct.images[color];
-
-
-  if(image){
-
-    document.getElementById(
-      "detailsImage"
-    ).src = image;
-
-  }
-
-}
-
-
-/* =====================================
-   CLOSE PRODUCT DETAILS
-===================================== */
-
-function closeDetails(){
-
-  document.getElementById(
-    "detailsOverlay"
-  ).classList.remove("active");
-
-  selectedProduct = null;
-
-}
-
-
-/* =====================================
-   ADD DETAILED PRODUCT
-===================================== */
-
-function addDetailedProductToCart(){
-
-  if(!selectedProduct){
-    return;
-  }
-
-
-  const size =
-    document.getElementById(
-      "selectedSize"
-    ).value;
-
-
-  const color =
-    document.getElementById(
-      "selectedColor"
-    ).value;
-
-
-  const image =
-    selectedProduct.images[color];
-
-
-  const existing =
-    cart.find(item =>
-      item.id === selectedProduct.id &&
-      item.size === size &&
-      item.color === color
-    );
-
-
-  if(existing){
-
-    existing.quantity++;
-
-  }else{
-
-    cart.push({
-
-      id:selectedProduct.id,
-
-      name:selectedProduct.name,
-
-      price:selectedProduct.price,
-
-      category:selectedProduct.category,
-
-      size:size,
-
-      color:color,
-
-      image:image,
-
-      quantity:1
-
-    });
-
-  }
-
-
-  updateCartCount();
-
-  closeDetails();
-
-  alert("Added to Cart 🛒");
-
-}
-
-
-/* =====================================
-   QUICK ADD TO CART
-===================================== */
-
-function addToCart(id){
-
-  const product =
-    products.find(
-      item => item.id === id
-    );
-
-
-  if(!product){
-    return;
-  }
-
-
-  const size =
-    product.sizes[0];
-
-
-  const color =
-    product.colors[0];
-
-
-  const image =
-    product.images[color];
-
-
-  const existing =
-    cart.find(item =>
-      item.id === id &&
-      item.size === size &&
-      item.color === color
-    );
-
-
-  if(existing){
-
-    existing.quantity++;
-
-  }else{
-
-    cart.push({
-
-      id:product.id,
-
-      name:product.name,
-
-      price:product.price,
-
-      category:product.category,
-
-      size:size,
-
-      color:color,
-
-      image:image,
-
-      quantity:1
-
-    });
-
-  }
-
-
-  updateCartCount();
-
-  alert("Added to Cart 🛒");
-
-}
-
-
-/* =====================================
-   CART COUNT
-===================================== */
-
-function updateCartCount(){
-
-  const count =
-    cart.reduce(
-      (total,item) =>
-        total + item.quantity,
-      0
-    );
-
-
-  document.getElementById(
-    "cartCount"
-  ).textContent = count;
-
-}
-
-
-/* =====================================
-   OPEN CART
-===================================== */
-
-function openCart(){
-
-  document.getElementById(
-    "cartPanel"
-  ).classList.add("active");
-
-
-  renderCart();
-
-}
-
-
-/* =====================================
-   CLOSE CART
-===================================== */
-
-function closeCart(){
-
-  document.getElementById(
-    "cartPanel"
-  ).classList.remove("active");
-
-}
-
-
-/* =====================================
-   RENDER CART
-===================================== */
-
-function renderCart(){
-
-  const container =
-    document.getElementById(
-      "cartItems"
-    );
-
-
-  container.innerHTML = "";
-
-
-  if(cart.length === 0){
-
-    container.innerHTML =
-      "<p>Your cart is empty.</p>";
-
-    document.getElementById(
-      "cartTotal"
-    ).textContent = "0";
-
-    return;
-
-  }
-
-
-  cart.forEach(
-    (item,index) => {
-
-      const subtotal =
-        item.price *
-        item.quantity;
-
-
-      container.innerHTML += `
-
-        <div class="cart-item">
-
-          <img
-            class="cart-item-image"
-            src="${item.image}"
-            alt="${item.name}"
-          >
-
-
-          <div class="cart-item-info">
-
-            <div class="cart-item-name">
-              ${item.name}
-            </div>
-
-            <div>
-              ₹${item.price}
-            </div>
-
-            <div class="cart-item-option">
-              Size: ${item.size}
-            </div>
-
-            <div class="cart-item-option">
-              Colour: ${item.color}
-            </div>
-
-            <div class="cart-item-option">
-              Subtotal: ₹${subtotal}
-            </div>
-
-
-            <div class="cart-controls">
-
-              <button
-                class="qty-btn"
-                onclick="changeQuantity(${index},-1)"
-              >
-                −
-              </button>
-
-              <span>
-                ${item.quantity}
-              </span>
-
-              <button
-                class="qty-btn"
-                onclick="changeQuantity(${index},1)"
-              >
-                +
-              </button>
-
-              <button
-                class="remove-btn"
-                onclick="removeFromCart(${index})"
-              >
-                Remove
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  document.getElementById(
-    "cartTotal"
-  ).textContent =
-    getCartTotal();
-
-}
-
-
-/* =====================================
-   CHANGE QUANTITY
-===================================== */
-
-function changeQuantity(index,change){
-
-  if(!cart[index]){
-    return;
-  }
-
-
-  cart[index].quantity += change;
-
-
-  if(cart[index].quantity <= 0){
-
-    cart.splice(index,1);
-
-  }
-
-
-  updateCartCount();
-
-  renderCart();
-
-}
-
-
-/* =====================================
-   REMOVE ITEM
-===================================== */
-
-function removeFromCart(index){
-
-  cart.splice(index,1);
-
-  updateCartCount();
-
-  renderCart();
-
-}
-
-
-/* =====================================
-   CART TOTAL
-===================================== */
-
-function getCartTotal(){
-
-  return cart.reduce(
-    (total,item) =>
-      total +
-      item.price *
-      item.quantity,
-    0
-  );
-
-}
-
-
-/* =====================================
-   CHECKOUT
-===================================== */
-
-function openCheckout(){
-
-  if(cart.length === 0){
-
-    alert("Your cart is empty.");
-
-    return;
-
-  }
-
-
-  document.getElementById(
-    "checkoutOverlay"
-  ).classList.add("active");
-
-}
-
-
-function closeCheckout(){
-
-  document.getElementById(
-    "checkoutOverlay"
-  ).classList.remove("active");
-
-}
-
-
-/* =====================================
-   DISTRICTS
-===================================== */
-
-const districts = {
-
-"Andhra Pradesh":[
-"Alluri Sitharama Raju",
-"Anakapalli",
-"Ananthapuramu",
-"Annamayya",
-"Bapatla",
-"Chittoor",
-"Dr. B. R. Ambedkar Konaseema",
-"East Godavari",
-"Eluru",
-"Guntur",
-"Kakinada",
-"Krishna",
-"Kurnool",
-"Nandyal",
-"NTR",
-"Palnadu",
-"Parvathipuram Manyam",
-"Prakasam",
-"Sri Potti Sriramulu Nellore",
-"Sri Sathya Sai",
-"Srikakulam",
-"Tirupati",
-"Visakhapatnam",
-"Vizianagaram",
-"West Godavari",
-"YSR Kadapa"
-],
-
-"Arunachal Pradesh":[
-"Anjaw",
-"Changlang",
-"East Kameng",
-"East Siang",
-"Itanagar Capital Complex",
-"Kamle",
-"Kra Daadi",
-"Kurung Kumey",
-"Lepa Rada",
-"Lohit",
-"Longding",
-"Lower Dibang Valley",
-"Lower Siang",
-"Lower Subansiri",
-"Namsai",
-"Pakke Kessang",
-"Papum Pare",
-"Shi Yomi",
-"Siang",
-"Tawang",
-"Tirap",
-"Upper Dibang Valley",
-"Upper Siang",
-"Upper Subansiri",
-"West Kameng",
-"West Siang"
-],
-
-"Assam":[
-"Baksa",
-"Barpeta",
-"Biswanath",
-"Bongaigaon",
-"Charaideo",
-"Darrang",
-"Dhemaji",
-"Dhubri",
-"Dibrugarh",
-"Dima Hasao",
-"Goalpara",
-"Golaghat",
-"Hailakandi",
-"Hojai",
-"Jorhat",
-"Kamrup",
-"Kamrup Metropolitan",
-"Karbi Anglong",
-"Karimganj",
-"Kokrajhar",
-"Lakhimpur",
-"Majuli",
-"Morigaon",
-"Nagaon",
-"Nalbari",
-"Sivasagar",
-"Sonitpur",
-"South Salmara-Mankachar",
-"Tinsukia",
-"Udalguri",
-"West Karbi Anglong"
-],
-
-"Bihar":[
-"Araria",
-"Arwal",
-"Aurangabad",
-"Banka",
-"Begusarai",
-"Bhagalpur",
-"Bhojpur",
-"Buxar",
-"Darbhanga",
-"East Champaran",
-"Gaya",
-"Gopalganj",
-"Jamui",
-"Jehanabad",
-"Kaimur",
-"Katihar",
-"Khagaria",
-"Kishanganj",
-"Lakhisarai",
-"Madhubani",
-"Madhepura",
-"Munger",
-"Muzaffarpur",
-"Nalanda",
-"Nawada",
-"Patna",
-"Purnia",
-"Rohtas",
-"Saharsa",
-"Samastipur",
-"Saran",
-"Sheikhpura",
-"Sheohar",
-"Sitamarhi",
-"Siwan",
-"Supaul",
-"Vaishali",
-"West Champaran"
-],
-
-"Chhattisgarh":[
-"Balod",
-"Baloda Bazar",
-"Balrampur",
-"Bastar",
-"Bemetara",
-"Bijapur",
-"Bilaspur",
-"Dantewada",
-"Dhamtari",
-"Durg",
-"Gariaband",
-"Gaurela-Pendra-Marwahi",
-"Janjgir-Champa",
-"Jashpur",
-"Kanker",
-"Kabirdham",
-"Kondagaon",
-"Korba",
-"Koriya",
-"Mahasamund",
-"Manendragarh-Chirmiri-Bharatpur",
-"Mohla-Manpur-Ambagarh Chowki",
-"Mungeli",
-"Narayanpur",
-"Raigarh",
-"Raipur",
-"Rajnandgaon",
-"Sarangarh-Bilaigarh",
-"Sukma",
-"Surajpur",
-"Surguja"
-],
-
-"Goa":[
-"North Goa",
-"South Goa"
-],
-
-"Gujarat":[
-"Ahmedabad",
-"Amreli",
-"Anand",
-"Aravalli",
-"Banaskantha",
-"Bharuch",
-"Bhavnagar",
-"Botad",
-"Chhota Udaipur",
-"Dahod",
-"Dang",
-"Devbhoomi Dwarka",
-"Gandhinagar",
-"Gir Somnath",
-"Jamnagar",
-"Junagadh",
-"Kheda",
-"Kutch",
-"Mahisagar",
-"Mehsana",
-"Morbi",
-"Narmada",
-"Navsari",
-"Panchmahal",
-"Patan",
-"Porbandar",
-"Rajkot",
-"Sabarkantha",
-"Surat",
-"Surendranagar",
-"Tapi",
-"Vadodara",
-"Valsad"
-],
-
-"Haryana":[
-"Ambala",
-"Charkhi Dadri",
-"Faridabad",
-"Fatehabad",
-"Gurugram",
-"Hisar",
-"Jhajjar",
-"Jind",
-"Kaithal",
-"Karnal",
-"Kurukshetra",
-"Mahendragarh",
-"Nuh",
-"Palwal",
-"Panchkula",
-"Panipat",
-"Rewari",
-"Rohtak",
-"Sirsa",
-"Sonipat",
-"Yamunanagar"
-],
-
-"Himachal Pradesh":[
-"Bilaspur",
-"Chamba",
-"Hamirpur",
-"Kangra",
-"Kinnaur",
-"Kullu",
-"Lahaul and Spiti",
-"Mandi",
-"Shimla",
-"Sirmaur",
-"Solan",
-"Una"
-],
-
-"Jharkhand":[
-"Bokaro",
-"Chatra",
-"Deoghar",
-"Dhanbad",
-"Dumka",
-"East Singhbhum",
-"Garhwa",
-"Giridih",
-"Godda",
-"Gumla",
-"Hazaribagh",
-"Jamtara",
-"Khunti",
-"Koderma",
-"Latehar",
-"Lohardaga",
-"Pakur",
-"Palamu",
-"Ramgarh",
-"Ranchi",
-"Sahibganj",
-"Saraikela Kharsawan",
-"Simdega",
-"West Singhbhum"
-],
-
-"Karnataka":[
-"Bagalkot",
-"Bangalore Rural",
-"Bangalore Urban",
-"Belagavi",
-"Ballari",
-"Bidar",
-"Chamarajanagar",
-"Chikkaballapur",
-"Chikkamagaluru",
-"Chitradurga",
-"Dakshina Kannada",
-"Davangere",
-"Dharwad",
-"Gadag",
-"Kalaburagi",
-"Hassan",
-"Haveri",
-"Kodagu",
-"Kolar",
-"Koppal",
-"Mandya",
-"Mysuru",
-"Raichur",
-"Ramanagara",
-"Shivamogga",
-"Tumakuru",
-"Udupi",
-"Uttara Kannada",
-"Vijayapura",
-"Yadgir"
-],
-
-"Kerala":[
-"Alappuzha",
-"Ernakulam",
-"Idukki",
-"Kannur",
-"Kasaragod",
-"Kollam",
-"Kottayam",
-"Kozhikode",
-"Malappuram",
-"Palakkad",
-"Pathanamthitta",
-"Thiruvananthapuram",
-"Thrissur",
-"Wayanad"
-],
-
-"Madhya Pradesh":[
-"Agar Malwa",
-"Alirajpur",
-"Anuppur",
-"Ashoknagar",
-"Balaghat",
-"Barwani",
-"Betul",
-"Bhind",
-"Bhopal",
-"Burhanpur",
-"Chhatarpur",
-"Chhindwara",
-"Damoh",
-"Datia",
-"Dewas",
-"Dhar",
-"Dindori",
-"Guna",
-"Gwalior",
-"Harda",
-"Indore",
-"Jabalpur",
-"Jhabua",
-"Katni",
-"Khandwa",
-"Khargone",
-"Mandla",
-"Mandsaur",
-"Morena",
-"Narmadapuram",
-"Narsinghpur",
-"Neemuch",
-"Panna",
-"Raisen",
-"Rajgarh",
-"Ratlam",
-"Rewa",
-"Sagar",
-"Satna",
-"Sehore",
-"Seoni",
-"Shahdol",
-"Shajapur",
-"Sheopur",
-"Shivpuri",
-"Sidhi",
-"Singrauli",
-"Tikamgarh",
-"Ujjain",
-"Umaria",
-"Vidisha"
-],
-
-"Maharashtra":[
-"Ahmednagar",
-"Akola",
-"Amravati",
-"Aurangabad",
-"Beed",
-"Bhandara",
-"Buldhana",
-"Chandrapur",
-"Dhule",
-"Gadchiroli",
-"Gondia",
-"Hingoli",
-"Jalgaon",
-"Jalna",
-"Kolhapur",
-"Latur",
-"Mumbai City",
-"Mumbai Suburban",
-"Nagpur",
-"Nanded",
-"Nandurbar",
-"Nashik",
-"Osmanabad",
-"Palghar",
-"Parbhani",
-"Pune",
-"Raigad",
-"Ratnagiri",
-"Sangli",
-"Satara",
-"Sindhudurg",
-"Solapur",
-"Thane",
-"Wardha",
-"Washim",
-"Yavatmal"
-],
-
-"Manipur":[
-"Bishnupur",
-"Chandel",
-"Churachandpur",
-"Imphal East",
-"Imphal West",
-"Jiribam",
-"Kakching",
-"Kamjong",
-"Kangpokpi",
-"Noney",
-"Pherzawl",
-"Senapati",
-"Tamenglong",
-"Tengnoupal",
-"Thoubal",
-"Ukhrul"
-],
-
-"Meghalaya":[
-"East Garo Hills",
-"East Jaintia Hills",
-"East Khasi Hills",
-"North Garo Hills",
-"Ri-Bhoi",
-"South Garo Hills",
-"South West Garo Hills",
-"South West Khasi Hills",
-"West Garo Hills",
-"West Jaintia Hills",
-"West Khasi Hills"
-],
-
-"Mizoram":[
-"Aizawl",
-"Champhai",
-"Hnahthial",
-"Khawzawl",
-"Kolasib",
-"Lawngtlai",
-"Lunglei",
-"Mamit",
-"Saitual",
-"Serchhip"
-],
-
-"Nagaland":[
-"Chumoukedima",
-"Dimapur",
-"Kiphire",
-"Kohima",
-"Longleng",
-"Mokokchung",
-"Mon",
-"Niuland",
-"Noklak",
-"Peren",
-"Shamator",
-"Tuensang",
-"Wokha",
-"Zunheboto"
-],
-
-"Odisha":[
-"Angul",
-"Balangir",
-"Balasore",
-"Bargarh",
-"Bhadrak",
-"Boudh",
-"Cuttack",
-"Deogarh",
-"Dhenkanal",
-"Gajapati",
-"Ganjam",
-"Jagatsinghpur",
-"Jajpur",
-"Jharsuguda",
-"Kalahandi",
-"Kandhamal",
-"Kendrapara",
-"Kendujhar",
-"Khordha",
-"Koraput",
-"Malkangiri",
-"Mayurbhanj",
-"Nabarangpur",
-"Nayagarh",
-"Nuapada",
-"Puri",
-"Rayagada",
-"Sambalpur",
-"Subarnapur",
-"Sundargarh"
-],
-
-"Punjab":[
-"Amritsar",
-"Barnala",
-"Bathinda",
-"Faridkot",
-"Fatehgarh Sahib",
-"Fazilka",
-"Ferozepur",
-"Gurdaspur",
-"Hoshiarpur",
-"Jalandhar",
-"Kapurthala",
-"Ludhiana",
-"Malerkotla",
-"Mansa",
-"Moga",
-"Muktsar",
-"Nawanshahr",
-"Pathankot",
-"Patiala",
-"Rupnagar",
-"Sangrur",
-"Tarn Taran"
-],
-
-"Rajasthan":[
-"Ajmer",
-"Alwar",
-"Anupgarh",
-"Balotra",
-"Banswara",
-"Baran",
-"Barmer",
-"Beawar",
-"Bharatpur",
-"Bhilwara",
-"Bikaner",
-"Bundi",
-"Chittorgarh",
-"Churu",
-"Dausa",
-"Deeg",
-"Dholpur",
-"Didwana-Kuchamana",
-"Dungarpur",
-"Hanumangarh",
-"Jaipur",
-"Jaisalmer",
-"Jalore",
-"Jhalawar",
-"Jhunjhunu",
-"Jodhpur",
-"Karauli",
-"Kota",
-"Khairthal-Tijara",
-"Nagaur",
-"Pali",
-"Phalodi",
-"Pratapgarh",
-"Rajsamand",
-"Salumbar",
-"Sawai Madhopur",
-"Sikar",
-"Sirohi",
-"Sri Ganganagar",
-"Tonk",
-"Udaipur"
-],
-
-"Sikkim":[
-"East Sikkim",
-"North Sikkim",
-"South Sikkim",
-"West Sikkim"
-],
-
-"Tamil Nadu":[
-"Ariyalur",
-"Chengalpattu",
-"Chennai",
-"Coimbatore",
-"Cuddalore",
-"Dharmapuri",
-"Dindigul",
-"Erode",
-"Kallakurichi",
-"Kancheepuram",
-"Karur",
-"Krishnagiri",
-"Madurai",
-"Mayiladuthurai",
-"Nagapattinam",
-"Namakkal",
-"Nilgiris",
-"Perambalur",
-"Pudukkottai",
-"Ramanathapuram",
-"Ranipet",
-"Salem",
-"Sivaganga",
-"Tenkasi",
-"Thanjavur",
-"Theni",
-"Thoothukudi",
-"Tiruchirappalli",
-"Tirunelveli",
-"Tirupathur",
-"Tiruppur",
-"Tiruvallur",
-"Tiruvarur",
-"Tiruvannamalai",
-"Vellore",
-"Viluppuram",
-"Virudhunagar"
-],
-
-"Telangana":[
-"Adilabad",
-"Bhadradri Kothagudem",
-"Hanamkonda",
-"Hyderabad",
-"Jagtial",
-"Jangaon",
-"Jayashankar Bhupalpally",
-"Jogulamba Gadwal",
-"Kamareddy",
-"Karimnagar",
-"Khammam",
-"Komaram Bheem",
-"Mahabubabad",
-"Mahbubnagar",
-"Mancherial",
-"Medak",
-"Medchal-Malkajgiri",
-"Mulugu",
-"Nagarkurnool",
-"Nalgonda",
-"Narayanpet",
-"Nirmal",
-"Nizamabad",
-"Peddapalli",
-"Rajanna Sircilla",
-"Rangareddy",
-"Sangareddy",
-"Siddipet",
-"Suryapet",
-"Vikarabad",
-"Wanaparthy",
-"Warangal",
-"Yadadri Bhuvanagiri"
-],
-
-"Tripura":[
-"Dhalai",
-"Gomati",
-"Khowai",
-"North Tripura",
-"Sepahijala",
-"South Tripura",
-"Unakoti",
-"West Tripura"
-],
-
-"Uttar Pradesh":[
-"Agra",
-"Aligarh",
-"Ambedkar Nagar",
-"Amethi",
-"Amroha",
-"Auraiya",
-"Azamgarh",
-"Baghpat",
-"Bahraich",
-"Ballia",
-"Balrampur",
-"Banda",
-"Barabanki",
-"Bareilly",
-"Basti",
-"Bijnor",
-"Budaun",
-"Bulandshahr",
-"Chandauli",
-"Chitrakoot",
-"Deoria",
-"Etah",
-"Etawah",
-"Farrukhabad",
-"Fatehpur",
-"Firozabad",
-"Gautam Buddha Nagar",
-"Ghaziabad",
-"Ghazipur",
-"Gonda",
-"Gorakhpur",
-"Hapur",
-"Hardoi",
-"Hathras",
-"Jalaun",
-"Jaunpur",
-"Jhansi",
-"Kannauj",
-"Kanpur Dehat",
-"Kanpur Nagar",
-"Kasganj",
-"Kaushambi",
-"Kushinagar",
-"Lakhimpur Kheri",
-"Lalitpur",
-"Lucknow",
-"Maharajganj",
-"Mahoba",
-"Mainpuri",
-"Mathura",
-"Mau",
-"Meerut",
-"Mirzapur",
-"Moradabad",
-"Muzaffarnagar",
-"Pilibhit",
-"Pratapgarh",
-"Prayagraj",
-"Raebareli",
-"Rampur",
-"Saharanpur",
-"Sambhal",
-"Shahjahanpur",
-"Shamli",
-"Shravasti",
-"Siddharthnagar",
-"Sitapur",
-"Sonbhadra",
-"Sultanpur",
-"Unnao",
-"Varanasi"
-],
-
-"Uttarakhand":[
-"Almora",
-"Bageshwar",
-"Chamoli",
-"Champawat",
-"Dehradun",
-"Haridwar",
-"Nainital",
-"Pauri Garhwal",
-"Pithoragarh",
-"Rudraprayag",
-"Tehri Garhwal",
-"Udham Singh Nagar",
-"Uttarkashi"
-],
-
-"West Bengal":[
-"Alipurduar",
-"Bankura",
-"Birbhum",
-"Cooch Behar",
-"Darjeeling",
-"Hooghly",
-"Howrah",
-"Jalpaiguri",
-"Jhargram",
-"Kalimpong",
-"Kolkata",
-"Malda",
-"Murshidabad",
-"Nadia",
-"North 24 Parganas",
-"Paschim Bardhaman",
-"Paschim Medinipur",
-"Purba Bardhaman",
-"Purba Medinipur",
-"South 24 Parganas",
-"Uttar Dinajpur",
-"Dakshin Dinajpur"
-],
-
-"Andaman and Nicobar Islands":[
-"Nicobar",
-"North and Middle Andaman",
-"South Andaman"
-],
-
-"Chandigarh":[
-"Chandigarh"
-],
-
-"Dadra and Nagar Haveli and Daman and Diu":[
-"Dadra and Nagar Haveli",
-"Daman",
-"Diu"
-],
-
-"Delhi":[
-"Central Delhi",
-"East Delhi",
-"New Delhi",
-"North Delhi",
-"North East Delhi",
-"North West Delhi",
-"Shahdara",
-"South Delhi",
-"South East Delhi",
-"South West Delhi",
-"West Delhi"
-],
-
-"Jammu and Kashmir":[
-"Anantnag",
-"Bandipora",
-"Baramulla",
-"Budgam",
-"Doda",
-"Ganderbal",
-"Jammu",
-"Kathua",
-"Kishtwar",
-"Kulgam",
-"Kupwara",
-"Pulwama",
-"Rajouri",
-"Ramban",
-"Reasi",
-"Samba",
-"Shopian",
-"Srinagar",
-"Udhampur"
-],
-
-"Ladakh":[
-"Kargil",
-"Leh"
-],
-
-"Lakshadweep":[
-"Agatti",
-"Amini",
-"Andrott",
-"Bitra",
-"Chettlat",
-"Kadmat",
-"Kalpeni",
-"Kavaratti",
-"Kilthan",
-"Minicoy"
-],
-
-"Puducherry":[
-"Karaikal",
-"Mahe",
-"Puducherry",
-"Yanam"
-]
-
-};
-
-
-/* =====================================
-   LOAD DISTRICTS
-===================================== */
-
-function loadDistricts(){
-
-  const state =
-    document.getElementById(
-      "customerState"
-    ).value;
-
-
-  const districtSelect =
-    document.getElementById(
-      "customerDistrict"
-    );
-
-
-  districtSelect.innerHTML =
-    '<option value="">Select District</option>';
-
-
-  if(!state){
-    return;
-  }
-
-
-  const list =
-    districts[state] || [];
-
-
-  list.forEach(district => {
-
-    const option =
-      document.createElement("option");
-
-
-    option.value =
-      district;
-
-
-    option.textContent =
-      district;
-
-
-    districtSelect.appendChild(
-      option
-    );
-
-  });
-
-}
-
-
-/* =====================================
-   WHATSAPP ORDER
-===================================== */
-
-function orderOnWhatsApp(){
-
-  if(cart.length === 0){
-
-    alert("Your cart is empty.");
-
-    return;
-
-  }
-
-
-  const name =
-    document.getElementById(
-      "customerName"
-    ).value.trim();
-
-
-  const phone =
-    document.getElementById(
-      "customerPhone"
-    ).value.trim();
-
-
-  const address =
-    document.getElementById(
-      "customerAddress"
-    ).value.trim();
-
-
-  const state =
-    document.getElementById(
-      "customerState"
-    ).value;
-
-
-  const district =
-    document.getElementById(
-      "customerDistrict"
-    ).value;
-
-
-  const pincode =
-    document.getElementById(
-      "customerPincode"
-    ).value.trim();
-
-
-  if(
-    !name ||
-    !phone ||
-    !address ||
-    !state ||
-    !district ||
-    !pincode
-  ){
-
-    alert(
-      "Please fill all delivery details."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^[0-9]{10}$/.test(phone)
-  ){
-
-    alert(
-      "Please enter a valid 10-digit mobile number."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^[0-9]{6}$/.test(pincode)
-  ){
-
-    alert(
-      "Please enter a valid 6-digit pincode."
-    );
-
-    return;
-
-  }
-
-
-  let message =
-    "🛍️ *RAHA NEW ORDER*%0A%0A";
-
-
-  message +=
-    "*CUSTOMER DETAILS*%0A";
-
-
-  message +=
-    "Name: " +
-    encodeURIComponent(name) +
-    "%0A";
-
-
-  message +=
-    "Mobile: " +
-    encodeURIComponent(phone) +
-    "%0A";
-
-
-  message +=
-    "Address: " +
-    encodeURIComponent(address) +
-    "%0A";
-
-
-  message +=
-    "District: " +
-    encodeURIComponent(district) +
-    "%0A";
-
-
-  message +=
-    "State: " +
-    encodeURIComponent(state) +
-    "%0A";
-
-
-  message +=
-    "Pincode: " +
-    encodeURIComponent(pincode) +
-    "%0A%0A";
-
-
-  message +=
-    "*ORDER ITEMS*%0A";
-
-
-  cart.forEach(item => {
-
-    const subtotal =
-      item.price *
-      item.quantity;
-
-
-    message +=
-      "• " +
-      encodeURIComponent(item.name) +
-      " × " +
-      item.quantity +
-      " | Size: " +
-      encodeURIComponent(item.size) +
-      " | Colour: " +
-      encodeURIComponent(item.color) +
-      " = ₹" +
-      subtotal +
-      "%0A";
-
-  });
-
-
-  message +=
-    "%0A*TOTAL: ₹" +
-    getCartTotal() +
-    "*%0A%0A";
-
-
-  message +=
-    "Payment: UPI after WhatsApp confirmation";
-
-
-  const whatsappNumber =
-    "918903188257";
-
-
-  const url =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    message;
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-
-}
-
-
-/* =====================================
-   SEARCH
-===================================== */
-
-function searchProducts(){
-
-  const search =
-    document.getElementById(
-      "searchInput"
-    ).value.toLowerCase();
-
-
-  const filtered =
-    products.filter(product =>
-      product.name
-        .toLowerCase()
-        .includes(search)
-    );
-
-
-  displayProducts(filtered);
-
-}
-
-
-/* =====================================
-   CATEGORY
-===================================== */
-
-function filterProducts(category){
-
-  if(category === "All"){
-
-    displayProducts(products);
-
-    return;
-
-  }
-
-
-  const filtered =
-    products.filter(
-      product =>
-        product.category === category
-    );
-
-
-  displayProducts(filtered);
-
-}
-
-
-/* =====================================
-   START WEBSITE
-===================================== */
-
-displayProducts(products);
-
-</script>
-
-</body>
-</html>
+let cart=[];
+let currentProduct=null;
+let selectedCategory
