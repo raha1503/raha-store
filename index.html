@@ -981,24 +981,20 @@ footer{
   🗑️ Clear Cart
 </button>
 
-
 <div class="cartTotal">
 
+  <span>
+    Total
+  </span>
 
-      <div class="cartTotal">
+  <strong
+    class="gold"
+    id="cartTotal"
+  >
+    ₹0
+  </strong>
 
-        <span>
-          Total
-        </span>
-
-        <strong
-          class="gold"
-          id="cartTotal"
-        >
-          ₹0
-        </strong>
-
-      </div>
+</div>
 
 
       <button
@@ -3623,28 +3619,22 @@ async function loadProductsFromAPI() {
 
 loadProductsFromAPI();
   function clearCart() {
+
   if (cart.length === 0) {
     showToast("Cart is already empty");
     return;
   }
 
   cart = [];
-  updateCartCount();
+
+  saveCart();
+
   renderCart();
 
   showToast("✓ Cart cleared");
-  }
-  function openCheckout() {
 
-  if (cart.length === 0) {
-    showToast("Your cart is empty");
-    return;
-  }
-
-  closeModal("cartModal");
-  openModal("checkoutModal");
-
-  }
+}
+  
   
   function showToast(message) {
   const oldToast = document.getElementById("rahaToast");
