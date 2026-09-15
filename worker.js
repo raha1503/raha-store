@@ -8,50 +8,99 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type"
     };
 
+    // Handle browser CORS request
     if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders });
+      return new Response(null, {
+        status: 204,
+        headers: corsHeaders
+      });
     }
 
-    // GET products
+    // GET all products
     if (url.pathname === "/api/products" && request.method === "GET") {
-      const result = await env.DB.prepare(
-        "SELECT * FROM products ORDER BY id DESC"
-      ).all();
+      try {
+        const result = await env.DB
+          .prepare("SELECT * FROM products ORDER BY id DESC")
+          .all();
 
-      return Response.json(result.results, {
-        headers: corsHeaders
-      });
+        return Response.json(result.results, {
+          headers: corsHeaders
+        });
+      } catch (error) {
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          {
+            status: 500,
+            headers: corsHeaders
+          }
+        );
+      }
     }
 
-    // ADD product
+    // ADD a new product
     if (url.pathname === "/api/products" && request.method === "POST") {
-      const product = await request.json();
+      try {
+        const product = await request.json();
 
-      const result = await env.DB.prepare(`
-        INSERT INTO products
-        (name, price, category, description, stock, sizes, colors, images)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `).bind(
-        product.name,
-        product.price,
-        product.category,
-        product.description || "",
-        product.stock || 0,
-        product.sizes || "",
-        product.colors || "",
-        product.images || ""
-      ).run();
+        if (!product.name || product.price === undefined || !product.category) {
+          return Response.json(
+            {
+              success: false,
+              error: "Name, price and category are required"
+            },
+            {
+              status: 400,
+              headers: corsHeaders
+            }
+          );
+        }
 
-      return Response.json({
-        success: true,
-        id: result.meta.last_row_id
-      }, {
-        headers: corsHeaders
-      });
+        const result = await env.DB
+          .prepare(`
+            INSERT INTO products
+            (name, price, category, description, stock, sizes, colors, images)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          `)
+          .bind(
+            product.name,
+            Number(product.price),
+            product.category,
+            product.description || "",
+            Number(product.stock || 0),
+            product.sizes || "",
+            product.colors || "",
+            product.images || ""
+          )
+          .run();
+
+        return Response.json(
+          {
+            success: true,
+            id: result.meta.last_row_id
+          },
+          {
+            headers: corsHeaders
+          }
+        );
+      } catch (error) {
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          {
+            status: 500,
+            headers: corsHeaders
+          }
+        );
+      }
     }
 
-    return new Response("RAHA API is working ✅", {
-      headers: corsHeaders
-    });
-  }
-};
+    // API status
+    if (url.pathname === "/" || url.pathname === "/api") {
+      return Response.json(
+        {
+         
