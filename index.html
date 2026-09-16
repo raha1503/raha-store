@@ -103,8 +103,7 @@ header {
 
 .categories{
   border-top:1px solid #181818;
-  overflow:visible;
-  padding:9px 0 0;
+  padding:9px 15px;
 }
 
 .categoryWrap{
@@ -113,6 +112,37 @@ header {
   margin:auto;
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.categoryWrap:not(.expanded){
+  flex-wrap:nowrap;
+  overflow:hidden;
+}
+
+.cat{
+  flex:0 0 auto;
+  white-space:nowrap;
+  padding:9px 14px;
+  border-radius:20px;
+  border:1px solid #332a0d;
+  background:#101010;
+  color:#bbb;
+}
+
+.cat:hover,
+.cat.active{
+  background:#d4af37;
+  color:#000;
+}
+
+.moreCat{
+  background:#171717;
+  color:#d4af37;
+  border-color:#d4af37;
+  font-weight:bold;
+}
   overflow-x:auto;
   overflow-y:hidden;
   padding:0 15px 9px;
@@ -1519,35 +1549,75 @@ function showLoading() {
    CATEGORIES
    ========================================================= */
 
-function renderCategories() {
+function renderCategories(){
 
-    const wrap =
-        document.getElementById(
-            "categoryWrap"
-        );
+  const box =
+    document.getElementById("categoryWrap");
 
-    wrap.innerHTML = "";
+  box.innerHTML = "";
+
+  const visibleCategories =
+    categoriesExpanded
+      ? categories
+      : categories.slice(0, 6);
+
+  visibleCategories.forEach(category => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "cat " +
+      (
+        currentCategory === category
+          ? "active"
+          : ""
+      );
+
+    button.textContent = category;
+
+    button.onclick = () => {
+
+      currentCategory = category;
+
+      renderCategories();
+      renderProducts();
+
+    };
+
+    box.appendChild(button);
+
+  });
 
 
-    const names = [];
+  /* MORE / LESS BUTTON */
 
+  if(categories.length > 6){
 
-    catalogs.forEach(
-        catalog => {
+    const moreButton =
+      document.createElement("button");
 
-            if (
-                catalog &&
-                catalog.name
-            ) {
+    moreButton.className = "cat moreCat";
 
-                names.push(
-                    catalog.name
-                );
+    moreButton.textContent =
+      categoriesExpanded
+        ? "Less ↑"
+        : "More ↓";
 
-            }
+    moreButton.onclick = () => {
 
-        }
-    );
+      categoriesExpanded =
+        !categoriesExpanded;
+
+      renderCategories();
+
+    };
+
+    box.appendChild(moreButton);
+
+  }
+
+}
 
 
     /*
