@@ -1,539 +1,4355 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RAHA Admin Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+
+<title>RAHA | Your Everyday Shopping Destination</title>
+
 <style>
-*{box-sizing:border-box}
-:root{--gold:#d4af37;--bg:#070707;--panel:#111;--panel2:#161616;--line:#292929;--muted:#929292;--danger:#ff7777;--green:#63d48c}
-body{margin:0;background:var(--bg);color:#f5f5f5;font-family:Inter,Arial,sans-serif}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.top{height:64px;background:#0e0e0e;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:20}
-.logo{font-size:24px;font-weight:900;letter-spacing:3px;color:var(--gold)}
-.topRight{display:flex;gap:10px;align-items:center}
-.layout{display:flex;min-height:calc(100vh - 64px)}
-aside{width:235px;background:#0d0d0d;border-right:1px solid var(--line);padding:14px;flex-shrink:0}
-.nav{display:block;width:100%;padding:12px 13px;margin:4px 0;border:0;border-radius:9px;background:transparent;color:#aaa;text-align:left}
-.nav:hover,.nav.active{background:#1c1c1c;color:var(--gold)}
-.main{width:100%;max-width:1500px;margin:auto;padding:24px}
-.page{display:none}.page.active{display:block}
-h1{margin:0 0 5px;font-size:27px}h2,h3{margin-top:0}
-.muted{color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
-.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px}
-.card span{color:var(--muted)}.card b{display:block;color:var(--gold);font-size:28px;margin-top:8px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}
-label{display:block;color:#bbb;font-size:12px;margin-bottom:6px}
-input,textarea,select{width:100%;background:#090909;color:#fff;border:1px solid #383838;border-radius:9px;padding:11px;outline:none}
-input:focus,textarea:focus,select:focus{border-color:var(--gold)}
-textarea{min-height:100px;resize:vertical}
-.btn{border:1px solid #444;background:#1c1c1c;color:#eee;padding:10px 14px;border-radius:9px}
-.btn:hover{border-color:#666}.primary{background:var(--gold);border-color:var(--gold);color:#080808;font-weight:800}.danger{color:var(--danger)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.search{display:flex;gap:9px;margin-bottom:15px}.search input{flex:1}
-.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:850px}
-th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{font-size:12px;color:#aaa}td{font-size:13px}.thumb{width:52px;height:52px;object-fit:cover;border-radius:8px;background:#222}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px}.ok{background:#143a25;color:var(--green)}.low{background:#3c3012;color:#e6c65c}.out{background:#3b1717;color:#ff8b8b}
-.catalogGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.catalogCard{background:#111;border:1px solid var(--line);border-radius:13px;padding:14px}.catalogCard img{width:100%;height:145px;object-fit:cover;border-radius:9px;background:#222}
-.catalogCard h3{margin:10px 0 5px}.catalogCard p{color:#999;min-height:38px}
-.variant{margin-top:18px;border:1px solid var(--line);padding:15px;border-radius:12px}.variantRow{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin:8px 0}
-.notice{padding:12px;border:1px solid #3a3320;background:#18150b;border-radius:9px;color:#d9c57a;margin-bottom:15px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modalBox{width:min(600px,100%);background:#111;border:1px solid #383838;border-radius:15px;padding:20px;max-height:90vh;overflow:auto}
-.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#070707}.loginBox{width:min(420px,100%);background:#111;border:1px solid var(--line);border-radius:16px;padding:28px}.loginBox .logo{text-align:center;margin-bottom:22px}.loginMsg{color:#ff8585;min-height:20px;margin-top:10px}
-.orderDetail{white-space:pre-wrap;background:#090909;border:1px solid var(--line);padding:13px;border-radius:9px;color:#ccc}
-.mobileMenu{display:none}
-@media(max-width:900px){aside{position:fixed;left:-250px;top:64px;height:calc(100vh - 64px);z-index:30;transition:.2s}.layout.menuOpen aside{left:0}.mobileMenu{display:block}.cards{grid-template-columns:repeat(2,1fr)}.catalogGrid{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
-@media(max-width:600px){.main{padding:15px}.cards{grid-template-columns:1fr 1fr;gap:9px}.card{padding:13px}.form{grid-template-columns:1fr}.full{grid-column:auto}.catalogGrid{grid-template-columns:1fr}.top{padding:0 12px}.logo{font-size:20px}}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: #ffffff;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #050505;
+    border-bottom: 1px solid #332a0d;
+}
+
+.topbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: auto minmax(250px, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    color: #d4af37;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.tagline {
+    color: #999;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.searchBox input {
+    width: 100%;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 24px;
+    border: 1px solid #5a4813;
+    outline: none;
+    background: #111;
+    color: #fff;
+}
+
+.searchBox input:focus {
+    border-color: #d4af37;
+}
+
+.cartBtn {
+    background: #0e0e0e;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    border-radius: 23px;
+    padding: 11px 17px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.cartBtn:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories {
+    border-top: 1px solid #181818;
+    overflow-x: auto;
+    padding: 9px 15px;
+}
+
+.categoryWrap {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.cat {
+    white-space: nowrap;
+    padding: 9px 14px;
+    border-radius: 20px;
+    border: 1px solid #332a0d;
+    background: #101010;
+    color: #bbb;
+}
+
+.cat:hover,
+.cat.active {
+    background: #d4af37;
+    color: #000;
+}
+
+/* ================= SORT ================= */
+
+.sortBox {
+    max-width: 1200px;
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.sortBox label {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.sortBox select {
+    background: #101010;
+    color: #d4af37;
+    border: 1px solid #5a4813;
+    border-radius: 8px;
+    padding: 9px 12px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 50px 25px;
+    border: 1px solid #332a0d;
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(212,175,55,.20),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #111,
+            #050505
+        );
+}
+
+.hero h1 {
+    color: #d4af37;
+    font-size: 44px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    max-width: 700px;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* ================= PRODUCTS ================= */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 18px 50px;
+}
+
+.sectionTitle {
+    color: #d4af37;
+    margin: 28px 0 16px;
+    font-size: 24px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.product {
+    background: #101010;
+    border: 1px solid #29220d;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: .2s;
+}
+
+.product:hover {
+    transform: translateY(-3px);
+    border-color: #d4af37;
+}
+
+.productImage {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    background: #181818;
+}
+
+.productInfo {
+    padding: 14px;
+}
+
+.productName {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.productCat {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #d4af37;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.stock {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.stock.in {
+    color: #4caf50;
+}
+
+.stock.low {
+    color: #ff9800;
+}
+
+.stock.out {
+    color: #f44336;
+}
+
+.productActions {
+    display: flex;
+    gap: 8px;
+}
+
+.buyBtn,
+.addBtn {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.buyBtn {
+    background: #d4af37;
+    color: #000;
+    border: 1px solid #d4af37;
+}
+
+.addBtn {
+    background: #171717;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+}
+
+.noProducts {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #888;
+    padding: 60px 20px;
+}
+
+/* ================= MODALS ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(0,0,0,.88);
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modalBox {
+    position: relative;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #101010;
+    border: 1px solid #d4af37;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 20;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+    background: #050505;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    font-size: 23px;
+}
+
+/* ================= PRODUCT DETAILS ================= */
+
+.productDetail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.detailImage {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    background: #181818;
+}
+
+.detailInfo {
+    padding: 30px;
+}
+
+.detailInfo h2 {
+    color: #d4af37;
+    font-size: 27px;
+    margin-bottom: 8px;
+    padding-right: 35px;
+}
+
+.detailDescription {
+    color: #aaa;
+    line-height: 1.6;
+    margin: 14px 0 20px;
+}
+
+.field {
+    margin: 15px 0;
+}
+
+.field label {
+    display: block;
+    color: #bbb;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.field select {
+    width: 100%;
+    padding: 12px;
+    background: #080808;
+    color: #fff;
+    border: 1px solid #403512;
+    border-radius: 8px;
+}
+
+.detailButtons {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.detailBuy,
+.detailAdd {
+    flex: 1;
+    padding: 14px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.detailBuy {
+    background: #d4af37;
+    color: #000;
+    border: 1px solid #d4af37;
+}
+
+.detailAdd {
+    background: #181818;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+}
+
+/* ================= CART ================= */
+
+.checkout {
+    padding: 28px;
+}
+
+.checkout h2 {
+    color: #d4af37;
+    margin-bottom: 18px;
+}
+
+.cartItem {
+    display: grid;
+    grid-template-columns: 75px 1fr auto;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #282828;
+}
+
+.cartItem img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cartName {
+    font-weight: bold;
+}
+
+.cartMeta {
+    color: #999;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 4px;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.qty button {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    background: #222;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+.cartPrice {
+    color: #d4af37;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.cartTotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.clearCartBtn {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #211;
+    color: #ff7777;
+    border: 1px solid #633;
+    border-radius: 8px;
+}
+
+.checkoutBtn {
+    width: 70%;
+    margin: 15px auto 0;
+    display: block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #d4af37;
+    color: #000;
+    border: none;
+    font-weight: 700;
+}
+
+/* ================= CHECKOUT ================= */
+
+.checkoutGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.checkoutField label {
+    display: block;
+    color: #aaa;
+    margin-bottom: 7px;
+}
+
+.checkoutField input,
+.checkoutField textarea,
+.checkoutField select {
+    width: 100%;
+    padding: 12px;
+    background: #080808;
+    color: #fff;
+    border: 1px solid #3c3212;
+    border-radius: 8px;
+    outline: none;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.whatsappBtn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    border: 0;
+    border-radius: 9px;
+    background: #25d366;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.backBtn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    border-top: 1px solid #29210b;
+    padding: 30px 18px;
+    text-align: center;
+    color: #888;
+}
+
+.gold {
+    color: #d4af37;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .topbar {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "brand cart"
+            "search search";
+        gap: 12px;
+    }
+
+    .brand {
+        grid-area: brand;
+    }
+
+    .searchBox {
+        grid-area: search;
+    }
+
+    .cartBtn {
+        grid-area: cart;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+
+    .hero {
+        margin: 14px;
+        padding: 35px 20px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .productImage {
+        height: 190px;
+    }
+
+    .productActions {
+        flex-direction: column;
+    }
+
+    .productDetail {
+        grid-template-columns: 1fr;
+    }
+
+    .detailImage {
+        height: 300px;
+    }
+
+    .checkoutGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .modal {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .productImage {
+        height: 230px;
+    }
+}
+
 </style>
 </head>
+
 <body>
 
-<div id="login" class="login">
-  <div class="loginBox">
-    <div class="logo">RAHA</div>
-    <p class="muted" style="text-align:center">Admin Dashboard</p>
-    <label for="password">Admin Password</label>
-    <input id="password" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
-    <button class="btn primary" style="width:100%;margin-top:12px" onclick="login()">Login</button>
-    <div id="loginMsg" class="loginMsg"></div>
-  </div>
-</div>
+<header>
 
-<div id="app" style="display:none">
-<header class="top">
-  <div style="display:flex;gap:12px;align-items:center">
-    <button class="btn mobileMenu" onclick="toggleMenu()">☰</button>
-    <div class="logo">RAHA</div>
-  </div>
-  <div class="topRight">
-    <span id="apiStatus" class="muted">Checking API…</span>
-    <button class="btn" onclick="logout()">Logout</button>
-  </div>
+    <div class="topbar">
+
+        <div class="brand">
+
+            <div class="logo">
+                RAHA
+            </div>
+
+            <div class="tagline">
+                Your Everyday Shopping Destination
+            </div>
+
+        </div>
+
+        <div class="searchBox">
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="🔎 Search products..."
+                autocomplete="off"
+                oninput="searchProducts()"
+            >
+
+        </div>
+
+        <button
+            class="cartBtn"
+            onclick="openCart()"
+        >
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </button>
+
+    </div>
+
+
+    <div class="categories">
+
+        <div
+            class="categoryWrap"
+            id="categoryWrap"
+        ></div>
+
+        <div class="sortBox">
+
+            <label for="sortBy">
+                Sort By:
+            </label>
+
+            <select
+                id="sortBy"
+                onchange="changeSort(this.value)"
+            >
+
+                <option value="recommended">
+                    Recommended
+                </option>
+
+                <option value="newest">
+                    Newest
+                </option>
+
+                <option value="priceLow">
+                    Price: Low → High
+                </option>
+
+                <option value="priceHigh">
+                    Price: High → Low
+                </option>
+
+                <option value="nameAZ">
+                    Name: A → Z
+                </option>
+
+                <option value="nameZA">
+                    Name: Z → A
+                </option>
+
+                <option value="stock">
+                    Stock: Available First
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
 </header>
 
-<div class="layout" id="layout">
-<aside>
-  <button class="nav active" onclick="page('dashboard',this)">📊 Dashboard</button>
-  <button class="nav" onclick="page('products',this)">🛍️ Products</button>
-  <button class="nav" onclick="page('catalogs',this)">🗂️ Catalogs</button>
-  <button class="nav" onclick="page('orders',this)">📦 Orders</button>
-  <button class="nav" onclick="page('customers',this)">👥 Customers</button>
-  <button class="nav" onclick="page('settings',this)">⚙️ Settings</button>
-</aside>
 
-<main class="main">
+<section class="hero">
 
-<section id="dashboard" class="page active">
-  <h1>Dashboard</h1><p class="muted">RAHA store overview</p>
-  <div class="cards">
-    <div class="card"><span>Products</span><b id="statProducts">0</b></div>
-    <div class="card"><span>Catalogs</span><b id="statCatalogs">0</b></div>
-    <div class="card"><span>Total Stock</span><b id="statStock">0</b></div>
-    <div class="card"><span>Orders</span><b id="statOrders">0</b></div>
-  </div>
-  <div class="grid2">
-    <div class="panel"><h3>Quick Actions</h3><div class="actions">
-      <button class="btn primary" onclick="newProduct()">+ Add Product</button>
-      <button class="btn" onclick="newCatalog()">+ Add Catalog</button>
-      <button class="btn" onclick="page('orders')">View Orders</button>
-    </div></div>
-    <div class="panel"><h3>System</h3><p id="systemInfo" class="muted">Loading…</p></div>
-  </div>
+    <h1>
+        RAHA
+    </h1>
+
+    <p>
+        Your Everyday Shopping Destination.
+        Discover jewellery, fashion, gifts,
+        accessories, home & lifestyle,
+        electronics, footwear, beauty,
+        bags, watches and more.
+    </p>
+
 </section>
 
-<section id="products" class="page">
-  <h1>Products</h1><p class="muted">Add and manage every product in your RAHA store.</p>
-  <div class="panel">
-    <div class="search">
-      <input id="productSearch" placeholder="Search products…" oninput="renderProducts()">
-      <button class="btn primary" onclick="newProduct()">+ Add Product</button>
-    </div>
-    <div class="tableWrap"><table>
-      <thead><tr><th>Image</th><th>Product</th><th>Catalog</th><th>Price</th><th>Stock</th><th>Colours</th><th>Actions</th></tr></thead>
-      <tbody id="productRows"></tbody>
-    </table></div>
-  </div>
-</section>
 
-<section id="catalogs" class="page">
-  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
-    <div><h1>Catalogs</h1><p class="muted">Create the categories customers see in your store.</p></div>
-    <button class="btn primary" onclick="newCatalog()">+ Add Catalog</button>
-  </div>
-  <div id="catalogEditor" class="panel" style="display:none;margin:16px 0">
-    <h2 id="catalogTitle">Add Catalog</h2>
-    <div class="form">
-      <div><label>Catalog Name *</label><input id="catalogName" placeholder="Example: New Arrivals"></div>
-      <div><label>Catalog Image URL</label><input id="catalogImage" placeholder="https://…"></div>
-      <div class="full"><label>Description</label><textarea id="catalogDescription" placeholder="Short catalog description"></textarea></div>
-    </div>
-    <div class="actions"><button class="btn primary" onclick="saveCatalog()">Save Catalog</button><button class="btn" onclick="cancelCatalog()">Cancel</button></div>
-  </div>
-  <div id="catalogGrid" class="catalogGrid"></div>
-</section>
+<main class="container">
 
-<section id="orders" class="page">
-  <h1>Orders</h1><p class="muted">Orders received through the RAHA website.</p>
-  <div class="panel">
-    <div class="search"><input id="orderSearch" placeholder="Search order / customer…" oninput="renderOrders()"><button class="btn" onclick="loadOrders()">↻ Refresh</button></div>
-    <div class="tableWrap"><table>
-      <thead><tr><th>ID</th><th>Order No.</th><th>Customer</th><th>Total</th><th>Status</th><th>Payment</th><th>Date</th><th>Action</th></tr></thead>
-      <tbody id="orderRows"></tbody>
-    </table></div>
-  </div>
-</section>
+    <h2
+        class="sectionTitle"
+        id="sectionTitle"
+    >
+        All Products
+    </h2>
 
-<section id="customers" class="page">
-  <h1>Customers</h1><p class="muted">Customers are automatically collected from orders.</p>
-  <div class="panel"><div class="tableWrap"><table>
-    <thead><tr><th>Name</th><th>Phone</th><th>Orders</th><th>Total Spent</th><th>Latest Order</th></tr></thead>
-    <tbody id="customerRows"></tbody>
-  </table></div></div>
-</section>
+    <div
+        class="products"
+        id="products"
+    ></div>
 
-<section id="settings" class="page">
-  <h1>Settings</h1><p class="muted">Current RAHA store configuration.</p>
-  <div class="panel">
-    <div class="form">
-      <div><label>Store Name</label><input value="RAHA" readonly></div>
-      <div><label>Tagline</label><input value="Your Everyday Shopping Destination" readonly></div>
-      <div><label>WhatsApp Number</label><input value="8903188257" readonly></div>
-      <div><label>API</label><input value="https://raha-api.rahastudio14.workers.dev" readonly></div>
-    </div>
-    <div class="notice" style="margin-top:15px">These settings are displayed for reference. Product and catalog data are stored in Cloudflare D1.</div>
-  </div>
-</section>
+</main>
 
-</main></div></div>
 
-<div id="productModal" class="modal">
-  <div class="modalBox">
-    <h2 id="productTitle">Add Product</h2>
-    <div class="form">
-      <div><label>Product Name *</label><input id="pName" placeholder="Product name"></div>
-      <div><label>Price ₹ *</label><input id="pPrice" type="number" min="0" step="0.01"></div>
-      <div><label>Catalog *</label><select id="pCategory"></select></div>
-      <div><label>Stock *</label><input id="pStock" type="number" min="0" step="1"></div>
-      <div><label>Sizes</label><input id="pSizes" placeholder="S, M, L, XL"></div>
-      <div><label>Colours</label><input id="pColors" placeholder="Black, White, Blue"></div>
-      <div class="full"><label>Description</label><textarea id="pDescription"></textarea></div>
-      <div class="full"><label>General Images — one URL per line</label><textarea id="pImages"></textarea></div>
+<footer>
+
+    <div class="gold">
+        RAHA
     </div>
-    <div class="variant">
-      <b>🎨 Colour-specific images</b>
-      <p class="muted">Each colour can have its own image. The first image for each colour is saved.</p>
-      <div id="variantRows"></div>
-      <button class="btn" onclick="addVariantRow()">+ Add Colour Image</button>
+
+    <p>
+        Your Everyday Shopping Destination
+    </p>
+
+    <p style="margin-top:8px;">
+        🇮🇳 All India Delivery
+    </p>
+
+    <p style="margin-top:8px;">
+        WhatsApp Orders: 8903188257
+    </p>
+
+    <p style="margin-top:15px;font-size:12px;">
+        © 2026 RAHA. All rights reserved.
+    </p>
+
+</footer>
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div
+    class="modal"
+    id="productModal"
+>
+
+    <div class="modalBox">
+
+        <button
+            class="close"
+            onclick="closeModal('productModal')"
+        >
+            ×
+        </button>
+
+        <div class="productDetail">
+
+            <div>
+
+                <img
+                    id="detailImage"
+                    class="detailImage"
+                    alt="Product"
+                >
+
+            </div>
+
+            <div class="detailInfo">
+
+                <h2 id="detailName"></h2>
+
+                <div
+                    class="price"
+                    id="detailPrice"
+                ></div>
+
+                <div
+                    class="stock"
+                    id="detailStock"
+                ></div>
+
+                <div
+                    class="detailDescription"
+                    id="detailDescription"
+                ></div>
+
+
+                <div
+                    class="field"
+                    id="colourField"
+                >
+
+                    <label>
+                        Colour
+                    </label>
+
+                    <select
+                        id="detailColour"
+                        onchange="changeColourImage()"
+                    ></select>
+
+                </div>
+
+
+                <div
+                    class="field"
+                    id="sizeField"
+                >
+
+                    <label>
+                        Size
+                    </label>
+
+                    <select
+                        id="detailSize"
+                    ></select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <select
+                        id="detailQuantity"
+                    >
+
+                        <option value="1">
+                            1
+                        </option>
+
+                        <option value="2">
+                            2
+                        </option>
+
+                        <option value="3">
+                            3
+                        </option>
+
+                        <option value="4">
+                            4
+                        </option>
+
+                        <option value="5">
+                            5
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="detailButtons">
+
+                    <button
+                        class="detailBuy"
+                        onclick="buyNowFromDetail()"
+                    >
+                        ⚡ Buy Now
+                    </button>
+
+                    <button
+                        class="detailAdd"
+                        onclick="addFromDetail()"
+                    >
+                        🛒 Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-    <div class="actions">
-      <button class="btn primary" onclick="saveProduct()">Save Product</button>
-      <button class="btn" onclick="closeProductModal()">Cancel</button>
-    </div>
-  </div>
+
 </div>
 
-<div id="orderModal" class="modal">
-  <div class="modalBox">
-    <h2>Order Details</h2>
-    <div id="orderDetail" class="orderDetail">Loading…</div>
-    <div class="actions"><button class="btn" onclick="closeOrderModal()">Close</button></div>
-  </div>
+
+<!-- ================= CART MODAL ================= -->
+
+<div
+    class="modal"
+    id="cartModal"
+>
+
+    <div class="modalBox">
+
+        <button
+            class="close"
+            onclick="closeModal('cartModal')"
+        >
+            ×
+        </button>
+
+        <div class="checkout">
+
+            <h2>
+                🛒 Your Cart
+            </h2>
+
+            <div id="cartItems"></div>
+
+            <button
+                class="clearCartBtn"
+                onclick="clearCart()"
+            >
+                🗑️ Clear Cart
+            </button>
+
+            <div class="cartTotal">
+
+                <span>
+                    Total
+                </span>
+
+                <strong
+                    class="gold"
+                    id="cartTotal"
+                >
+                    ₹0
+                </strong>
+
+            </div>
+
+            <button
+                class="checkoutBtn"
+                onclick="openCheckout()"
+            >
+                Continue to Checkout
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
-<div id="toast" style="position:fixed;right:18px;bottom:18px;background:#1d1d1d;border:1px solid #444;padding:12px 15px;border-radius:10px;display:none;z-index:100"></div>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+
+<div
+    class="modal"
+    id="checkoutModal"
+>
+
+    <div class="modalBox">
+
+        <button
+            class="close"
+            onclick="closeModal('checkoutModal')"
+        >
+            ×
+        </button>
+
+        <div class="checkout">
+
+            <h2>
+                📦 Delivery Details
+            </h2>
+
+            <div class="checkoutGrid">
+
+                <div class="checkoutField">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        id="customerName"
+                        placeholder="Enter your full name"
+                    >
+
+                </div>
+
+
+                <div class="checkoutField">
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+                    <input
+                        id="customerPhone"
+                        type="tel"
+                        maxlength="10"
+                        inputmode="numeric"
+                        placeholder="10 digit mobile number"
+                    >
+
+                </div>
+
+
+                <div class="checkoutField full">
+
+                    <label>
+                        Full Address
+                    </label>
+
+                    <textarea
+                        id="customerAddress"
+                        rows="3"
+                        placeholder="House number, street, area..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="checkoutField">
+
+                    <label>
+                        Pincode
+                    </label>
+
+                    <input
+                        id="customerPincode"
+                        maxlength="6"
+                        inputmode="numeric"
+                        placeholder="6 digit pincode"
+                    >
+
+                </div>
+
+
+                <div class="checkoutField">
+
+                    <label>
+                        State / UT
+                    </label>
+
+                    <select
+                        id="customerState"
+                        onchange="loadDistricts()"
+                    >
+
+                        <option value="">
+                            Select State / UT
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="checkoutField">
+
+                    <label>
+                        District
+                    </label>
+
+                    <select
+                        id="customerDistrict"
+                    >
+
+                        <option value="">
+                            Select District
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="whatsappBtn"
+                onclick="sendWhatsAppOrder()"
+            >
+                📱 Order on WhatsApp
+            </button>
+
+
+            <button
+                class="backBtn"
+                onclick="closeModal('checkoutModal')"
+            >
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <script>
-const API="https://raha-api.rahastudio14.workers.dev";
-let token=localStorage.getItem("raha_admin_token")||"";
-let products=[];
-let catalogs=[];
-let orders=[];
-let editProductId=null;
-let editCatalogId=null;
 
-const $=id=>document.getElementById(id);
+/* =========================================================
+   RAHA API
+   ========================================================= */
 
-function esc(v){
-  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const RAHA_API =
+    "https://raha-api.rahastudio14.workers.dev";
+
+const WHATSAPP_NUMBER =
+    "918903188257";
+
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+let products = [];
+
+let catalogs = [];
+
+let cart = [];
+
+let currentProduct = null;
+
+let currentCategory = "All";
+
+let currentSort = "recommended";
+
+
+/* =========================================================
+   CART LOAD
+   ========================================================= */
+
+try {
+
+    const savedCart =
+        JSON.parse(
+            localStorage.getItem("rahaCart") || "[]"
+        );
+
+    if (Array.isArray(savedCart)) {
+
+        cart = savedCart.map(item => ({
+
+            ...item,
+
+            productId:
+                Number(
+                    item.productId ??
+                    item.id
+                ),
+
+            quantity:
+                Number(
+                    item.quantity ??
+                    item.qty ??
+                    1
+                )
+
+        })).filter(
+            item =>
+                Number.isInteger(item.productId)
+        );
+
+    }
+
+} catch (error) {
+
+    cart = [];
+
 }
-function toast(text){
-  $("toast").textContent=text;
-  $("toast").style.display="block";
-  setTimeout(()=>$("toast").style.display="none",2500);
+
+
+/* =========================================================
+   NORMALISE LIST
+   ========================================================= */
+
+function listValue(value) {
+
+    if (Array.isArray(value)) {
+
+        return value
+            .map(x => String(x).trim())
+            .filter(Boolean);
+
+    }
+
+    if (!value) {
+        return [];
+    }
+
+    return String(value)
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean);
 }
-function authHeaders(json=false){
-  const h={Authorization:"Bearer "+token};
-  if(json)h["Content-Type"]="application/json";
-  return h;
+
+
+/* =========================================================
+   NORMALISE PRODUCT
+   ========================================================= */
+
+function normaliseProduct(product) {
+
+    const colors =
+        listValue(product.colors);
+
+    const images =
+        listValue(product.images);
+
+    const colourImages = {};
+
+    colors.forEach(
+        (colour, index) => {
+
+            colourImages[colour] =
+                images[index] ||
+                images[0] ||
+                "";
+
+        }
+    );
+
+
+    /*
+     * If there are images but
+     * no colours, still show image.
+     */
+
+    if (
+        !colors.length &&
+        images.length
+    ) {
+
+        colourImages["Default"] =
+            images[0];
+
+    }
+
+
+    return {
+
+        id:
+            Number(product.id),
+
+        name:
+            product.name || "Product",
+
+        price:
+            Number(product.price || 0),
+
+        category:
+            product.category || "Other",
+
+        description:
+            product.description || "",
+
+        stock:
+            Number(product.stock || 0),
+
+        sizes:
+            listValue(product.sizes),
+
+        colours:
+            colourImages,
+
+        images:
+            images
+
+    };
+
 }
-function page(id,btn){
-  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
-  $(id).classList.add("active");
-  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
-  if(btn)btn.classList.add("active");
-  $("layout").classList.remove("menuOpen");
-  if(id==="orders")loadOrders();
-  if(id==="customers")renderCustomers();
+
+
+/* =========================================================
+   LOAD CATALOGS
+   ========================================================= */
+
+async function loadCatalogs() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${RAHA_API}/api/catalogs`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Catalog API failed"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        if (
+            data.success &&
+            Array.isArray(data.catalogs)
+        ) {
+
+            catalogs =
+                data.catalogs;
+
+            renderCategories();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Catalog loading error:",
+            error
+        );
+
+        renderCategories();
+
+    }
+
 }
-function toggleMenu(){$("layout").classList.toggle("menuOpen")}
-async function login(){
-  const msg=$("loginMsg");
-  msg.textContent="";
-  try{
-    const r=await fetch(API+"/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Login failed");
-    token=d.token;
-    localStorage.setItem("raha_admin_token",token);
-    $("login").style.display="none";
-    $("app").style.display="block";
-    await loadAll();
-    checkAPI();
-  }catch(e){msg.textContent=e.message}
+
+
+/* =========================================================
+   LOAD PRODUCTS
+   ========================================================= */
+
+async function loadProducts() {
+
+    try {
+
+        showLoading();
+
+        const response =
+            await fetch(
+                `${RAHA_API}/api/products`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Product API request failed"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        if (
+            !data.success ||
+            !Array.isArray(data.products)
+        ) {
+
+            throw new Error(
+                "Invalid product response"
+            );
+
+        }
+
+
+        /*
+         * IMPORTANT FIX:
+         *
+         * The new Worker returns
+         * images/colors/sizes as arrays.
+         *
+         * This code supports BOTH:
+         *
+         * Array:
+         * ["a.jpg","b.jpg"]
+         *
+         * and old text:
+         * "a.jpg,b.jpg"
+         */
+
+        products =
+            data.products.map(
+                normaliseProduct
+            );
+
+
+        renderCategories();
+
+        renderProducts();
+
+
+    } catch (error) {
+
+        console.error(
+            "RAHA API error:",
+            error
+        );
+
+        document.getElementById(
+            "products"
+        ).innerHTML = `
+            <div class="noProducts">
+                ⚠️ Products could not be loaded.
+                Please refresh the page.
+            </div>
+        `;
+
+    }
+
 }
-function logout(){localStorage.removeItem("raha_admin_token");location.reload()}
-async function checkAPI(){
-  try{
-    const r=await fetch(API+"/");
-    $("apiStatus").textContent=r.ok?"● API Connected":"● API Error";
-    $("apiStatus").style.color=r.ok?"#63d48c":"#ff7777";
-  }catch(e){
-    $("apiStatus").textContent="● API Offline";
-    $("apiStatus").style.color="#ff7777";
-  }
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+function showLoading() {
+
+    document.getElementById(
+        "products"
+    ).innerHTML = `
+        <div class="noProducts">
+            ⏳ Loading RAHA products...
+        </div>
+    `;
+
 }
-async function loadAll(){
-  try{
-    const [cp,cc,co]=await Promise.all([
-      fetch(API+"/api/products"),
-      fetch(API+"/api/catalogs"),
-      fetch(API+"/api/orders",{headers:authHeaders()})
-    ]);
-    const pd=await cp.json(),cd=await cc.json(),od=await co.json();
-    if(!pd.success)throw Error(pd.error||"Products failed");
-    if(!cd.success)throw Error(cd.error||"Catalogs failed");
-    products=pd.products||[];
-    catalogs=cd.catalogs||[];
-    orders=od.success?(od.orders||[]):[];
+
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+function renderCategories() {
+
+    const wrap =
+        document.getElementById(
+            "categoryWrap"
+        );
+
+    wrap.innerHTML = "";
+
+
+    const names = [];
+
+
+    catalogs.forEach(
+        catalog => {
+
+            if (
+                catalog &&
+                catalog.name
+            ) {
+
+                names.push(
+                    catalog.name
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Fallback for products if
+     * catalog API has not loaded.
+     */
+
+    products.forEach(
+        product => {
+
+            if (
+                product.category &&
+                !names.includes(
+                    product.category
+                )
+            ) {
+
+                names.push(
+                    product.category
+                );
+
+            }
+
+        }
+    );
+
+
+    addCategoryButton(
+        wrap,
+        "All"
+    );
+
+
+    names
+        .filter(Boolean)
+        .sort(
+            (a,b) =>
+                a.localeCompare(b)
+        )
+        .forEach(
+            name =>
+                addCategoryButton(
+                    wrap,
+                    name
+                )
+        );
+
+}
+
+
+function addCategoryButton(
+    wrap,
+    name
+) {
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+    button.className =
+        "cat" +
+        (
+            currentCategory === name
+                ? " active"
+                : ""
+        );
+
+    button.textContent = name;
+
+    button.onclick =
+        function() {
+
+            currentCategory =
+                name;
+
+            renderCategories();
+
+            renderProducts();
+
+        };
+
+    wrap.appendChild(button);
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function searchProducts() {
+
     renderProducts();
-    renderCatalogs();
-    fillCatalogSelect();
-    renderOrders();
-    renderCustomers();
-    updateStats();
-    $("systemInfo").textContent=products.length+" products · "+catalogs.length+" catalogs · "+orders.length+" orders";
-  }catch(e){toast("Could not load data: "+e.message)}
+
 }
-function updateStats(){
-  $("statProducts").textContent=products.length;
-  $("statCatalogs").textContent=catalogs.length;
-  $("statStock").textContent=products.reduce((a,p)=>a+Number(p.stock||0),0);
-  $("statOrders").textContent=orders.length;
+
+
+/* =========================================================
+   SORT
+   ========================================================= */
+
+function changeSort(value) {
+
+    currentSort = value;
+
+    renderProducts();
+
 }
-function fillCatalogSelect(selected=""){
-  $("pCategory").innerHTML='<option value="">Select a catalog</option>'+catalogs.map(c=>'<option value="'+esc(c.name)+'">'+esc(c.name)+'</option>').join("");
-  if(selected)$("pCategory").value=selected;
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+function getFilteredProducts() {
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let list =
+        products.filter(
+            product => {
+
+                const categoryMatch =
+                    currentCategory === "All" ||
+                    product.category ===
+                        currentCategory;
+
+
+                const searchMatch =
+                    !search ||
+                    product.name
+                        .toLowerCase()
+                        .includes(search) ||
+                    product.category
+                        .toLowerCase()
+                        .includes(search);
+
+
+                return (
+                    categoryMatch &&
+                    searchMatch
+                );
+
+            }
+        );
+
+
+    switch (currentSort) {
+
+        case "newest":
+
+            list.sort(
+                (a,b) =>
+                    b.id - a.id
+            );
+
+            break;
+
+
+        case "priceLow":
+
+            list.sort(
+                (a,b) =>
+                    a.price - b.price
+            );
+
+            break;
+
+
+        case "priceHigh":
+
+            list.sort(
+                (a,b) =>
+                    b.price - a.price
+            );
+
+            break;
+
+
+        case "nameAZ":
+
+            list.sort(
+                (a,b) =>
+                    a.name.localeCompare(
+                        b.name
+                    )
+            );
+
+            break;
+
+
+        case "nameZA":
+
+            list.sort(
+                (a,b) =>
+                    b.name.localeCompare(
+                        a.name
+                    )
+            );
+
+            break;
+
+
+        case "stock":
+
+            list.sort(
+                (a,b) =>
+                    b.stock - a.stock
+            );
+
+            break;
+
+    }
+
+
+    return list;
+
 }
-function productImage(p){return String(p.images||"").split(",")[0]?.trim()||""}
-function stockBadge(n){
-  n=Number(n||0);
-  if(n<1)return '<span class="badge out">Out of Stock</span>';
-  if(n<=5)return '<span class="badge low">Only '+n+' left</span>';
-  return '<span class="badge ok">In Stock · '+n+'</span>';
+
+
+/* =========================================================
+   PRODUCT IMAGE
+   ========================================================= */
+
+function getProductImage(
+    product
+) {
+
+    const colours =
+        Object.keys(
+            product.colours || {}
+        );
+
+
+    if (
+        colours.length
+    ) {
+
+        const first =
+            product.colours[
+                colours[0]
+            ];
+
+        if (first) {
+            return first;
+        }
+
+    }
+
+
+    if (
+        product.images &&
+        product.images.length
+    ) {
+
+        return product.images[0];
+
+    }
+
+
+    return "";
+
 }
-function renderProducts(){
-  const q=($("productSearch").value||"").toLowerCase().trim();
-  const list=products.filter(p=>(String(p.name)+" "+String(p.category)+" "+String(p.description||"")).toLowerCase().includes(q));
-  $("productRows").innerHTML=list.map(p=>{
-    const im=productImage(p);
-    return '<tr><td>'+(im?'<img class="thumb" src="'+esc(im)+'" onerror="this.style.display=\\'none\\'">':'—')+
-    '</td><td><b>'+esc(p.name)+'</b><br><span class="muted">ID '+p.id+'</span></td>'+
-    '<td>'+esc(p.category)+'</td><td>₹'+Number(p.price||0).toLocaleString("en-IN")+'</td>'+
-    '<td>'+stockBadge(p.stock)+'</td><td>'+esc(p.colors||"—")+'</td>'+
-    '<td><button class="btn" onclick="editProduct('+p.id+')">Edit</button> <button class="btn danger" onclick="deleteProduct('+p.id+')">Delete</button></td></tr>';
-  }).join("")||'<tr><td colspan="7" class="muted">No products found.</td></tr>';
+
+
+/* =========================================================
+   IMAGE FALLBACK
+   ========================================================= */
+
+function imageFallback(
+    image
+) {
+
+    if (!image) {
+
+        return `
+            data:image/svg+xml;charset=UTF-8,
+            ${encodeURIComponent(
+                `
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="600"
+                    height="600"
+                >
+                    <rect
+                        width="100%"
+                        height="100%"
+                        fill="#181818"
+                    />
+                    <text
+                        x="50%"
+                        y="50%"
+                        fill="#777"
+                        text-anchor="middle"
+                        font-size="28"
+                    >
+                        RAHA
+                    </text>
+                </svg>
+                `
+            )}
+        `;
+
+    }
+
+    return image;
+
 }
-function newProduct(){
-  editProductId=null;
-  $("productTitle").textContent="Add Product";
-  ["pName","pPrice","pStock","pSizes","pColors","pDescription","pImages"].forEach(id=>$(id).value="");
-  fillCatalogSelect();
-  $("variantRows").innerHTML="";
-  $("productModal").style.display="flex";
+
+
+/* =========================================================
+   RENDER PRODUCTS
+   ========================================================= */
+
+function renderProducts() {
+
+    const box =
+        document.getElementById(
+            "products"
+        );
+
+    const list =
+        getFilteredProducts();
+
+
+    document.getElementById(
+        "sectionTitle"
+    ).textContent =
+        currentCategory === "All"
+            ? "All Products"
+            : currentCategory;
+
+
+    box.innerHTML = "";
+
+
+    if (!list.length) {
+
+        box.innerHTML = `
+            <div class="noProducts">
+                🔎 No products found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(
+        product => {
+
+            const image =
+                getProductImage(
+                    product
+                );
+
+
+            let stockClass =
+                "in";
+
+            let stockText =
+                `✓ ${product.stock} available`;
+
+
+            if (
+                product.stock <= 0
+            ) {
+
+                stockClass = "out";
+
+                stockText =
+                    "✕ Out of stock";
+
+            } else if (
+                product.stock <= 5
+            ) {
+
+                stockClass = "low";
+
+                stockText =
+                    `⚠ Only ${product.stock} left`;
+
+            }
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "product";
+
+
+            card.onclick =
+                function(event) {
+
+                    if (
+                        event.target.closest(
+                            "button"
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+                    openProduct(
+                        product.id
+                    );
+
+                };
+
+
+            card.innerHTML = `
+
+                <img
+                    class="productImage"
+                    src="${imageFallback(image)}"
+                    alt="${escapeHTML(product.name)}"
+                    onerror="this.onerror=null;this.src=imageFallback('')"
+                >
+
+                <div class="productInfo">
+
+                    <div class="productName">
+                        ${escapeHTML(product.name)}
+                    </div>
+
+                    <div class="productCat">
+                        ${escapeHTML(product.category)}
+                    </div>
+
+                    <div class="price">
+                        ₹${formatPrice(product.price)}
+                    </div>
+
+                    <div class="stock ${stockClass}">
+                        ${stockText}
+                    </div>
+
+                    <div class="productActions">
+
+                        <button
+                            class="buyBtn"
+                            onclick="buyNowFromCard(${product.id})"
+                        >
+                            ⚡ Buy Now
+                        </button>
+
+                        <button
+                            class="addBtn"
+                            onclick="addFromCard(${product.id})"
+                        >
+                            🛒 Add to Cart
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+
+            box.appendChild(card);
+
+        }
+    );
+
 }
-function editProduct(id){
-  const p=products.find(x=>Number(x.id)===Number(id));
-  if(!p)return;
-  editProductId=id;
-  $("productTitle").textContent="Edit Product";
-  $("pName").value=p.name||"";
-  $("pPrice").value=p.price||0;
-  $("pStock").value=p.stock??0;
-  $("pSizes").value=p.sizes||"";
-  $("pColors").value=p.colors||"";
-  $("pDescription").value=p.description||"";
-  $("pImages").value=String(p.images||"").split(",").filter(Boolean).join("\n");
-  fillCatalogSelect(p.category||"");
-  $("variantRows").innerHTML="";
-  const colors=String(p.colors||"").split(",").map(x=>x.trim()).filter(Boolean);
-  const imgs=String(p.images||"").split(",").map(x=>x.trim()).filter(Boolean);
-  colors.forEach((c,i)=>addVariantRow(c,imgs[i]||""));
-  $("productModal").style.display="flex";
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    return String(value || "")
+        .replace(
+            /[&<>"']/g,
+            character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            }[character])
+        );
+
 }
-function closeProductModal(){$("productModal").style.display="none"}
-function addVariantRow(color="",image=""){
-  const row=document.createElement("div");
-  row.className="variantRow";
-  row.innerHTML='<input class="vc" placeholder="Colour" value="'+esc(color)+'"><input class="vi" placeholder="Image URL" value="'+esc(image)+'"><button class="btn danger" type="button">Remove</button>';
-  row.querySelector("button").onclick=()=>row.remove();
-  $("variantRows").appendChild(row);
+
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+function formatPrice(
+    value
+) {
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "en-IN"
+    );
+
 }
-async function saveProduct(){
-  const name=$("pName").value.trim();
-  const category=$("pCategory").value.trim();
-  const price=Number($("pPrice").value);
-  const stock=Number($("pStock").value);
-  if(!name||!category||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0)return toast("Fill name, catalog, price and valid stock.");
-  const cs=[],ims=[];
-  document.querySelectorAll(".variantRow").forEach(row=>{
-    const c=row.querySelector(".vc").value.trim();
-    const im=row.querySelector(".vi").value.trim();
-    if(c){cs.push(c);if(im)ims.push(im)}
-  });
-  const fallbackColors=$("pColors").value.split(",").map(x=>x.trim()).filter(Boolean);
-  const baseImages=$("pImages").value.split(/[\\n,]/).map(x=>x.trim()).filter(Boolean);
-  const body={
-    name,category,price,stock,
-    sizes:$("pSizes").value.trim(),
-    colors:(cs.length?cs:fallbackColors).join(","),
-    description:$("pDescription").value.trim(),
-    images:(ims.length?ims:baseImages).join(",")
-  };
-  try{
-    const url=API+"/api/products"+(editProductId?"/"+editProductId:"");
-    const r=await fetch(url,{method:editProductId?"PUT":"POST",headers:authHeaders(true),body:JSON.stringify(body)});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not save product");
-    toast(editProductId?"Product updated":"Product added");
-    closeProductModal();
-    await loadAll();
-    page("products",document.querySelectorAll(".nav")[1]);
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   OPEN PRODUCT
+   ========================================================= */
+
+function openProduct(id) {
+
+    currentProduct =
+        products.find(
+            product =>
+                Number(product.id) ===
+                Number(id)
+        );
+
+
+    if (!currentProduct) {
+        return;
+    }
+
+
+    document.getElementById(
+        "detailName"
+    ).textContent =
+        currentProduct.name;
+
+
+    document.getElementById(
+        "detailPrice"
+    ).textContent =
+        "₹" +
+        formatPrice(
+            currentProduct.price
+        );
+
+
+    document.getElementById(
+        "detailDescription"
+    ).textContent =
+        currentProduct.description ||
+        "RAHA product";
+
+
+    const stock =
+        document.getElementById(
+            "detailStock"
+        );
+
+
+    if (
+        currentProduct.stock <= 0
+    ) {
+
+        stock.className =
+            "stock out";
+
+        stock.textContent =
+            "✕ Out of stock";
+
+    } else if (
+        currentProduct.stock <= 5
+    ) {
+
+        stock.className =
+            "stock low";
+
+        stock.textContent =
+            `⚠ Only ${currentProduct.stock} left`;
+
+    } else {
+
+        stock.className =
+            "stock in";
+
+        stock.textContent =
+            `✓ ${currentProduct.stock} available`;
+
+    }
+
+
+    const colourSelect =
+        document.getElementById(
+            "detailColour"
+        );
+
+    const sizeSelect =
+        document.getElementById(
+            "detailSize"
+        );
+
+
+    colourSelect.innerHTML = "";
+
+    sizeSelect.innerHTML = "";
+
+
+    const colours =
+        Object.keys(
+            currentProduct.colours || {}
+        );
+
+
+    if (
+        colours.length
+    ) {
+
+        document.getElementById(
+            "colourField"
+        ).style.display =
+            "block";
+
+
+        colours.forEach(
+            colour => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    colour;
+
+                option.textContent =
+                    colour;
+
+                colourSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    } else {
+
+        document.getElementById(
+            "colourField"
+        ).style.display =
+            "none";
+
+    }
+
+
+    const sizes =
+        currentProduct.sizes &&
+        currentProduct.sizes.length
+            ? currentProduct.sizes
+            : ["Free Size"];
+
+
+    if (
+        sizes.length
+    ) {
+
+        document.getElementById(
+            "sizeField"
+        ).style.display =
+            "block";
+
+
+        sizes.forEach(
+            size => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    size;
+
+                option.textContent =
+                    size;
+
+                sizeSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    document.getElementById(
+        "detailQuantity"
+    ).value = "1";
+
+
+    changeColourImage();
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "block";
+
 }
-async function deleteProduct(id){
-  if(!confirm("Delete this product?"))return;
-  try{
-    const r=await fetch(API+"/api/products/"+id,{method:"DELETE",headers:authHeaders()});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not delete product");
-    toast("Product deleted");
-    await loadAll();
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   COLOUR IMAGE
+   ========================================================= */
+
+function changeColourImage() {
+
+    if (!currentProduct) {
+        return;
+    }
+
+
+    const colour =
+        document.getElementById(
+            "detailColour"
+        ).value;
+
+
+    let image =
+        currentProduct.colours &&
+        currentProduct.colours[
+            colour
+        ];
+
+
+    if (!image) {
+
+        image =
+            getProductImage(
+                currentProduct
+            );
+
+    }
+
+
+    document.getElementById(
+        "detailImage"
+    ).src =
+        imageFallback(image);
+
 }
-function renderCatalogs(){
-  $("catalogGrid").innerHTML=catalogs.map(c=>
-    '<div class="catalogCard">'+(c.image?'<img src="'+esc(c.image)+'" onerror="this.style.display=\\'none\\'">':'')+
-    '<h3>'+esc(c.name)+'</h3><p>'+esc(c.description||"No description")+'</p>'+
-    '<small class="muted">Catalog ID: '+c.id+'</small>'+
-    '<div class="actions"><button class="btn" onclick="editCatalog('+c.id+')">Edit</button><button class="btn danger" onclick="deleteCatalog('+c.id+')">Delete</button></div></div>'
-  ).join("")||'<div class="panel"><p class="muted">No catalogs yet. Create your first catalog.</p></div>';
+
+
+/* =========================================================
+   SELECTED PRODUCT
+   ========================================================= */
+
+function getSelectedProductOptions() {
+
+    if (!currentProduct) {
+        return null;
+    }
+
+
+    const colour =
+        document.getElementById(
+            "detailColour"
+        ).value || "";
+
+
+    const size =
+        document.getElementById(
+            "detailSize"
+        ).value || "Free Size";
+
+
+    const quantity =
+        Number(
+            document.getElementById(
+                "detailQuantity"
+            ).value
+        );
+
+
+    const image =
+        (
+            currentProduct.colours &&
+            currentProduct.colours[
+                colour
+            ]
+        ) ||
+        getProductImage(
+            currentProduct
+        );
+
+
+    return {
+
+        productId:
+            Number(
+                currentProduct.id
+            ),
+
+        name:
+            currentProduct.name,
+
+        price:
+            Number(
+                currentProduct.price
+            ),
+
+        colour:
+            colour,
+
+        size:
+            size,
+
+        image:
+            image,
+
+        quantity:
+            quantity
+
+    };
+
 }
-function newCatalog(){
-  editCatalogId=null;
-  $("catalogTitle").textContent="Add Catalog";
-  $("catalogName").value="";
-  $("catalogImage").value="";
-  $("catalogDescription").value="";
-  $("catalogEditor").style.display="block";
-  $("catalogName").focus();
+
+
+/* =========================================================
+   ADD FROM DETAIL
+   ========================================================= */
+
+function addFromDetail() {
+
+    const item =
+        getSelectedProductOptions();
+
+
+    if (!item) {
+        return;
+    }
+
+
+    if (
+        currentProduct.stock <= 0
+    ) {
+
+        alert(
+            "Sorry, this product is out of stock."
+        );
+
+        return;
+
+    }
+
+
+    addItemToCart(item);
+
+    closeModal(
+        "productModal"
+    );
+
+
+    showToast(
+        "✓ " +
+        currentProduct.name +
+        " added to cart"
+    );
+
 }
-function editCatalog(id){
-  const c=catalogs.find(x=>Number(x.id)===Number(id));
-  if(!c)return;
-  editCatalogId=id;
-  $("catalogTitle").textContent="Edit Catalog";
-  $("catalogName").value=c.name||"";
-  $("catalogImage").value=c.image||"";
-  $("catalogDescription").value=c.description||"";
-  $("catalogEditor").style.display="block";
-  $("catalogName").focus();
+
+
+/* =========================================================
+   ADD ITEM
+   ========================================================= */
+
+function addItemToCart(
+    item
+) {
+
+    const existing =
+        cart.find(
+            existingItem =>
+                Number(
+                    existingItem.productId
+                ) ===
+                Number(
+                    item.productId
+                ) &&
+                existingItem.colour ===
+                    item.colour &&
+                existingItem.size ===
+                    item.size
+        );
+
+
+    if (existing) {
+
+        existing.quantity =
+            Number(
+                existing.quantity
+            ) +
+            Number(
+                item.quantity
+            );
+
+    } else {
+
+        cart.push(item);
+
+    }
+
+
+    saveCart();
+
 }
-function cancelCatalog(){
-  editCatalogId=null;
-  $("catalogEditor").style.display="none";
+
+
+/* =========================================================
+   CARD ADD
+   ========================================================= */
+
+function addFromCard(id) {
+
+    openProduct(id);
+
 }
-async function saveCatalog(){
-  const name=$("catalogName").value.trim();
-  if(!name)return toast("Catalog name is required.");
-  const body={name,image:$("catalogImage").value.trim(),description:$("catalogDescription").value.trim()};
-  try{
-    const r=await fetch(API+"/api/catalogs"+(editCatalogId?"/"+editCatalogId:""),{method:editCatalogId?"PUT":"POST",headers:authHeaders(true),body:JSON.stringify(body)});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not save catalog");
-    toast(editCatalogId?"Catalog updated":"Catalog created");
-    cancelCatalog();
-    await loadAll();
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   CARD BUY
+   ========================================================= */
+
+function buyNowFromCard(id) {
+
+    openProduct(id);
+
 }
-async function deleteCatalog(id){
-  if(!confirm("Delete this catalog? Products using it must be moved first."))return;
-  try{
-    const r=await fetch(API+"/api/catalogs/"+id,{method:"DELETE",headers:authHeaders()});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not delete catalog");
-    toast("Catalog deleted");
-    await loadAll();
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   BUY NOW
+   ========================================================= */
+
+function buyNowFromDetail() {
+
+    const item =
+        getSelectedProductOptions();
+
+
+    if (!item) {
+        return;
+    }
+
+
+    if (
+        currentProduct.stock <= 0
+    ) {
+
+        alert(
+            "Sorry, this product is out of stock."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        item.quantity >
+        currentProduct.stock
+    ) {
+
+        alert(
+            `Only ${currentProduct.stock} item(s) are available.`
+        );
+
+        return;
+
+    }
+
+
+    cart = [item];
+
+    saveCart();
+
+    closeModal(
+        "productModal"
+    );
+
+    openCheckout();
+
 }
-function renderOrders(){
-  const q=($("orderSearch").value||"").toLowerCase().trim();
-  const list=orders.filter(o=>(String(o.order_number)+" "+String(o.customer_name)+" "+String(o.customer_phone)).toLowerCase().includes(q));
-  $("orderRows").innerHTML=list.map(o=>
-    '<tr><td>'+o.id+'</td><td><b>'+esc(o.order_number)+'</b></td><td>'+esc(o.customer_name)+'<br><span class="muted">'+esc(o.customer_phone)+'</span></td>'+
-    '<td>₹'+Number(o.total||0).toLocaleString("en-IN")+'</td><td>'+esc(o.status||"New")+'</td><td>'+esc(o.payment_status||"Pending")+'</td>'+
-    '<td>'+esc(o.created_at||"")+'</td><td><button class="btn" onclick="viewOrder('+o.id+')">View</button> <button class="btn danger" onclick="deleteOrder('+o.id+')">Delete</button></td></tr>'
-  ).join("")||'<tr><td colspan="8" class="muted">No orders found.</td></tr>';
+
+
+/* =========================================================
+   SAVE CART
+   ========================================================= */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "rahaCart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
 }
-async function loadOrders(){
-  try{
-    const r=await fetch(API+"/api/orders",{headers:authHeaders()});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not load orders");
-    orders=d.orders||[];
-    renderOrders();renderCustomers();updateStats();
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   CART COUNT
+   ========================================================= */
+
+function updateCartCount() {
+
+    const count =
+        cart.reduce(
+            (
+                total,
+                item
+            ) =>
+                total +
+                Number(
+                    item.quantity || 0
+                ),
+            0
+        );
+
+
+    document.getElementById(
+        "cartCount"
+    ).textContent =
+        count;
+
 }
-async function viewOrder(id){
-  $("orderModal").style.display="flex";
-  $("orderDetail").textContent="Loading…";
-  try{
-    const r=await fetch(API+"/api/orders/"+id,{headers:authHeaders()});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not load order");
-    const o=d.order;
-    let items=[];
-    try{items=JSON.parse(o.items||"[]")}catch{}
-    $("orderDetail").textContent=
-      "ORDER: "+o.order_number+
-      "\\n\\nCUSTOMER\\nName: "+o.customer_name+
-      "\\nPhone: "+o.customer_phone+
-      "\\nAddress: "+o.customer_address+
-      "\\nPincode: "+(o.customer_pincode||"")+
-      "\\nState: "+(o.customer_state||"")+
-      "\\nDistrict: "+(o.customer_district||"")+
-      "\\n\\nITEMS\\n"+items.map((x,i)=>(i+1)+". "+x.name+" × "+x.quantity+" — ₹"+(Number(x.price)*Number(x.quantity))+(x.colour?" — "+x.colour:"")+(x.size?" — "+x.size:"")).join("\\n")+
-      "\\n\\nSubtotal: ₹"+Number(o.subtotal||0)+
-      "\\nDelivery: ₹"+Number(o.delivery_charge||0)+
-      "\\nDiscount: ₹"+Number(o.discount||0)+
-      "\\nTOTAL: ₹"+Number(o.total||0)+
-      "\\n\\nStatus: "+(o.status||"New")+
-      "\\nPayment: "+(o.payment_status||"Pending");
-  }catch(e){$("orderDetail").textContent=e.message}
+
+
+/* =========================================================
+   CART TOTAL
+   ========================================================= */
+
+function cartTotalValue() {
+
+    return cart.reduce(
+        (
+            total,
+            item
+        ) =>
+            total +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+        0
+    );
+
 }
-function closeOrderModal(){$("orderModal").style.display="none"}
-async function deleteOrder(id){
-  if(!confirm("Delete this order?"))return;
-  try{
-    const r=await fetch(API+"/api/orders/"+id,{method:"DELETE",headers:authHeaders()});
-    const d=await r.json();
-    if(!r.ok||!d.success)throw Error(d.error||"Could not delete order");
-    toast("Order deleted");await loadOrders();
-  }catch(e){toast(e.message)}
+
+
+/* =========================================================
+   OPEN CART
+   ========================================================= */
+
+function openCart() {
+
+    renderCart();
+
+    document.getElementById(
+        "cartModal"
+    ).style.display =
+        "block";
+
 }
-function renderCustomers(){
-  const map={};
-  orders.forEach(o=>{
-    const key=String(o.customer_phone||o.customer_name);
-    if(!map[key])map[key]={name:o.customer_name,phone:o.customer_phone,count:0,total:0,latest:o.created_at||""};
-    map[key].count++;
-    map[key].total+=Number(o.total||0);
-    if(String(o.created_at||"")>String(map[key].latest||""))map[key].latest=o.created_at||"";
-  });
-  $("customerRows").innerHTML=Object.values(map).map(c=>
-    '<tr><td>'+esc(c.name)+'</td><td>'+esc(c.phone)+'</td><td>'+c.count+'</td><td>₹'+c.total.toLocaleString("en-IN")+'</td><td>'+esc(c.latest)+'</td></tr>'
-  ).join("")||'<tr><td colspan="5" class="muted">No customers yet.</td></tr>';
+
+
+/* =========================================================
+   RENDER CART
+   ========================================================= */
+
+function renderCart() {
+
+    const box =
+        document.getElementById(
+            "cartItems"
+        );
+
+
+    box.innerHTML = "";
+
+
+    if (!cart.length) {
+
+        box.innerHTML = `
+            <div class="noProducts">
+                🛒 Your cart is empty.
+            </div>
+        `;
+
+
+        document.getElementById(
+            "cartTotal"
+        ).textContent =
+            "₹0";
+
+
+        return;
+
+    }
+
+
+    cart.forEach(
+        (
+            item,
+            index
+        ) => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "cartItem";
+
+
+            row.innerHTML = `
+
+                <img
+                    src="${imageFallback(item.image)}"
+                    alt="${escapeHTML(item.name)}"
+                    onerror="this.onerror=null;this.src=imageFallback('')"
+                >
+
+                <div>
+
+                    <div class="cartName">
+                        ${escapeHTML(item.name)}
+                    </div>
+
+                    <div class="cartMeta">
+
+                        Colour:
+                        ${escapeHTML(item.colour || "N/A")}
+
+                        <br>
+
+                        Size:
+                        ${escapeHTML(item.size || "Free Size")}
+
+                    </div>
+
+                    <div class="qty">
+
+                        <button
+                            onclick="changeQty(${index},-1)"
+                        >
+                            −
+                        </button>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <button
+                            onclick="changeQty(${index},1)"
+                        >
+                            +
+                        </button>
+
+                        <button
+                            onclick="removeCartItem(${index})"
+                            style="
+                                margin-left:7px;
+                                color:#ff7777;
+                            "
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="cartPrice">
+                    ₹${formatPrice(
+                        Number(item.price) *
+                        Number(item.quantity)
+                    )}
+                </div>
+
+            `;
+
+
+            box.appendChild(row);
+
+        }
+    );
+
+
+    document.getElementById(
+        "cartTotal"
+    ).textContent =
+        "₹" +
+        formatPrice(
+            cartTotalValue()
+        );
+
 }
-window.onclick=e=>{
-  if(e.target.classList.contains("modal"))e.target.style.display="none";
+
+
+/* =========================================================
+   QUANTITY
+   ========================================================= */
+
+function changeQty(
+    index,
+    change
+) {
+
+    if (!cart[index]) {
+        return;
+    }
+
+
+    const item =
+        cart[index];
+
+
+    const product =
+        products.find(
+            p =>
+                Number(p.id) ===
+                Number(item.productId)
+        );
+
+
+    const newQuantity =
+        Number(item.quantity) +
+        Number(change);
+
+
+    if (
+        newQuantity <= 0
+    ) {
+
+        cart.splice(
+            index,
+            1
+        );
+
+    } else {
+
+        if (
+            product &&
+            newQuantity >
+                Number(product.stock)
+        ) {
+
+            alert(
+                `Only ${product.stock} item(s) are available.`
+            );
+
+            return;
+
+        }
+
+
+        item.quantity =
+            newQuantity;
+
+    }
+
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =========================================================
+   REMOVE
+   ========================================================= */
+
+function removeCartItem(
+    index
+) {
+
+    cart.splice(
+        index,
+        1
+    );
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =========================================================
+   CLEAR CART
+   ========================================================= */
+
+function clearCart() {
+
+    if (!cart.length) {
+
+        showToast(
+            "Cart is already empty"
+        );
+
+        return;
+
+    }
+
+
+    cart = [];
+
+    saveCart();
+
+    renderCart();
+
+    showToast(
+        "✓ Cart cleared"
+    );
+
+}
+
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+
+function openCheckout() {
+
+    if (!cart.length) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    closeModal(
+        "cartModal"
+    );
+
+
+    document.getElementById(
+        "checkoutModal"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   INDIA STATES + DISTRICTS
+   ========================================================= */
+
+const indiaLocations = {
+
+    "Andaman and Nicobar Islands": [
+        "Nicobar",
+        "North and Middle Andaman",
+        "South Andaman"
+    ],
+
+    "Andhra Pradesh": [
+        "Alluri Sitharama Raju",
+        "Anakapalli",
+        "Ananthapuramu",
+        "Annamayya",
+        "Bapatla",
+        "Chittoor",
+        "East Godavari",
+        "Eluru",
+        "Guntur",
+        "Kakinada",
+        "Krishna",
+        "Kurnool",
+        "Nandyal",
+        "NTR",
+        "Palnadu",
+        "Prakasam",
+        "Sri Potti Sriramulu Nellore",
+        "Sri Sathya Sai",
+        "Srikakulam",
+        "Tirupati",
+        "Visakhapatnam",
+        "Vizianagaram",
+        "West Godavari",
+        "YSR"
+    ],
+
+    "Arunachal Pradesh": [
+        "Anjaw",
+        "Changlang",
+        "East Kameng",
+        "East Siang",
+        "Itanagar",
+        "Lohit",
+        "Longding",
+        "Lower Dibang Valley",
+        "Lower Siang",
+        "Lower Subansiri",
+        "Namsai",
+        "Papum Pare",
+        "Tawang",
+        "Tirap",
+        "Upper Siang",
+        "Upper Subansiri",
+        "West Kameng",
+        "West Siang"
+    ],
+
+    "Assam": [
+        "Baksa",
+        "Barpeta",
+        "Biswanath",
+        "Bongaigaon",
+        "Cachar",
+        "Charaideo",
+        "Darrang",
+        "Dhemaji",
+        "Dhubri",
+        "Dibrugarh",
+        "Goalpara",
+        "Golaghat",
+        "Hailakandi",
+        "Jorhat",
+        "Kamrup",
+        "Kamrup Metropolitan",
+        "Karbi Anglong",
+        "Lakhimpur",
+        "Majuli",
+        "Morigaon",
+        "Nagaon",
+        "Nalbari",
+        "Sivasagar",
+        "Sonitpur",
+        "Tinsukia",
+        "Udalguri"
+    ],
+
+    "Bihar": [
+        "Araria",
+        "Arwal",
+        "Aurangabad",
+        "Banka",
+        "Begusarai",
+        "Bhagalpur",
+        "Bhojpur",
+        "Buxar",
+        "Darbhanga",
+        "Gaya",
+        "Gopalganj",
+        "Jamui",
+        "Jehanabad",
+        "Katihar",
+        "Khagaria",
+        "Kishanganj",
+        "Lakhisarai",
+        "Madhepura",
+        "Madhubani",
+        "Munger",
+        "Muzaffarpur",
+        "Nalanda",
+        "Nawada",
+        "Patna",
+        "Purnia",
+        "Rohtas",
+        "Saharsa",
+        "Samastipur",
+        "Saran",
+        "Sheikhpura",
+        "Sheohar",
+        "Sitamarhi",
+        "Siwan",
+        "Supaul",
+        "Vaishali"
+    ],
+
+    "Chandigarh": [
+        "Chandigarh"
+    ],
+
+    "Chhattisgarh": [
+        "Balod",
+        "Baloda Bazar",
+        "Bastar",
+        "Bemetara",
+        "Bijapur",
+        "Bilaspur",
+        "Dantewada",
+        "Dhamtari",
+        "Durg",
+        "Korba",
+        "Raigarh",
+        "Raipur",
+        "Rajnandgaon",
+        "Surajpur",
+        "Surguja"
+    ],
+
+    "Delhi": [
+        "Central Delhi",
+        "East Delhi",
+        "New Delhi",
+        "North Delhi",
+        "North East Delhi",
+        "North West Delhi",
+        "Shahdara",
+        "South Delhi",
+        "South East Delhi",
+        "South West Delhi",
+        "West Delhi"
+    ],
+
+    "Goa": [
+        "North Goa",
+        "South Goa"
+    ],
+
+    "Gujarat": [
+        "Ahmedabad",
+        "Amreli",
+        "Anand",
+        "Bharuch",
+        "Bhavnagar",
+        "Gandhinagar",
+        "Jamnagar",
+        "Junagadh",
+        "Kachchh",
+        "Kheda",
+        "Mehsana",
+        "Rajkot",
+        "Surat",
+        "Vadodara",
+        "Valsad"
+    ],
+
+    "Haryana": [
+        "Ambala",
+        "Bhiwani",
+        "Faridabad",
+        "Fatehabad",
+        "Gurugram",
+        "Hisar",
+        "Jhajjar",
+        "Jind",
+        "Kaithal",
+        "Karnal",
+        "Kurukshetra",
+        "Panipat",
+        "Rewari",
+        "Rohtak",
+        "Sirsa",
+        "Sonipat"
+    ],
+
+    "Himachal Pradesh": [
+        "Bilaspur",
+        "Chamba",
+        "Hamirpur",
+        "Kangra",
+        "Kinnaur",
+        "Kullu",
+        "Mandi",
+        "Shimla",
+        "Sirmaur",
+        "Solan",
+        "Una"
+    ],
+
+    "Jammu and Kashmir": [
+        "Anantnag",
+        "Bandipore",
+        "Baramulla",
+        "Budgam",
+        "Doda",
+        "Ganderbal",
+        "Jammu",
+        "Kathua",
+        "Kishtwar",
+        "Kulgam",
+        "Kupwara",
+        "Poonch",
+        "Pulwama",
+        "Rajouri",
+        "Ramban",
+        "Reasi",
+        "Samba",
+        "Shopian",
+        "Srinagar",
+        "Udhampur"
+    ],
+
+    "Jharkhand": [
+        "Bokaro",
+        "Chatra",
+        "Deoghar",
+        "Dhanbad",
+        "Dumka",
+        "East Singhbhum",
+        "Garhwa",
+        "Giridih",
+        "Godda",
+        "Gumla",
+        "Hazaribagh",
+        "Jamtara",
+        "Khunti",
+        "Koderma",
+        "Latehar",
+        "Lohardaga",
+        "Palamu",
+        "Ranchi",
+        "Ramgarh",
+        "Sahibganj",
+        "Simdega",
+        "West Singhbhum"
+    ],
+
+    "Karnataka": [
+        "Bagalkot",
+        "Ballari",
+        "Belagavi",
+        "Bengaluru Rural",
+        "Bengaluru Urban",
+        "Bidar",
+        "Chamarajanagar",
+        "Chikkaballapura",
+        "Chikkamagaluru",
+        "Chitradurga",
+        "Dakshina Kannada",
+        "Davanagere",
+        "Dharwad",
+        "Gadag",
+        "Hassan",
+        "Haveri",
+        "Kalaburagi",
+        "Kodagu",
+        "Kolar",
+        "Koppal",
+        "Mandya",
+        "Mysuru",
+        "Raichur",
+        "Ramanagara",
+        "Shivamogga",
+        "Tumakuru",
+        "Udupi",
+        "Uttara Kannada",
+        "Vijayapura",
+        "Yadgir"
+    ],
+
+    "Kerala": [
+        "Alappuzha",
+        "Ernakulam",
+        "Idukki",
+        "Kannur",
+        "Kasaragod",
+        "Kollam",
+        "Kottayam",
+        "Kozhikode",
+        "Malappuram",
+        "Palakkad",
+        "Pathanamthitta",
+        "Thiruvananthapuram",
+        "Thrissur",
+        "Wayanad"
+    ],
+
+    "Madhya Pradesh": [
+        "Bhopal",
+        "Indore",
+        "Jabalpur",
+        "Gwalior",
+        "Ujjain",
+        "Sagar",
+        "Rewa",
+        "Satna",
+        "Dewas",
+        "Ratlam"
+    ],
+
+    "Maharashtra": [
+        "Ahmednagar",
+        "Akola",
+        "Amravati",
+        "Aurangabad",
+        "Beed",
+        "Bhandara",
+        "Buldhana",
+        "Chandrapur",
+        "Dhule",
+        "Gadchiroli",
+        "Gondia",
+        "Jalgaon",
+        "Jalna",
+        "Kolhapur",
+        "Latur",
+        "Mumbai City",
+        "Mumbai Suburban",
+        "Nagpur",
+        "Nanded",
+        "Nandurbar",
+        "Nashik",
+        "Osmanabad",
+        "Palghar",
+        "Parbhani",
+        "Pune",
+        "Raigad",
+        "Ratnagiri",
+        "Sangli",
+        "Satara",
+        "Solapur",
+        "Thane",
+        "Wardha",
+        "Washim",
+        "Yavatmal"
+    ],
+
+    "Odisha": [
+        "Angul",
+        "Balangir",
+        "Balasore",
+        "Bargarh",
+        "Bhadrak",
+        "Cuttack",
+        "Dhenkanal",
+        "Gajapati",
+        "Ganjam",
+        "Jagatsinghpur",
+        "Jajpur",
+        "Jharsuguda",
+        "Kalahandi",
+        "Kandhamal",
+        "Kendrapara",
+        "Kendujhar",
+        "Khordha",
+        "Koraput",
+        "Mayurbhanj",
+        "Nabarangpur",
+        "Nayagarh",
+        "Puri",
+        "Rayagada",
+        "Sambalpur",
+        "Sundargarh"
+    ],
+
+    "Punjab": [
+        "Amritsar",
+        "Bathinda",
+        "Faridkot",
+        "Fatehgarh Sahib",
+        "Fazilka",
+        "Ferozepur",
+        "Gurdaspur",
+        "Hoshiarpur",
+        "Jalandhar",
+        "Kapurthala",
+        "Ludhiana",
+        "Mansa",
+        "Moga",
+        "Muktsar",
+        "Patiala",
+        "Pathankot",
+        "Rupnagar",
+        "Sangrur"
+    ],
+
+    "Rajasthan": [
+        "Ajmer",
+        "Alwar",
+        "Banswara",
+        "Baran",
+        "Barmer",
+        "Bharatpur",
+        "Bhilwara",
+        "Bikaner",
+        "Bundi",
+        "Chittorgarh",
+        "Churu",
+        "Dausa",
+        "Dholpur",
+        "Dungarpur",
+        "Hanumangarh",
+        "Jaipur",
+        "Jaisalmer",
+        "Jalore",
+        "Jhalawar",
+        "Jhunjhunu",
+        "Jodhpur",
+        "Karauli",
+        "Kota",
+        "Nagaur",
+        "Pali",
+        "Rajsamand",
+        "Sawai Madhopur",
+        "Sikar",
+        "Sirohi",
+        "Sri Ganganagar",
+        "Tonk",
+        "Udaipur"
+    ],
+
+    "Tamil Nadu": [
+        "Ariyalur",
+        "Chengalpattu",
+        "Chennai",
+        "Coimbatore",
+        "Cuddalore",
+        "Dharmapuri",
+        "Dindigul",
+        "Erode",
+        "Kallakurichi",
+        "Kancheepuram",
+        "Karur",
+        "Krishnagiri",
+        "Madurai",
+        "Mayiladuthurai",
+        "Nagapattinam",
+        "Namakkal",
+        "Nilgiris",
+        "Perambalur",
+        "Pudukkottai",
+        "Ramanathapuram",
+        "Ranipet",
+        "Salem",
+        "Sivaganga",
+        "Tenkasi",
+        "Thanjavur",
+        "Theni",
+        "Thoothukudi",
+        "Tiruchirappalli",
+        "Tirunelveli",
+        "Tirupathur",
+        "Tiruppur",
+        "Tiruvallur",
+        "Tiruvannamalai",
+        "Tiruvarur",
+        "Vellore",
+        "Viluppuram",
+        "Virudhunagar"
+    ],
+
+    "Telangana": [
+        "Adilabad",
+        "Bhadradri Kothagudem",
+        "Hyderabad",
+        "Jagtial",
+        "Jangaon",
+        "Jayashankar Bhupalapally",
+        "Jogulamba Gadwal",
+        "Kamareddy",
+        "Karimnagar",
+        "Khammam",
+        "Komaram Bheem",
+        "Mahabubabad",
+        "Mahbubnagar",
+        "Mancherial",
+        "Medak",
+        "Medchal-Malkajgiri",
+        "Nalgonda",
+        "Nirmal",
+        "Nizamabad",
+        "Peddapalli",
+        "Rajanna Sircilla",
+        "Rangareddy",
+        "Sangareddy",
+        "Siddipet",
+        "Suryapet",
+        "Vikarabad",
+        "Wanaparthy",
+        "Warangal",
+        "Yadadri Bhuvanagiri"
+    ],
+
+    "Uttar Pradesh": [
+        "Agra",
+        "Aligarh",
+        "Allahabad",
+        "Azamgarh",
+        "Bareilly",
+        "Ghaziabad",
+        "Gorakhpur",
+        "Kanpur Nagar",
+        "Lucknow",
+        "Mathura",
+        "Meerut",
+        "Moradabad",
+        "Noida",
+        "Prayagraj",
+        "Varanasi"
+    ],
+
+    "Uttarakhand": [
+        "Almora",
+        "Bageshwar",
+        "Chamoli",
+        "Champawat",
+        "Dehradun",
+        "Haridwar",
+        "Nainital",
+        "Pauri Garhwal",
+        "Pithoragarh",
+        "Rudraprayag",
+        "Tehri Garhwal",
+        "Udham Singh Nagar",
+        "Uttarkashi"
+    ],
+
+    "West Bengal": [
+        "Alipurduar",
+        "Bankura",
+        "Birbhum",
+        "Cooch Behar",
+        "Darjeeling",
+        "Hooghly",
+        "Howrah",
+        "Jalpaiguri",
+        "Jhargram",
+        "Kalimpong",
+        "Kolkata",
+        "Malda",
+        "Murshidabad",
+        "Nadia",
+        "North 24 Parganas",
+        "Paschim Bardhaman",
+        "Paschim Medinipur",
+        "Purba Bardhaman",
+        "Purba Medinipur",
+        "South 24 Parganas",
+        "Uttar Dinajpur"
+    ]
+
 };
 
-(async()=>{
-  if(token){
-    try{
-      const r=await fetch(API+"/api/admin/check",{headers:authHeaders()});
-      if(r.ok){
-        $("login").style.display="none";
-        $("app").style.display="block";
-        await loadAll();
-        checkAPI();
-      }else localStorage.removeItem("raha_admin_token");
-    }catch(e){}
-  }
-})();
+
+/* =========================================================
+   LOAD STATES
+   ========================================================= */
+
+function loadStates() {
+
+    const stateSelect =
+        document.getElementById(
+            "customerState"
+        );
+
+
+    stateSelect.innerHTML = `
+        <option value="">
+            Select State / UT
+        </option>
+    `;
+
+
+    Object.keys(
+        indiaLocations
+    )
+    .sort()
+    .forEach(
+        state => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                state;
+
+            option.textContent =
+                state;
+
+            stateSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD DISTRICTS
+   ========================================================= */
+
+function loadDistricts() {
+
+    const state =
+        document.getElementById(
+            "customerState"
+        ).value;
+
+
+    const districtSelect =
+        document.getElementById(
+            "customerDistrict"
+        );
+
+
+    districtSelect.innerHTML = `
+        <option value="">
+            Select District
+        </option>
+    `;
+
+
+    if (!state) {
+        return;
+    }
+
+
+    const districts =
+        indiaLocations[
+            state
+        ] || [];
+
+
+    districts
+        .slice()
+        .sort()
+        .forEach(
+            district => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    district;
+
+                option.textContent =
+                    district;
+
+                districtSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   WHATSAPP ORDER
+   ========================================================= */
+
+async function sendWhatsAppOrder() {
+
+    if (!cart.length) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
+
+    const address =
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
+
+
+    const pincode =
+        document.getElementById(
+            "customerPincode"
+        ).value.trim();
+
+
+    const state =
+        document.getElementById(
+            "customerState"
+        ).value;
+
+
+    const district =
+        document.getElementById(
+            "customerDistrict"
+        ).value;
+
+
+    if (!name) {
+
+        alert(
+            "Please enter your name."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !/^[0-9]{10}$/.test(phone)
+    ) {
+
+        alert(
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return;
+
+    }
+
+
+    if (!address) {
+
+        alert(
+            "Please enter your full address."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !/^[0-9]{6}$/.test(pincode)
+    ) {
+
+        alert(
+            "Please enter a valid 6 digit pincode."
+        );
+
+        return;
+
+    }
+
+
+    if (!state) {
+
+        alert(
+            "Please select your State / UT."
+        );
+
+        return;
+
+    }
+
+
+    if (!district) {
+
+        alert(
+            "Please select your District."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Re-check stock from the Worker
+     * before sending the order.
+     */
+
+    try {
+
+        const response =
+            await fetch(
+                `${RAHA_API}/api/products`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (response.ok) {
+
+            const data =
+                await response.json();
+
+
+            if (
+                data.success &&
+                Array.isArray(
+                    data.products
+                )
+            ) {
+
+                const latestProducts =
+                    data.products.map(
+                        normaliseProduct
+                    );
+
+
+                for (
+                    const item of cart
+                ) {
+
+                    const latest =
+                        latestProducts.find(
+                            product =>
+                                Number(
+                                    product.id
+                                ) ===
+                                Number(
+                                    item.productId
+                                )
+                        );
+
+
+                    if (!latest) {
+
+                        alert(
+                            `${item.name} is no longer available.`
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        Number(
+                            latest.stock
+                        ) <
+                        Number(
+                            item.quantity
+                        )
+                    ) {
+
+                        alert(
+                            `${item.name} has only ${latest.stock} item(s) available.`
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Update current price
+                     * and image from latest data.
+                     */
+
+                    item.price =
+                        latest.price;
+
+
+                    const colourImage =
+                        latest.colours &&
+                        latest.colours[
+                            item.colour
+                        ];
+
+
+                    if (colourImage) {
+
+                        item.image =
+                            colourImage;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Stock verification error:",
+            error
+        );
+
+    }
+
+
+    /*
+     * First create the order
+     * in D1.
+     */
+
+    try {
+
+        const response =
+            await fetch(
+                `${RAHA_API}/api/orders`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            customerName:
+                                name,
+
+                            customerPhone:
+                                phone,
+
+                            customerAddress:
+                                address,
+
+                            customerPincode:
+                                pincode,
+
+                            customerState:
+                                state,
+
+                            customerDistrict:
+                                district,
+
+                            items:
+                                cart.map(
+                                    item => ({
+                                        productId:
+                                            Number(
+                                                item.productId
+                                            ),
+
+                                        quantity:
+                                            Number(
+                                                item.quantity
+                                            ),
+
+                                        size:
+                                            item.size ||
+                                            "",
+
+                                        color:
+                                            item.colour ||
+                                            "",
+
+                                        image:
+                                            item.image ||
+                                            ""
+                                    })
+                                ),
+
+                            paymentMethod:
+                                "UPI_WHATSAPP"
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            alert(
+                data.message ||
+                "Unable to create order. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Build WhatsApp message.
+         */
+
+        let message =
+            "🛍️ *RAHA NEW ORDER*%0A%0A";
+
+
+        message +=
+            "*ORDER NUMBER:* " +
+            encodeURIComponent(
+                data.orderNumber ||
+                ""
+            ) +
+            "%0A%0A";
+
+
+        message +=
+            "*CUSTOMER DETAILS*%0A";
+
+
+        message +=
+            "Name: " +
+            encodeURIComponent(
+                name
+            ) +
+            "%0A";
+
+
+        message +=
+            "Mobile: " +
+            encodeURIComponent(
+                phone
+            ) +
+            "%0A";
+
+
+        message +=
+            "Address: " +
+            encodeURIComponent(
+                address
+            ) +
+            "%0A";
+
+
+        message +=
+            "Pincode: " +
+            encodeURIComponent(
+                pincode
+            ) +
+            "%0A";
+
+
+        message +=
+            "State: " +
+            encodeURIComponent(
+                state
+            ) +
+            "%0A";
+
+
+        message +=
+            "District: " +
+            encodeURIComponent(
+                district
+            ) +
+            "%0A%0A";
+
+
+        message +=
+            "*ORDER ITEMS*%0A";
+
+
+        cart.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                message +=
+                    "%0A" +
+                    (index + 1) +
+                    ". " +
+                    encodeURIComponent(
+                        item.name
+                    ) +
+                    "%0A";
+
+
+                message +=
+                    "Quantity: " +
+                    item.quantity +
+                    "%0A";
+
+
+                message +=
+                    "Colour: " +
+                    encodeURIComponent(
+                        item.colour ||
+                        "N/A"
+                    ) +
+                    "%0A";
+
+
+                message +=
+                    "Size: " +
+                    encodeURIComponent(
+                        item.size ||
+                        "Free Size"
+                    ) +
+                    "%0A";
+
+
+                message +=
+                    "Price: ₹" +
+                    (
+                        Number(
+                            item.price
+                        ) *
+                        Number(
+                            item.quantity
+                        )
+                    ) +
+                    "%0A";
+
+            }
+        );
+
+
+        message +=
+            "%0A*PRODUCT TOTAL: ₹" +
+            cartTotalValue() +
+            "*";
+
+
+        message +=
+            "%0A%0A📦 Delivery charge: To be confirmed";
+
+
+        message +=
+            "%0A💳 Payment: UPI after WhatsApp confirmation";
+
+
+        message +=
+            "%0A%0APlease confirm availability and final delivery charge.";
+
+
+        const whatsappURL =
+            "https://wa.me/" +
+            WHATSAPP_NUMBER +
+            "?text=" +
+            message;
+
+
+        /*
+         * Open WhatsApp.
+         */
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+        /*
+         * Clear cart only after
+         * successful D1 order creation.
+         */
+
+        cart = [];
+
+        saveCart();
+
+        renderCart();
+
+
+        closeModal(
+            "checkoutModal"
+        );
+
+
+        showToast(
+            "✓ Order created successfully"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Order creation error:",
+            error
+        );
+
+
+        alert(
+            "Could not connect to RAHA server. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+function closeModal(
+    id
+) {
+
+    const modal =
+        document.getElementById(
+            id
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   OUTSIDE MODAL CLICK
+   ========================================================= */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target.classList.contains(
+                "modal"
+            )
+        ) {
+
+            event.target.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(
+    message
+) {
+
+    const old =
+        document.getElementById(
+            "rahaToast"
+        );
+
+
+    if (old) {
+        old.remove();
+    }
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.id =
+        "rahaToast";
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.position =
+        "fixed";
+
+    toast.style.bottom =
+        "25px";
+
+    toast.style.left =
+        "50%";
+
+    toast.style.transform =
+        "translateX(-50%)";
+
+    toast.style.background =
+        "#111";
+
+    toast.style.color =
+        "#d4af37";
+
+    toast.style.padding =
+        "14px 22px";
+
+    toast.style.borderRadius =
+        "10px";
+
+    toast.style.border =
+        "1px solid #d4af37";
+
+    toast.style.zIndex =
+        "99999";
+
+    toast.style.fontWeight =
+        "600";
+
+
+    document.body.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.remove();
+
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   INITIALISE
+   ========================================================= */
+
+loadStates();
+
+updateCartCount();
+
+renderCategories();
+
+loadCatalogs();
+
+loadProducts();
+
+
+/* =========================================================
+   SCROLL RESTORATION
+   ========================================================= */
+
+if (
+    "scrollRestoration"
+    in history
+) {
+
+    history.scrollRestoration =
+        "manual";
+
+}
+
+
+const RAHA_SCROLL_KEY =
+    "rahaScrollY";
+
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        sessionStorage.setItem(
+            RAHA_SCROLL_KEY,
+            String(
+                window.scrollY
+            )
+        );
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const savedPosition =
+            sessionStorage.getItem(
+                RAHA_SCROLL_KEY
+            );
+
+
+        if (
+            savedPosition !== null
+        ) {
+
+            requestAnimationFrame(
+                () => {
+
+                    window.scrollTo(
+                        0,
+                        Number(
+                            savedPosition
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
 </script>
+
 </body>
 </html>
