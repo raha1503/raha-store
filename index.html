@@ -108,17 +108,26 @@ header {
 }
 
 .categoryWrap{
-  width:100%;
+  display:flex!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  flex-wrap:nowrap!important;
+  justify-content:flex-start;
   max-width:1200px;
-  margin:auto;
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  padding:0 15px 9px;
+  padding:10px 15px!important;
+  gap:8px!important;
   scrollbar-width:none;
   -webkit-overflow-scrolling:touch;
   touch-action:pan-x;
+}
+
+.categoryWrap::-webkit-scrollbar{
+  display:none;
+}
+
+.categoryWrap .cat{
+  flex:0 0 auto!important;
+  white-space:nowrap;
 }
 
 .categoryWrap::-webkit-scrollbar{
