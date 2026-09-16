@@ -337,13 +337,24 @@ button:hover{
 
         <label>Category</label>
 
-<input
-  type="text"
-  id="category"
-  placeholder="Type any category"
-  autocomplete="off"
-  required
->
+<div class="categoryBox">
+
+  <input
+    type="text"
+    id="category"
+    placeholder="Type or select a category"
+    autocomplete="off"
+    onfocus="showCategorySuggestions()"
+    oninput="filterCategorySuggestions()"
+    required
+  >
+
+  <div
+    id="categorySuggestions"
+    class="categorySuggestions"
+  ></div>
+
+</div>
 
       </div>
 
@@ -1487,6 +1498,109 @@ function escapeAttribute(value){
 
 checkLogin();
 
+  .categoryBox{
+  position:relative;
+}
+
+.categorySuggestions{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  right:0;
+  background:#111;
+  border:1px solid #d4af37;
+  border-radius:8px;
+  max-height:220px;
+  overflow-y:auto;
+  z-index:9999;
+}
+
+.categorySuggestion{
+  padding:11px 12px;
+  color:#fff;
+  cursor:pointer;
+  border-bottom:1px solid #222;
+}
+
+.categorySuggestion:hover{
+  background:#222;
+  color:#d4af37;
+}
+  const categoryOptions = [
+  "Jewellery",
+  "Fashion",
+  "Gifts",
+  "Accessories",
+  "Home & Lifestyle",
+  "Electronics",
+  "Footwear",
+  "Beauty",
+  "Bags",
+  "Watches"
+];
+
+function showCategorySuggestions(){
+  filterCategorySuggestions();
+}
+
+function filterCategorySuggestions(){
+
+  const input =
+    document.getElementById("category");
+
+  const box =
+    document.getElementById("categorySuggestions");
+
+  const search =
+    input.value.toLowerCase().trim();
+
+  const filtered =
+    categoryOptions.filter(category =>
+      category.toLowerCase().includes(search)
+    );
+
+  box.innerHTML = "";
+
+  filtered.forEach(category => {
+
+    const item =
+      document.createElement("div");
+
+    item.className =
+      "categorySuggestion";
+
+    item.textContent =
+      category;
+
+    item.onclick = function(){
+
+      input.value = category;
+
+      box.style.display = "none";
+    };
+
+    box.appendChild(item);
+  });
+
+  box.style.display =
+    filtered.length ? "block" : "none";
+}
+
+document.addEventListener("click", function(event){
+
+  const box =
+    document.querySelector(".categoryBox");
+
+  if(box && !box.contains(event.target)){
+
+    document.getElementById(
+      "categorySuggestions"
+    ).style.display = "none";
+
+  }
+
+});
 </script>
 
 </body>
