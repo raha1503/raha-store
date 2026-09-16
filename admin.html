@@ -6,15 +6,13 @@
 <title>RAHA Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   background:#0a0a0a;
   color:#eee;
-  font:14px Arial;
+  font:14px Arial
 }
 
 .top{
@@ -24,26 +22,26 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
+  padding:0 18px
 }
 
 .logo{
   font-size:24px;
   font-weight:800;
   letter-spacing:2px;
-  color:#d4af37;
+  color:#d4af37
 }
 
 .layout{
   display:flex;
-  min-height:calc(100vh - 64px);
+  min-height:calc(100vh - 64px)
 }
 
 aside{
   width:220px;
   background:#101010;
   border-right:1px solid #292929;
-  padding:14px;
+  padding:14px
 }
 
 .nav{
@@ -55,34 +53,34 @@ aside{
   border-radius:8px;
   background:transparent;
   color:#aaa;
-  text-align:left;
+  text-align:left
 }
 
 .nav.active,
 .nav:hover{
   background:#202020;
-  color:#d4af37;
+  color:#d4af37
 }
 
 .main{
   padding:22px;
   max-width:1400px;
   width:100%;
-  margin:auto;
+  margin:auto
 }
 
 .page{
-  display:none;
+  display:none
 }
 
 .page.active{
-  display:block;
+  display:block
 }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
+  gap:14px
 }
 
 .card,
@@ -90,36 +88,36 @@ aside{
   background:#111;
   border:1px solid #292929;
   border-radius:12px;
-  padding:17px;
+  padding:17px
 }
 
 .card b{
   display:block;
   font-size:26px;
   color:#d4af37;
-  margin-top:8px;
+  margin-top:8px
 }
 
 .muted{
-  color:#888;
+  color:#888
 }
 
 .grid,
 .form{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:12px
 }
 
 .full{
-  grid-column:1/-1;
+  grid-column:1/-1
 }
 
 label{
   display:block;
   color:#bbb;
   font-size:12px;
-  margin-bottom:5px;
+  margin-bottom:5px
 }
 
 input,
@@ -130,11 +128,11 @@ select{
   color:#fff;
   border:1px solid #3a3a3a;
   border-radius:8px;
-  padding:11px;
+  padding:11px
 }
 
 textarea{
-  min-height:90px;
+  min-height:90px
 }
 
 .btn{
@@ -142,86 +140,85 @@ textarea{
   background:#1c1c1c;
   color:#eee;
   padding:10px 13px;
-  border-radius:8px;
-  cursor:pointer;
+  border-radius:8px
 }
 
 .primary{
   background:#d4af37;
   color:#080808;
   border-color:#d4af37;
-  font-weight:bold;
+  font-weight:bold
 }
 
 .danger{
-  color:#ff8b8b;
+  color:#ff8b8b
 }
 
 .actions{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
-  margin-top:14px;
+  margin-top:14px
 }
 
 .search{
   display:flex;
   gap:8px;
-  margin-bottom:14px;
+  margin-bottom:14px
 }
 
 .search input{
-  flex:1;
+  flex:1
 }
 
 table{
   width:100%;
-  border-collapse:collapse;
+  border-collapse:collapse
 }
 
 th,
 td{
   padding:10px;
   border-bottom:1px solid #292929;
-  text-align:left;
+  text-align:left
 }
 
 .thumb{
   width:48px;
   height:48px;
   object-fit:cover;
-  border-radius:6px;
+  border-radius:6px
 }
 
 .badge{
   padding:5px 8px;
   border-radius:20px;
-  background:#252525;
+  background:#252525
 }
 
 .ok{
-  color:#75d7a0;
+  color:#75d7a0
 }
 
 .low{
-  color:#ffd166;
+  color:#ffd166
 }
 
 .out{
-  color:#ff7777;
+  color:#ff7777
 }
 
 .variant{
   border:1px solid #333;
   border-radius:10px;
   padding:12px;
-  margin-top:12px;
+  margin-top:12px
 }
 
 .login{
   min-height:100vh;
   display:grid;
-  place-items:center;
+  place-items:center
 }
 
 .loginbox{
@@ -229,17 +226,17 @@ td{
   background:#111;
   border:1px solid #333;
   border-radius:14px;
-  padding:25px;
+  padding:25px
 }
 
 .loginbox h1{
   text-align:center;
-  color:#d4af37;
+  color:#d4af37
 }
 
 .loginbox .btn{
   width:100%;
-  margin-top:10px;
+  margin-top:10px
 }
 
 .toast{
@@ -250,96 +247,51 @@ td{
   background:#222;
   border:1px solid #555;
   padding:12px;
-  border-radius:8px;
-  z-index:99999;
-}
-
-/* CATEGORY SUGGESTIONS */
-
-.categoryBox{
-  position:relative;
-}
-
-.categorySuggestions{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0;
-  right:0;
-  background:#111;
-  border:1px solid #d4af37;
-  border-radius:8px;
-  max-height:220px;
-  overflow-y:auto;
-  z-index:9999;
-  box-shadow:0 8px 20px rgba(0,0,0,.5);
-}
-
-.categorySuggestion{
-  padding:12px;
-  color:#fff;
-  cursor:pointer;
-  border-bottom:1px solid #292929;
-}
-
-.categorySuggestion:last-child{
-  border-bottom:0;
-}
-
-.categorySuggestion:hover{
-  background:#202020;
-  color:#d4af37;
-}
-
-.customHint{
-  font-size:11px;
-  color:#777;
-  margin-top:5px;
+  border-radius:8px
 }
 
 @media(max-width:700px){
 
   .layout{
-    display:block;
+    display:block
   }
 
   aside{
     width:100%;
     display:flex;
-    overflow:auto;
+    overflow:auto
   }
 
   .nav{
-    min-width:max-content;
+    min-width:max-content
   }
 
   .cards{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
   .grid,
   .form{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .full{
-    grid-column:auto;
+    grid-column:auto
   }
 
   .main{
-    padding:12px;
+    padding:12px
   }
 
   table{
-    min-width:760px;
+    min-width:760px
   }
+
 }
 </style>
 </head>
 
 <body>
-
-<!-- LOGIN -->
 
 <div id="login" class="login">
 
@@ -356,7 +308,6 @@ td{
     <input
       id="password"
       type="password"
-      placeholder="Enter admin password"
     >
 
     <button
@@ -375,8 +326,6 @@ td{
 
 </div>
 
-
-<!-- APP -->
 
 <div
   id="app"
@@ -400,9 +349,6 @@ td{
 
 
 <div class="layout">
-
-
-<!-- SIDEBAR -->
 
 <aside>
 
@@ -447,474 +393,445 @@ td{
 <main class="main">
 
 
-<!-- DASHBOARD -->
-
 <section
   id="dashboard"
   class="page active"
 >
 
-<h1>Dashboard</h1>
+  <h1>Dashboard</h1>
 
-<p class="muted">
-  RAHA store overview
-</p>
+  <p class="muted">
+    RAHA store overview
+  </p>
 
-<div class="cards">
+  <div class="cards">
 
-  <div class="card">
-    Products
-    <b id="sp">0</b>
-  </div>
+    <div class="card">
+      Products
+      <b id="sp">0</b>
+    </div>
 
-  <div class="card">
-    Categories
-    <b id="sc">0</b>
-  </div>
+    <div class="card">
+      Categories
+      <b id="sc">0</b>
+    </div>
 
-  <div class="card">
-    Stock
-    <b id="ss">0</b>
-  </div>
+    <div class="card">
+      Stock
+      <b id="ss">0</b>
+    </div>
 
-  <div class="card">
-    Out of stock
-    <b id="so">0</b>
-  </div>
-
-</div>
-
-
-<div
-  class="grid"
-  style="margin-top:18px"
->
-
-  <div class="panel">
-
-    <h3>Quick actions</h3>
-
-    <button
-      class="btn primary"
-      onclick="newProduct()"
-    >
-      + Add Product
-    </button>
+    <div class="card">
+      Out of stock
+      <b id="so">0</b>
+    </div>
 
   </div>
 
 
-  <div class="panel">
+  <div
+    class="grid"
+    style="margin-top:18px"
+  >
 
-    <h3>API</h3>
+    <div class="panel">
 
-    <p
-      id="api"
-      class="muted"
-    >
-      Checking...
-    </p>
+      <h3>Quick actions</h3>
+
+      <button
+        class="btn primary"
+        onclick="newProduct()"
+      >
+        + Add Product
+      </button>
+
+    </div>
+
+
+    <div class="panel">
+
+      <h3>API</h3>
+
+      <p
+        id="api"
+        class="muted"
+      >
+        Checking...
+      </p>
+
+    </div>
 
   </div>
-
-</div>
 
 </section>
 
 
-<!-- PRODUCTS -->
 
 <section
   id="products"
   class="page"
 >
 
-<h1>Products</h1>
+  <h1>Products</h1>
 
-<p class="muted">
-  Manage products, stock, variants and images.
-</p>
-
-
-<div class="panel">
-
-<div class="search">
-
-<input
-  id="search"
-  placeholder="Search products..."
-  oninput="render()"
->
-
-<button
-  class="btn primary"
-  onclick="newProduct()"
->
-  + Add Product
-</button>
-
-</div>
+  <p class="muted">
+    Manage products, stock, variants and images.
+  </p>
 
 
-<div style="overflow:auto">
+  <div class="panel">
 
-<table>
+    <div class="search">
 
-<thead>
+      <input
+        id="search"
+        placeholder="Search products..."
+        oninput="render()"
+      >
 
-<tr>
+      <button
+        class="btn primary"
+        onclick="newProduct()"
+      >
+        + Add Product
+      </button>
 
-<th>Image</th>
-<th>Name</th>
-<th>Category</th>
-<th>Price</th>
-<th>Stock</th>
-<th>Colours</th>
-<th>Actions</th>
+    </div>
 
-</tr>
 
-</thead>
+    <div style="overflow:auto">
 
-<tbody id="rows"></tbody>
+      <table>
 
-</table>
+        <thead>
 
-</div>
+          <tr>
 
-</div>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Colours</th>
+            <th>Actions</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="rows"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- PRODUCT EDITOR -->
 
 <section
   id="editor"
   class="page"
 >
 
-<h1 id="et">
-  Add Product
-</h1>
+  <h1 id="et">
+    Add Product
+  </h1>
 
 
-<div class="panel">
+  <div class="panel">
 
 
-<div class="form">
+    <div class="form">
 
 
-<!-- NAME -->
+      <div>
 
-<div>
+        <label>
+          Name *
+        </label>
 
-<label>
-  Name *
-</label>
+        <input id="name">
 
-<input
-  id="name"
-  placeholder="Product name"
->
+      </div>
 
-</div>
 
 
-<!-- PRICE -->
+      <div>
 
-<div>
+        <label>
+          Price ₹ *
+        </label>
 
-<label>
-  Price ₹ *
-</label>
+        <input
+          id="price"
+          type="number"
+          min="0"
+        >
 
-<input
-  id="price"
-  type="number"
-  min="0"
-  placeholder="299"
->
+      </div>
 
-</div>
 
 
-<!-- CATEGORY -->
+      <!-- CATEGORY -->
+      <div>
 
-<div>
+        <label>
+          Category *
+        </label>
 
-<label>
-  Category *
-</label>
+        <input
+          id="cat"
+          list="cats"
+          placeholder="Type or select a category"
+          autocomplete="off"
+          required
+        >
 
-<div class="categoryBox">
+        <datalist id="cats">
 
-<input
-  id="cat"
-  type="text"
-  placeholder="Type or select a category"
-  autocomplete="off"
-  onfocus="showCategorySuggestions()"
-  oninput="filterCategorySuggestions()"
-  required
->
+        </datalist>
 
-<div
-  id="categorySuggestions"
-  class="categorySuggestions"
-></div>
+      </div>
 
-</div>
 
-<div class="customHint">
-  Select a suggestion or type your own category.
-</div>
 
-</div>
+      <div>
 
+        <label>
+          Stock *
+        </label>
 
-<!-- STOCK -->
+        <input
+          id="stock"
+          type="number"
+          min="0"
+        >
 
-<div>
+      </div>
 
-<label>
-  Stock *
-</label>
 
-<input
-  id="stock"
-  type="number"
-  min="0"
-  placeholder="20"
->
 
-</div>
+      <div>
 
+        <label>
+          Sizes
+        </label>
 
-<!-- SIZES -->
+        <input
+          id="sizes"
+          placeholder="S, M, L, XL"
+        >
 
-<div>
+      </div>
 
-<label>
-  Sizes
-</label>
 
-<input
-  id="sizes"
-  placeholder="S, M, L, XL"
->
 
-</div>
+      <div>
 
+        <label>
+          Colours
+        </label>
 
-<!-- COLOURS -->
+        <input
+          id="colors"
+          placeholder="Black, White, Blue"
+        >
 
-<div>
+      </div>
 
-<label>
-  Colours
-</label>
 
-<input
-  id="colors"
-  placeholder="Black, White, Blue"
->
 
-</div>
+      <div class="full">
 
+        <label>
+          Description
+        </label>
 
-<!-- DESCRIPTION -->
+        <textarea id="desc"></textarea>
 
-<div class="full">
+      </div>
 
-<label>
-  Description
-</label>
 
-<textarea
-  id="desc"
-  placeholder="Product description"
-></textarea>
 
-</div>
+      <div class="full">
 
+        <label>
+          General images — one URL per line
+        </label>
 
-<!-- GENERAL IMAGES -->
+        <textarea id="images"></textarea>
 
-<div class="full">
+      </div>
 
-<label>
-  General images — one URL per line
-</label>
 
-<textarea
-  id="images"
-  placeholder="https://example.com/image1.jpg
-https://example.com/image2.jpg"
-></textarea>
+    </div>
 
-</div>
 
-</div>
 
+    <div class="variant">
 
-<!-- COLOUR IMAGES -->
+      <b>
+        🎨 Colour-specific images
+      </b>
 
-<div class="variant">
+      <p class="muted">
+        Add a colour and its image URL.
+        Customers can switch colour and
+        the image changes.
+      </p>
 
-<b>
-  🎨 Colour-specific images
-</b>
+      <div id="vars"></div>
 
-<p class="muted">
-  Add a colour and its image URL.
-  Customers can switch colour and the image changes.
-</p>
+      <button
+        class="btn"
+        onclick="addVar()"
+      >
+        + Add Colour Image
+      </button>
 
-<div id="vars"></div>
+    </div>
 
-<button
-  class="btn"
-  onclick="addVar()"
->
-  + Add Colour Image
-</button>
 
-</div>
 
+    <div class="actions">
 
-<!-- ACTIONS -->
+      <button
+        class="btn primary"
+        onclick="save()"
+      >
+        Save Product
+      </button>
 
-<div class="actions">
+      <button
+        class="btn"
+        onclick="page('products')"
+      >
+        Cancel
+      </button>
 
-<button
-  class="btn primary"
-  onclick="save()"
->
-  Save Product
-</button>
+    </div>
 
-<button
-  class="btn"
-  onclick="page('products')"
->
-  Cancel
-</button>
 
-</div>
-
-
-</div>
+  </div>
 
 </section>
 
 
-<!-- ORDERS -->
 
 <section
   id="orders"
   class="page"
 >
 
-<h1>Orders</h1>
+  <h1>Orders</h1>
 
-<div class="panel">
+  <div class="panel">
 
-<p class="muted">
-  Order storage will be connected next.
-  WhatsApp checkout can continue meanwhile.
-</p>
+    <p class="muted">
+      Order storage will be connected next.
+      WhatsApp checkout can continue meanwhile.
+    </p>
 
-</div>
+  </div>
 
 </section>
 
 
-<!-- CUSTOMERS -->
 
 <section
   id="customers"
   class="page"
 >
 
-<h1>Customers</h1>
+  <h1>Customers</h1>
 
-<div class="panel">
+  <div class="panel">
 
-<p class="muted">
-  Customer records will be populated from stored orders.
-</p>
+    <p class="muted">
+      Customer records will be populated
+      from stored orders.
+    </p>
 
-</div>
+  </div>
 
 </section>
 
 
-<!-- SETTINGS -->
 
 <section
   id="settings"
   class="page"
 >
 
-<h1>Settings</h1>
+  <h1>Settings</h1>
 
-<div class="panel">
+  <div class="panel">
 
-<div class="form">
-
-<div>
-
-<label>
-  Store name
-</label>
-
-<input value="RAHA">
-
-</div>
+    <div class="form">
 
 
-<div>
+      <div>
 
-<label>
-  Tagline
-</label>
+        <label>
+          Store name
+        </label>
 
-<input
-  value="Your Everyday Shopping Destination"
->
+        <input value="RAHA">
 
-</div>
+      </div>
 
 
-<div>
 
-<label>
-  WhatsApp
-</label>
+      <div>
 
-<input value="8903188257">
+        <label>
+          Tagline
+        </label>
 
-</div>
+        <input
+          value="Your Everyday Shopping Destination"
+        >
+
+      </div>
 
 
-<div>
 
-<label>
-  Currency
-</label>
+      <div>
 
-<input value="₹">
+        <label>
+          WhatsApp
+        </label>
 
-</div>
+        <input value="8903188257">
 
-</div>
+      </div>
 
-<p class="muted">
-  Persistent settings will be connected after core product testing.
-</p>
 
-</div>
+
+      <div>
+
+        <label>
+          Currency
+        </label>
+
+        <input value="₹">
+
+      </div>
+
+
+    </div>
+
+
+    <p class="muted">
+      Persistent settings will be connected
+      after core product testing.
+    </p>
+
+  </div>
 
 </section>
 
@@ -932,6 +849,7 @@ https://example.com/image2.jpg"
 ></div>
 
 
+
 <script>
 
 const API =
@@ -945,11 +863,10 @@ let products = [];
 let edit = null;
 
 
-const $ = id =>
-  document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 
 
-/* TOAST */
 
 function msg(x){
 
@@ -957,32 +874,29 @@ function msg(x){
 
   $('toast').style.display = 'block';
 
-  setTimeout(() => {
-
-    $('toast').style.display = 'none';
-
-  },2500);
+  setTimeout(
+    () => $('toast').style.display = 'none',
+    2500
+  );
 
 }
 
 
-/* PAGE */
 
 function page(id,btn){
 
   document
     .querySelectorAll('.page')
-    .forEach(x =>
-      x.classList.remove('active')
+    .forEach(
+      x => x.classList.remove('active')
     );
 
   $(id).classList.add('active');
 
-
   document
     .querySelectorAll('.nav')
-    .forEach(x =>
-      x.classList.remove('active')
+    .forEach(
+      x => x.classList.remove('active')
     );
 
   if(btn)
@@ -991,7 +905,6 @@ function page(id,btn){
 }
 
 
-/* LOGIN */
 
 async function login(){
 
@@ -1002,12 +915,10 @@ async function login(){
         API + '/api/admin/login',
         {
           method:'POST',
-
           headers:{
             'Content-Type':
               'application/json'
           },
-
           body:JSON.stringify({
             password:
               $('password').value
@@ -1015,28 +926,20 @@ async function login(){
         }
       );
 
-
     let d =
       await r.json();
 
-
-    if(
-      !r.ok ||
-      !d.success
-    )
+    if(!r.ok || !d.success)
       throw Error(
         d.error || 'Login failed'
       );
 
-
     token = d.token;
-
 
     localStorage.setItem(
       'raha_admin_token',
       token
     );
-
 
     $('login').style.display =
       'none';
@@ -1044,13 +947,13 @@ async function login(){
     $('app').style.display =
       'block';
 
-
     load();
 
     check();
 
+  }
 
-  }catch(e){
+  catch(e){
 
     $('loginMsg').textContent =
       e.message;
@@ -1060,7 +963,6 @@ async function login(){
 }
 
 
-/* LOGOUT */
 
 function logout(){
 
@@ -1073,7 +975,6 @@ function logout(){
 }
 
 
-/* API CHECK */
 
 async function check(){
 
@@ -1084,7 +985,9 @@ async function check(){
         ? '● Connected'
         : '● Error';
 
-  }catch(e){
+  }
+
+  catch(e){
 
     $('api').textContent =
       '● Offline';
@@ -1094,7 +997,6 @@ async function check(){
 }
 
 
-/* LOAD PRODUCTS */
 
 async function load(){
 
@@ -1107,23 +1009,21 @@ async function load(){
         )
       ).json();
 
-
     if(!d.success)
       throw Error(d.error);
 
-
     products =
       d.products || [];
-
 
     render();
 
     stats();
 
-    buildCategorySuggestions();
+    cats();
 
+  }
 
-  }catch(e){
+  catch(e){
 
     msg(
       'Could not load: ' +
@@ -1135,21 +1035,17 @@ async function load(){
 }
 
 
-/* STATS */
 
 function stats(){
 
   $('sp').textContent =
     products.length;
 
-
   $('sc').textContent =
     new Set(
       products
         .map(x => x.category)
-        .filter(Boolean)
     ).size;
-
 
   $('ss').textContent =
     products.reduce(
@@ -1157,7 +1053,6 @@ function stats(){
         a + Number(x.stock || 0),
       0
     );
-
 
   $('so').textContent =
     products.filter(
@@ -1167,61 +1062,127 @@ function stats(){
 }
 
 
-/* ESCAPE HTML */
+
+/*
+  CATEGORY SUGGESTIONS
+
+  These are suggestions only.
+  You can still type ANY custom category.
+*/
+
+function cats(){
+
+  const defaultCategories = [
+
+    'Jewellery',
+    'Fashion',
+    'Gifts',
+    'Accessories',
+    'Home & Lifestyle',
+    'Electronics',
+    'Footwear',
+    'Beauty',
+    'Bags',
+    'Watches',
+    'Kids',
+    'Toys',
+    'Cosmetics',
+    'Men',
+    'Women',
+    'Men\'s Fashion',
+    'Women\'s Fashion',
+    'Mobile Accessories',
+    'Kitchen',
+    'Stationery',
+    'Sports',
+    'New Arrivals'
+
+  ];
+
+
+  const productCategories =
+    products
+      .map(x => x.category)
+      .filter(Boolean);
+
+
+  const allCategories =
+    [
+      ...defaultCategories,
+      ...productCategories
+    ];
+
+
+  const uniqueCategories =
+    [
+      ...new Set(
+        allCategories.map(
+          x => String(x).trim()
+        )
+      )
+    ]
+    .filter(Boolean)
+    .sort(
+      (a,b) =>
+        a.localeCompare(b)
+    );
+
+
+  $('cats').innerHTML =
+    uniqueCategories
+      .map(
+        x =>
+          '<option value="' +
+          esc(x) +
+          '">'
+      )
+      .join('');
+
+}
+
+
 
 function esc(x){
 
   return String(x ?? '')
     .replace(
       /[&<>"']/g,
-      m => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[m])
+      m =>
+        ({
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#39;'
+        }[m])
     );
 
 }
 
 
-/* STOCK */
 
 function stock(n){
 
   n =
     Number(n || 0);
 
+  return n < 1
 
-  if(n < 1)
+    ? '<span class="badge out">Out of Stock</span>'
 
-    return `
-      <span class="badge out">
-        Out of Stock
-      </span>
-    `;
+    : n <= 5
 
+    ? '<span class="badge low">Only ' +
+      n +
+      ' left</span>'
 
-  if(n <= 5)
-
-    return `
-      <span class="badge low">
-        Only ${n} left
-      </span>
-    `;
-
-
-  return `
-    <span class="badge ok">
-      In Stock · ${n}
-    </span>
-  `;
+    : '<span class="badge ok">In Stock · ' +
+      n +
+      '</span>';
 
 }
 
 
-/* IMAGE */
 
 function img(p){
 
@@ -1229,19 +1190,17 @@ function img(p){
     p.images || ''
   )
   .split(',')
-  [0]?.trim() || '';
+  [0]
+  ?.trim() || '';
 
 }
 
 
-/* RENDER PRODUCTS */
 
 function render(){
 
   let q =
-    (
-      $('search')?.value || ''
-    )
+    ($('search')?.value || '')
     .toLowerCase();
 
 
@@ -1249,296 +1208,120 @@ function render(){
 
     products
 
-      .filter(p =>
-        (
-          p.name +
-          ' ' +
-          p.category +
-          ' ' +
-          (p.description || '')
-        )
-        .toLowerCase()
-        .includes(q)
+      .filter(
+        p =>
+          (
+            p.name +
+            ' ' +
+            p.category +
+            ' ' +
+            (p.description || '')
+          )
+          .toLowerCase()
+          .includes(q)
       )
 
-      .map(p => {
+      .map(
+        p => {
 
-        let im =
-          img(p);
+          let im =
+            img(p);
 
+          return (
 
-        return `
-          <tr>
+            '<tr>' +
 
-            <td>
-              ${
-                im
-                ?
-                `<img
-                  class="thumb"
-                  src="${esc(im)}"
-                >`
-                :
-                '—'
-              }
-            </td>
+            '<td>' +
 
-            <td>
-              <b>
-                ${esc(p.name)}
-              </b>
-            </td>
+            (
+              im
+                ? '<img class="thumb" src="' +
+                  esc(im) +
+                  '">'
+                : '—'
+            ) +
 
-            <td>
-              ${esc(p.category)}
-            </td>
+            '</td>' +
 
-            <td>
-              ₹${Number(p.price)
-                .toLocaleString('en-IN')}
-            </td>
+            '<td>' +
 
-            <td>
-              ${stock(p.stock)}
-            </td>
+            '<b>' +
+            esc(p.name) +
+            '</b>' +
 
-            <td>
-              ${esc(p.colors || '—')}
-            </td>
+            '</td>' +
 
-            <td>
+            '<td>' +
+            esc(p.category) +
+            '</td>' +
 
-              <button
-                class="btn"
-                onclick="editProduct(${p.id})"
-              >
-                Edit
-              </button>
+            '<td>₹' +
+            Number(p.price)
+              .toLocaleString('en-IN') +
+            '</td>' +
 
-              <button
-                class="btn danger"
-                onclick="del(${p.id})"
-              >
-                Delete
-              </button>
+            '<td>' +
+            stock(p.stock) +
+            '</td>' +
 
-            </td>
+            '<td>' +
+            esc(p.colors || '—') +
+            '</td>' +
 
-          </tr>
-        `;
+            '<td>' +
 
-      })
+            '<button class="btn" onclick="editProduct(' +
+            p.id +
+            ')">Edit</button> ' +
+
+            '<button class="btn danger" onclick="del(' +
+            p.id +
+            ')">Delete</button>' +
+
+            '</td>' +
+
+            '</tr>'
+
+          );
+
+        }
+      )
 
       .join('')
 
       ||
 
-      `
-        <tr>
-          <td
-            colspan="7"
-            class="muted"
-          >
-            No products found.
-          </td>
-        </tr>
-      `;
+      '<tr>' +
+
+      '<td colspan="7" class="muted">' +
+
+      'No products found.' +
+
+      '</td>' +
+
+      '</tr>';
 
 }
 
 
-/* DEFAULT CATEGORIES */
-
-const defaultCategories = [
-
-  'Jewellery',
-  'Fashion',
-  'Gifts',
-  'Accessories',
-  'Home & Lifestyle',
-  'Electronics',
-  'Footwear',
-  'Beauty',
-  'Bags',
-  'Watches'
-
-];
-
-
-/* BUILD CATEGORY SUGGESTIONS */
-
-function buildCategorySuggestions(){
-
-  const existing =
-    products
-      .map(p => p.category)
-      .filter(Boolean);
-
-
-  const all =
-    [
-      ...defaultCategories,
-      ...existing
-    ];
-
-
-  const unique =
-    [...new Set(
-      all.map(x => x.trim())
-        .filter(Boolean)
-    )].sort(
-      (a,b) =>
-        a.localeCompare(b)
-    );
-
-
-  window.rahaCategories =
-    unique;
-
-}
-
-
-/* SHOW CATEGORY SUGGESTIONS */
-
-function showCategorySuggestions(){
-
-  if(
-    !window.rahaCategories
-  )
-    buildCategorySuggestions();
-
-
-  filterCategorySuggestions();
-
-}
-
-
-/* FILTER CATEGORY SUGGESTIONS */
-
-function filterCategorySuggestions(){
-
-  const input =
-    $('cat');
-
-
-  const box =
-    $('categorySuggestions');
-
-
-  const search =
-    input.value
-      .toLowerCase()
-      .trim();
-
-
-  const filtered =
-    window.rahaCategories
-      .filter(category =>
-        category
-          .toLowerCase()
-          .includes(search)
-      );
-
-
-  box.innerHTML = '';
-
-
-  filtered.forEach(category => {
-
-    const item =
-      document.createElement(
-        'div'
-      );
-
-
-    item.className =
-      'categorySuggestion';
-
-
-    item.textContent =
-      category;
-
-
-    item.onclick =
-      function(){
-
-        input.value =
-          category;
-
-        box.style.display =
-          'none';
-
-      };
-
-
-    box.appendChild(item);
-
-  });
-
-
-  box.style.display =
-    filtered.length
-      ? 'block'
-      : 'none';
-
-}
-
-
-/* CLOSE CATEGORY SUGGESTIONS */
-
-document.addEventListener(
-  'click',
-  function(event){
-
-    const box =
-      document.querySelector(
-        '.categoryBox'
-      );
-
-
-    if(
-      box &&
-      !box.contains(
-        event.target
-      )
-    ){
-
-      $('categorySuggestions')
-        .style.display =
-        'none';
-
-    }
-
-  }
-);
-
-
-/* CLEAR FORM */
 
 function clearForm(){
 
-  $('name').value = '';
-
-  $('price').value = '';
-
-  $('cat').value = '';
-
-  $('stock').value = '';
-
-  $('sizes').value = '';
-
-  $('colors').value = '';
-
-  $('desc').value = '';
-
-  $('images').value = '';
+  $('name').value =
+  $('price').value =
+  $('cat').value =
+  $('stock').value =
+  $('sizes').value =
+  $('colors').value =
+  $('desc').value =
+  $('images').value =
+  '';
 
   $('vars').innerHTML = '';
 
 }
 
 
-/* NEW PRODUCT */
 
 function newProduct(){
 
@@ -1554,7 +1337,6 @@ function newProduct(){
 }
 
 
-/* EDIT PRODUCT */
 
 function editProduct(id){
 
@@ -1565,67 +1347,57 @@ function editProduct(id){
         Number(id)
     );
 
-
   if(!p)
     return;
 
-
   edit = id;
-
 
   $('et').textContent =
     'Edit Product';
 
-
   $('name').value =
     p.name || '';
-
 
   $('price').value =
     p.price || 0;
 
-
   $('cat').value =
     p.category || '';
-
 
   $('stock').value =
     p.stock || 0;
 
-
   $('sizes').value =
     p.sizes || '';
-
 
   $('colors').value =
     p.colors || '';
 
-
   $('desc').value =
     p.description || '';
-
 
   $('images').value =
     (p.images || '')
       .split(',')
       .join('\n');
 
-
   $('vars').innerHTML =
     '';
-
 
   let cs =
     (p.colors || '')
       .split(',')
-      .map(x => x.trim())
+      .map(
+        x => x.trim()
+      )
       .filter(Boolean);
-
 
   let ims =
     (p.images || '')
       .split(',')
-      .map(x => x.trim());
+      .map(
+        x => x.trim()
+      );
 
 
   cs.forEach(
@@ -1642,70 +1414,49 @@ function editProduct(id){
 }
 
 
-/* ADD COLOUR IMAGE */
 
-function addVar(
-  c='',
-  i=''
-){
+function addVar(c='',i=''){
 
   let d =
-    document.createElement(
-      'div'
-    );
-
+    document.createElement('div');
 
   d.className =
     'variant';
 
 
-  d.innerHTML = `
+  d.innerHTML =
 
-    <div class="form">
+    '<div class="form">' +
 
-      <div>
+    '<div>' +
 
-        <label>
-          Colour
-        </label>
+    '<label>Colour</label>' +
 
-        <input
-          class="vc"
-          value="${esc(c)}"
-          placeholder="Black"
-        >
+    '<input class="vc" value="' +
+    esc(c) +
+    '">' +
 
-      </div>
+    '</div>' +
 
+    '<div>' +
 
-      <div>
+    '<label>Image URL</label>' +
 
-        <label>
-          Image URL
-        </label>
+    '<input class="vi" value="' +
+    esc(i) +
+    '">' +
 
-        <input
-          class="vi"
-          value="${esc(i)}"
-          placeholder="https://example.com/image.jpg"
-        >
+    '</div>' +
 
-      </div>
+    '</div>' +
 
-    </div>
+    '<div class="actions">' +
 
+    '<button class="btn danger">' +
+    'Remove' +
+    '</button>' +
 
-    <div class="actions">
-
-      <button
-        class="btn danger"
-      >
-        Remove
-      </button>
-
-    </div>
-
-  `;
+    '</div>';
 
 
   d.querySelector(
@@ -1714,28 +1465,29 @@ function addVar(
     () => d.remove();
 
 
-  $('vars').appendChild(d);
+  $('vars')
+    .appendChild(d);
 
 }
 
 
-/* SAVE PRODUCT */
 
 function save(){
 
   let n =
-    $('name').value.trim();
-
+    $('name')
+      .value
+      .trim();
 
   let c =
-    $('cat').value.trim();
-
+    $('cat')
+      .value
+      .trim();
 
   let p =
     Number(
       $('price').value
     );
-
 
   let s =
     Number(
@@ -1771,7 +1523,6 @@ function save(){
         let v =
           x.value.trim();
 
-
         let im =
           document
             .querySelectorAll('.vi')
@@ -1796,7 +1547,9 @@ function save(){
     $('images')
       .value
       .split(/[\n,]/)
-      .map(x => x.trim())
+      .map(
+        x => x.trim()
+      )
       .filter(Boolean);
 
 
@@ -1822,9 +1575,12 @@ function save(){
           : $('colors')
               .value
               .split(',')
-              .map(x => x.trim())
+              .map(
+                x => x.trim()
+              )
               .filter(Boolean)
-      ).join(','),
+      )
+      .join(','),
 
     description:
       $('desc')
@@ -1836,7 +1592,8 @@ function save(){
         ims.length
           ? ims
           : base
-      ).join(',')
+      )
+      .join(',')
 
   };
 
@@ -1844,27 +1601,29 @@ function save(){
   let url =
     API +
     '/api/products' +
-    (
-      edit
-        ? '/' + edit
-        : ''
-    );
+    (edit
+      ? '/' + edit
+      : '');
 
 
   fetch(
     url,
     {
+
       method:
         edit
           ? 'PUT'
           : 'POST',
 
       headers:{
+
         'Content-Type':
           'application/json',
 
         Authorization:
-          'Bearer ' + token
+          'Bearer ' +
+          token
+
       },
 
       body:
@@ -1879,7 +1638,6 @@ function save(){
       let d =
         await r.json();
 
-
       if(
         !r.ok ||
         !d.success
@@ -1889,15 +1647,15 @@ function save(){
           'Could not save'
         );
 
-
       msg(
         edit
           ? 'Updated'
           : 'Added'
       );
 
-
-      page('products');
+      page(
+        'products'
+      );
 
       load();
 
@@ -1915,7 +1673,6 @@ function save(){
 }
 
 
-/* DELETE */
 
 async function del(id){
 
@@ -1936,10 +1693,10 @@ async function del(id){
         id,
         {
           method:'DELETE',
-
           headers:{
             Authorization:
-              'Bearer ' + token
+              'Bearer ' +
+              token
           }
         }
       );
@@ -1963,17 +1720,19 @@ async function del(id){
 
     load();
 
+  }
 
-  }catch(e){
+  catch(e){
 
-    msg(e.message);
+    msg(
+      e.message
+    );
 
   }
 
 }
 
 
-/* AUTO LOGIN */
 
 (async()=>{
 
@@ -1988,7 +1747,8 @@ async function del(id){
           {
             headers:{
               Authorization:
-                'Bearer ' + token
+                'Bearer ' +
+                token
             }
           }
         );
@@ -2008,7 +1768,9 @@ async function del(id){
 
       }
 
-    }catch(e){}
+    }
+
+    catch(e){}
 
   }
 
