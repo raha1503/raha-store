@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAHA Admin Dashboard</title>
+<style>
+*{box-sizing:border-box}
+:root{--gold:#d4af37;--bg:#070707;--panel:#111;--panel2:#161616;--line:#292929;--muted:#929292;--danger:#ff7777;--green:#63d48c}
+body{margin:0;background:var(--bg);color:#f5f5f5;font-family:Inter,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.top{height:64px;background:#0e0e0e;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:20}
+.logo{font-size:24px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+.topRight{display:flex;gap:10px;align-items:center}
+.layout{display:flex;min-height:calc(100vh - 64px)}
+aside{width:235px;background:#0d0d0d;border-right:1px solid var(--line);padding:14px;flex-shrink:0}
+.nav{display:block;width:100%;padding:12px 13px;margin:4px 0;border:0;border-radius:9px;background:transparent;color:#aaa;text-align:left}
+.nav:hover,.nav.active{background:#1c1c1c;color:var(--gold)}
+.main{width:100%;max-width:1500px;margin:auto;padding:24px}
+.page{display:none}.page.active{display:block}
+h1{margin:0 0 5px;font-size:27px}h2,h3{margin-top:0}
+.muted{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px}
+.card span{color:var(--muted)}.card b{display:block;color:var(--gold);font-size:28px;margin-top:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}
+label{display:block;color:#bbb;font-size:12px;margin-bottom:6px}
+input,textarea,select{width:100%;background:#090909;color:#fff;border:1px solid #383838;border-radius:9px;padding:11px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+textarea{min-height:100px;resize:vertical}
+.btn{border:1px solid #444;background:#1c1c1c;color:#eee;padding:10px 14px;border-radius:9px}
+.btn:hover{border-color:#666}.primary{background:var(--gold);border-color:var(--gold);color:#080808;font-weight:800}.danger{color:var(--danger)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.search{display:flex;gap:9px;margin-bottom:15px}.search input{flex:1}
+.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:850px}
+th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:12px;color:#aaa}td{font-size:13px}.thumb{width:52px;height:52px;object-fit:cover;border-radius:8px;background:#222}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px}.ok{background:#143a25;color:var(--green)}.low{background:#3c3012;color:#e6c65c}.out{background:#3b1717;color:#ff8b8b}
+.catalogGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.catalogCard{background:#111;border:1px solid var(--line);border-radius:13px;padding:14px}.catalogCard img{width:100%;height:145px;object-fit:cover;border-radius:9px;background:#222}
+.catalogCard h3{margin:10px 0 5px}.catalogCard p{color:#999;min-height:38px}
+.variant{margin-top:18px;border:1px solid var(--line);padding:15px;border-radius:12px}.variantRow{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin:8px 0}
+.notice{padding:12px;border:1px solid #3a3320;background:#18150b;border-radius:9px;color:#d9c57a;margin-bottom:15px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modalBox{width:min(600px,100%);background:#111;border:1px solid #383838;border-radius:15px;padding:20px;max-height:90vh;overflow:auto}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#070707}.loginBox{width:min(420px,100%);background:#111;border:1px solid var(--line);border-radius:16px;padding:28px}.loginBox .logo{text-align:center;margin-bottom:22px}.loginMsg{color:#ff8585;min-height:20px;margin-top:10px}
+.orderDetail{white-space:pre-wrap;background:#090909;border:1px solid var(--line);padding:13px;border-radius:9px;color:#ccc}
+.mobileMenu{display:none}
+@media(max-width:900px){aside{position:fixed;left:-250px;top:64px;height:calc(100vh - 64px);z-index:30;transition:.2s}.layout.menuOpen aside{left:0}.mobileMenu{display:block}.cards{grid-template-columns:repeat(2,1fr)}.catalogGrid{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:600px){.main{padding:15px}.cards{grid-template-columns:1fr 1fr;gap:9px}.card{padding:13px}.form{grid-template-columns:1fr}.full{grid-column:auto}.catalogGrid{grid-template-columns:1fr}.top{padding:0 12px}.logo{font-size:20px}}
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+  <div class="loginBox">
+    <div class="logo">RAHA</div>
+    <p class="muted" style="text-align:center">Admin Dashboard</p>
+    <label for="password">Admin Password</label>
+    <input id="password" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn primary" style="width:100%;margin-top:12px" onclick="login()">Login</button>
+    <div id="loginMsg" class="loginMsg"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+<header class="top">
+  <div style="display:flex;gap:12px;align-items:center">
+    <button class="btn mobileMenu" onclick="toggleMenu()">☰</button>
+    <div class="logo">RAHA</div>
+  </div>
+  <div class="topRight">
+    <span id="apiStatus" class="muted">Checking API…</span>
+    <button class="btn" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="layout" id="layout">
+<aside>
+  <button class="nav active" onclick="page('dashboard',this)">📊 Dashboard</button>
+  <button class="nav" onclick="page('products',this)">🛍️ Products</button>
+  <button class="nav" onclick="page('catalogs',this)">🗂️ Catalogs</button>
+  <button class="nav" onclick="page('orders',this)">📦 Orders</button>
+  <button class="nav" onclick="page('customers',this)">👥 Customers</button>
+  <button class="nav" onclick="page('settings',this)">⚙️ Settings</button>
+</aside>
+
+<main class="main">
+
+<section id="dashboard" class="page active">
+  <h1>Dashboard</h1><p class="muted">RAHA store overview</p>
+  <div class="cards">
+    <div class="card"><span>Products</span><b id="statProducts">0</b></div>
+    <div class="card"><span>Catalogs</span><b id="statCatalogs">0</b></div>
+    <div class="card"><span>Total Stock</span><b id="statStock">0</b></div>
+    <div class="card"><span>Orders</span><b id="statOrders">0</b></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Quick Actions</h3><div class="actions">
+      <button class="btn primary" onclick="newProduct()">+ Add Product</button>
+      <button class="btn" onclick="newCatalog()">+ Add Catalog</button>
+      <button class="btn" onclick="page('orders')">View Orders</button>
+    </div></div>
+    <div class="panel"><h3>System</h3><p id="systemInfo" class="muted">Loading…</p></div>
+  </div>
+</section>
+
+<section id="products" class="page">
+  <h1>Products</h1><p class="muted">Add and manage every product in your RAHA store.</p>
+  <div class="panel">
+    <div class="search">
+      <input id="productSearch" placeholder="Search products…" oninput="renderProducts()">
+      <button class="btn primary" onclick="newProduct()">+ Add Product</button>
+    </div>
+    <div class="tableWrap"><table>
+      <thead><tr><th>Image</th><th>Product</th><th>Catalog</th><th>Price</th><th>Stock</th><th>Colours</th><th>Actions</th></tr></thead>
+      <tbody id="productRows"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="catalogs" class="page">
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+    <div><h1>Catalogs</h1><p class="muted">Create the categories customers see in your store.</p></div>
+    <button class="btn primary" onclick="newCatalog()">+ Add Catalog</button>
+  </div>
+  <div id="catalogEditor" class="panel" style="display:none;margin:16px 0">
+    <h2 id="catalogTitle">Add Catalog</h2>
+    <div class="form">
+      <div><label>Catalog Name *</label><input id="catalogName" placeholder="Example: New Arrivals"></div>
+      <div><label>Catalog Image URL</label><input id="catalogImage" placeholder="https://…"></div>
+      <div class="full"><label>Description</label><textarea id="catalogDescription" placeholder="Short catalog description"></textarea></div>
+    </div>
+    <div class="actions"><button class="btn primary" onclick="saveCatalog()">Save Catalog</button><button class="btn" onclick="cancelCatalog()">Cancel</button></div>
+  </div>
+  <div id="catalogGrid" class="catalogGrid"></div>
+</section>
+
+<section id="orders" class="page">
+  <h1>Orders</h1><p class="muted">Orders received through the RAHA website.</p>
+  <div class="panel">
+    <div class="search"><input id="orderSearch" placeholder="Search order / customer…" oninput="renderOrders()"><button class="btn" onclick="loadOrders()">↻ Refresh</button></div>
+    <div class="tableWrap"><table>
+      <thead><tr><th>ID</th><th>Order No.</th><th>Customer</th><th>Total</th><th>Status</th><th>Payment</th><th>Date</th><th>Action</th></tr></thead>
+      <tbody id="orderRows"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="customers" class="page">
+  <h1>Customers</h1><p class="muted">Customers are automatically collected from orders.</p>
+  <div class="panel"><div class="tableWrap"><table>
+    <thead><tr><th>Name</th><th>Phone</th><th>Orders</th><th>Total Spent</th><th>Latest Order</th></tr></thead>
+    <tbody id="customerRows"></tbody>
+  </table></div></div>
+</section>
+
+<section id="settings" class="page">
+  <h1>Settings</h1><p class="muted">Current RAHA store configuration.</p>
+  <div class="panel">
+    <div class="form">
+      <div><label>Store Name</label><input value="RAHA" readonly></div>
+      <div><label>Tagline</label><input value="Your Everyday Shopping Destination" readonly></div>
+      <div><label>WhatsApp Number</label><input value="8903188257" readonly></div>
+      <div><label>API</label><input value="https://raha-api.rahastudio14.workers.dev" readonly></div>
+    </div>
+    <div class="notice" style="margin-top:15px">These settings are displayed for reference. Product and catalog data are stored in Cloudflare D1.</div>
+  </div>
+</section>
+
+</main></div></div>
+
+<div id="productModal" class="modal">
+  <div class="modalBox">
+    <h2 id="productTitle">Add Product</h2>
+    <div class="form">
+      <div><label>Product Name *</label><input id="pName" placeholder="Product name"></div>
+      <div><label>Price ₹ *</label><input id="pPrice" type="number" min="0" step="0.01"></div>
+      <div><label>Catalog *</label><select id="pCategory"></select></div>
+      <div><label>Stock *</label><input id="pStock" type="number" min="0" step="1"></div>
+      <div><label>Sizes</label><input id="pSizes" placeholder="S, M, L, XL"></div>
+      <div><label>Colours</label><input id="pColors" placeholder="Black, White, Blue"></div>
+      <div class="full"><label>Description</label><textarea id="pDescription"></textarea></div>
+      <div class="full"><label>General Images — one URL per line</label><textarea id="pImages"></textarea></div>
+    </div>
+    <div class="variant">
+      <b>🎨 Colour-specific images</b>
+      <p class="muted">Each colour can have its own image. The first image for each colour is saved.</p>
+      <div id="variantRows"></div>
+      <button class="btn" onclick="addVariantRow()">+ Add Colour Image</button>
+    </div>
+    <div class="actions">
+      <button class="btn primary" onclick="saveProduct()">Save Product</button>
+      <button class="btn" onclick="closeProductModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="orderModal" class="modal">
+  <div class="modalBox">
+    <h2>Order Details</h2>
+    <div id="orderDetail" class="orderDetail">Loading…</div>
+    <div class="actions"><button class="btn" onclick="closeOrderModal()">Close</button></div>
+  </div>
+</div>
+
+<div id="toast" style="position:fixed;right:18px;bottom:18px;background:#1d1d1d;border:1px solid #444;padding:12px 15px;border-radius:10px;display:none;z-index:100"></div>
+
+<script>
+const API="https://raha-api.rahastudio14.workers.dev";
+let token=localStorage.getItem("raha_admin_token")||"";
+let products=[];
+let catalogs=[];
+let orders=[];
+let editProductId=null;
+let editCatalogId=null;
+
+const $=id=>document.getElementById(id);
+
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function toast(text){
+  $("toast").textContent=text;
+  $("toast").style.display="block";
+  setTimeout(()=>$("toast").style.display="none",2500);
+}
+function authHeaders(json=false){
+  const h={Authorization:"Bearer "+token};
+  if(json)h["Content-Type"]="application/json";
+  return h;
+}
+function page(id,btn){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  $(id).classList.add("active");
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+  if(btn)btn.classList.add("active");
+  $("layout").classList.remove("menuOpen");
+  if(id==="orders")loadOrders();
+  if(id==="customers")renderCustomers();
+}
+function toggleMenu(){$("layout").classList.toggle("menuOpen")}
+async function login(){
+  const msg=$("loginMsg");
+  msg.textContent="";
+  try{
+    const r=await fetch(API+"/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Login failed");
+    token=d.token;
+    localStorage.setItem("raha_admin_token",token);
+    $("login").style.display="none";
+    $("app").style.display="block";
+    await loadAll();
+    checkAPI();
+  }catch(e){msg.textContent=e.message}
+}
+function logout(){localStorage.removeItem("raha_admin_token");location.reload()}
+async function checkAPI(){
+  try{
+    const r=await fetch(API+"/");
+    $("apiStatus").textContent=r.ok?"● API Connected":"● API Error";
+    $("apiStatus").style.color=r.ok?"#63d48c":"#ff7777";
+  }catch(e){
+    $("apiStatus").textContent="● API Offline";
+    $("apiStatus").style.color="#ff7777";
+  }
+}
+async function loadAll(){
+  try{
+    const [cp,cc,co]=await Promise.all([
+      fetch(API+"/api/products"),
+      fetch(API+"/api/catalogs"),
+      fetch(API+"/api/orders",{headers:authHeaders()})
+    ]);
+    const pd=await cp.json(),cd=await cc.json(),od=await co.json();
+    if(!pd.success)throw Error(pd.error||"Products failed");
+    if(!cd.success)throw Error(cd.error||"Catalogs failed");
+    products=pd.products||[];
+    catalogs=cd.catalogs||[];
+    orders=od.success?(od.orders||[]):[];
+    renderProducts();
+    renderCatalogs();
+    fillCatalogSelect();
+    renderOrders();
+    renderCustomers();
+    updateStats();
+    $("systemInfo").textContent=products.length+" products · "+catalogs.length+" catalogs · "+orders.length+" orders";
+  }catch(e){toast("Could not load data: "+e.message)}
+}
+function updateStats(){
+  $("statProducts").textContent=products.length;
+  $("statCatalogs").textContent=catalogs.length;
+  $("statStock").textContent=products.reduce((a,p)=>a+Number(p.stock||0),0);
+  $("statOrders").textContent=orders.length;
+}
+function fillCatalogSelect(selected=""){
+  $("pCategory").innerHTML='<option value="">Select a catalog</option>'+catalogs.map(c=>'<option value="'+esc(c.name)+'">'+esc(c.name)+'</option>').join("");
+  if(selected)$("pCategory").value=selected;
+}
+function productImage(p){return String(p.images||"").split(",")[0]?.trim()||""}
+function stockBadge(n){
+  n=Number(n||0);
+  if(n<1)return '<span class="badge out">Out of Stock</span>';
+  if(n<=5)return '<span class="badge low">Only '+n+' left</span>';
+  return '<span class="badge ok">In Stock · '+n+'</span>';
+}
+function renderProducts(){
+  const q=($("productSearch").value||"").toLowerCase().trim();
+  const list=products.filter(p=>(String(p.name)+" "+String(p.category)+" "+String(p.description||"")).toLowerCase().includes(q));
+  $("productRows").innerHTML=list.map(p=>{
+    const im=productImage(p);
+    return '<tr><td>'+(im?'<img class="thumb" src="'+esc(im)+'" onerror="this.style.display=\\'none\\'">':'—')+
+    '</td><td><b>'+esc(p.name)+'</b><br><span class="muted">ID '+p.id+'</span></td>'+
+    '<td>'+esc(p.category)+'</td><td>₹'+Number(p.price||0).toLocaleString("en-IN")+'</td>'+
+    '<td>'+stockBadge(p.stock)+'</td><td>'+esc(p.colors||"—")+'</td>'+
+    '<td><button class="btn" onclick="editProduct('+p.id+')">Edit</button> <button class="btn danger" onclick="deleteProduct('+p.id+')">Delete</button></td></tr>';
+  }).join("")||'<tr><td colspan="7" class="muted">No products found.</td></tr>';
+}
+function newProduct(){
+  editProductId=null;
+  $("productTitle").textContent="Add Product";
+  ["pName","pPrice","pStock","pSizes","pColors","pDescription","pImages"].forEach(id=>$(id).value="");
+  fillCatalogSelect();
+  $("variantRows").innerHTML="";
+  $("productModal").style.display="flex";
+}
+function editProduct(id){
+  const p=products.find(x=>Number(x.id)===Number(id));
+  if(!p)return;
+  editProductId=id;
+  $("productTitle").textContent="Edit Product";
+  $("pName").value=p.name||"";
+  $("pPrice").value=p.price||0;
+  $("pStock").value=p.stock??0;
+  $("pSizes").value=p.sizes||"";
+  $("pColors").value=p.colors||"";
+  $("pDescription").value=p.description||"";
+  $("pImages").value=String(p.images||"").split(",").filter(Boolean).join("\n");
+  fillCatalogSelect(p.category||"");
+  $("variantRows").innerHTML="";
+  const colors=String(p.colors||"").split(",").map(x=>x.trim()).filter(Boolean);
+  const imgs=String(p.images||"").split(",").map(x=>x.trim()).filter(Boolean);
+  colors.forEach((c,i)=>addVariantRow(c,imgs[i]||""));
+  $("productModal").style.display="flex";
+}
+function closeProductModal(){$("productModal").style.display="none"}
+function addVariantRow(color="",image=""){
+  const row=document.createElement("div");
+  row.className="variantRow";
+  row.innerHTML='<input class="vc" placeholder="Colour" value="'+esc(color)+'"><input class="vi" placeholder="Image URL" value="'+esc(image)+'"><button class="btn danger" type="button">Remove</button>';
+  row.querySelector("button").onclick=()=>row.remove();
+  $("variantRows").appendChild(row);
+}
+async function saveProduct(){
+  const name=$("pName").value.trim();
+  const category=$("pCategory").value.trim();
+  const price=Number($("pPrice").value);
+  const stock=Number($("pStock").value);
+  if(!name||!category||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0)return toast("Fill name, catalog, price and valid stock.");
+  const cs=[],ims=[];
+  document.querySelectorAll(".variantRow").forEach(row=>{
+    const c=row.querySelector(".vc").value.trim();
+    const im=row.querySelector(".vi").value.trim();
+    if(c){cs.push(c);if(im)ims.push(im)}
+  });
+  const fallbackColors=$("pColors").value.split(",").map(x=>x.trim()).filter(Boolean);
+  const baseImages=$("pImages").value.split(/[\\n,]/).map(x=>x.trim()).filter(Boolean);
+  const body={
+    name,category,price,stock,
+    sizes:$("pSizes").value.trim(),
+    colors:(cs.length?cs:fallbackColors).join(","),
+    description:$("pDescription").value.trim(),
+    images:(ims.length?ims:baseImages).join(",")
+  };
+  try{
+    const url=API+"/api/products"+(editProductId?"/"+editProductId:"");
+    const r=await fetch(url,{method:editProductId?"PUT":"POST",headers:authHeaders(true),body:JSON.stringify(body)});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not save product");
+    toast(editProductId?"Product updated":"Product added");
+    closeProductModal();
+    await loadAll();
+    page("products",document.querySelectorAll(".nav")[1]);
+  }catch(e){toast(e.message)}
+}
+async function deleteProduct(id){
+  if(!confirm("Delete this product?"))return;
+  try{
+    const r=await fetch(API+"/api/products/"+id,{method:"DELETE",headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not delete product");
+    toast("Product deleted");
+    await loadAll();
+  }catch(e){toast(e.message)}
+}
+function renderCatalogs(){
+  $("catalogGrid").innerHTML=catalogs.map(c=>
+    '<div class="catalogCard">'+(c.image?'<img src="'+esc(c.image)+'" onerror="this.style.display=\\'none\\'">':'')+
+    '<h3>'+esc(c.name)+'</h3><p>'+esc(c.description||"No description")+'</p>'+
+    '<small class="muted">Catalog ID: '+c.id+'</small>'+
+    '<div class="actions"><button class="btn" onclick="editCatalog('+c.id+')">Edit</button><button class="btn danger" onclick="deleteCatalog('+c.id+')">Delete</button></div></div>'
+  ).join("")||'<div class="panel"><p class="muted">No catalogs yet. Create your first catalog.</p></div>';
+}
+function newCatalog(){
+  editCatalogId=null;
+  $("catalogTitle").textContent="Add Catalog";
+  $("catalogName").value="";
+  $("catalogImage").value="";
+  $("catalogDescription").value="";
+  $("catalogEditor").style.display="block";
+  $("catalogName").focus();
+}
+function editCatalog(id){
+  const c=catalogs.find(x=>Number(x.id)===Number(id));
+  if(!c)return;
+  editCatalogId=id;
+  $("catalogTitle").textContent="Edit Catalog";
+  $("catalogName").value=c.name||"";
+  $("catalogImage").value=c.image||"";
+  $("catalogDescription").value=c.description||"";
+  $("catalogEditor").style.display="block";
+  $("catalogName").focus();
+}
+function cancelCatalog(){
+  editCatalogId=null;
+  $("catalogEditor").style.display="none";
+}
+async function saveCatalog(){
+  const name=$("catalogName").value.trim();
+  if(!name)return toast("Catalog name is required.");
+  const body={name,image:$("catalogImage").value.trim(),description:$("catalogDescription").value.trim()};
+  try{
+    const r=await fetch(API+"/api/catalogs"+(editCatalogId?"/"+editCatalogId:""),{method:editCatalogId?"PUT":"POST",headers:authHeaders(true),body:JSON.stringify(body)});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not save catalog");
+    toast(editCatalogId?"Catalog updated":"Catalog created");
+    cancelCatalog();
+    await loadAll();
+  }catch(e){toast(e.message)}
+}
+async function deleteCatalog(id){
+  if(!confirm("Delete this catalog? Products using it must be moved first."))return;
+  try{
+    const r=await fetch(API+"/api/catalogs/"+id,{method:"DELETE",headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not delete catalog");
+    toast("Catalog deleted");
+    await loadAll();
+  }catch(e){toast(e.message)}
+}
+function renderOrders(){
+  const q=($("orderSearch").value||"").toLowerCase().trim();
+  const list=orders.filter(o=>(String(o.order_number)+" "+String(o.customer_name)+" "+String(o.customer_phone)).toLowerCase().includes(q));
+  $("orderRows").innerHTML=list.map(o=>
+    '<tr><td>'+o.id+'</td><td><b>'+esc(o.order_number)+'</b></td><td>'+esc(o.customer_name)+'<br><span class="muted">'+esc(o.customer_phone)+'</span></td>'+
+    '<td>₹'+Number(o.total||0).toLocaleString("en-IN")+'</td><td>'+esc(o.status||"New")+'</td><td>'+esc(o.payment_status||"Pending")+'</td>'+
+    '<td>'+esc(o.created_at||"")+'</td><td><button class="btn" onclick="viewOrder('+o.id+')">View</button> <button class="btn danger" onclick="deleteOrder('+o.id+')">Delete</button></td></tr>'
+  ).join("")||'<tr><td colspan="8" class="muted">No orders found.</td></tr>';
+}
+async function loadOrders(){
+  try{
+    const r=await fetch(API+"/api/orders",{headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not load orders");
+    orders=d.orders||[];
+    renderOrders();renderCustomers();updateStats();
+  }catch(e){toast(e.message)}
+}
+async function viewOrder(id){
+  $("orderModal").style.display="flex";
+  $("orderDetail").textContent="Loading…";
+  try{
+    const r=await fetch(API+"/api/orders/"+id,{headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not load order");
+    const o=d.order;
+    let items=[];
+    try{items=JSON.parse(o.items||"[]")}catch{}
+    $("orderDetail").textContent=
+      "ORDER: "+o.order_number+
+      "\\n\\nCUSTOMER\\nName: "+o.customer_name+
+      "\\nPhone: "+o.customer_phone+
+      "\\nAddress: "+o.customer_address+
+      "\\nPincode: "+(o.customer_pincode||"")+
+      "\\nState: "+(o.customer_state||"")+
+      "\\nDistrict: "+(o.customer_district||"")+
+      "\\n\\nITEMS\\n"+items.map((x,i)=>(i+1)+". "+x.name+" × "+x.quantity+" — ₹"+(Number(x.price)*Number(x.quantity))+(x.colour?" — "+x.colour:"")+(x.size?" — "+x.size:"")).join("\\n")+
+      "\\n\\nSubtotal: ₹"+Number(o.subtotal||0)+
+      "\\nDelivery: ₹"+Number(o.delivery_charge||0)+
+      "\\nDiscount: ₹"+Number(o.discount||0)+
+      "\\nTOTAL: ₹"+Number(o.total||0)+
+      "\\n\\nStatus: "+(o.status||"New")+
+      "\\nPayment: "+(o.payment_status||"Pending");
+  }catch(e){$("orderDetail").textContent=e.message}
+}
+function closeOrderModal(){$("orderModal").style.display="none"}
+async function deleteOrder(id){
+  if(!confirm("Delete this order?"))return;
+  try{
+    const r=await fetch(API+"/api/orders/"+id,{method:"DELETE",headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw Error(d.error||"Could not delete order");
+    toast("Order deleted");await loadOrders();
+  }catch(e){toast(e.message)}
+}
+function renderCustomers(){
+  const map={};
+  orders.forEach(o=>{
+    const key=String(o.customer_phone||o.customer_name);
+    if(!map[key])map[key]={name:o.customer_name,phone:o.customer_phone,count:0,total:0,latest:o.created_at||""};
+    map[key].count++;
+    map[key].total+=Number(o.total||0);
+    if(String(o.created_at||"")>String(map[key].latest||""))map[key].latest=o.created_at||"";
+  });
+  $("customerRows").innerHTML=Object.values(map).map(c=>
+    '<tr><td>'+esc(c.name)+'</td><td>'+esc(c.phone)+'</td><td>'+c.count+'</td><td>₹'+c.total.toLocaleString("en-IN")+'</td><td>'+esc(c.latest)+'</td></tr>'
+  ).join("")||'<tr><td colspan="5" class="muted">No customers yet.</td></tr>';
+}
+window.onclick=e=>{
+  if(e.target.classList.contains("modal"))e.target.style.display="none";
+};
+
+(async()=>{
+  if(token){
+    try{
+      const r=await fetch(API+"/api/admin/check",{headers:authHeaders()});
+      if(r.ok){
+        $("login").style.display="none";
+        $("app").style.display="block";
+        await loadAll();
+        checkAPI();
+      }else localStorage.removeItem("raha_admin_token");
+    }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
