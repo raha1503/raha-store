@@ -1743,9 +1743,10 @@
         ) {
 
           throw new Error(
-            data.error ||
-            "Login failed. Check your admin password."
-          );
+    data.message ||
+    data.error ||
+    "Could not save catalog."
+);
 
         }
 
