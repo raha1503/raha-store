@@ -1,4355 +1,4143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050505">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RAHA | Your Everyday Shopping Destination</title>
+  <title>RAHA Admin Dashboard</title>
 
-<style>
+  <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #050505;
-    color: #ffffff;
-}
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-/* ================= HEADER ================= */
-
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #050505;
-    border-bottom: 1px solid #332a0d;
-}
-
-.topbar {
-    max-width: 1200px;
-    margin: auto;
-    padding: 14px 18px;
-    display: grid;
-    grid-template-columns: auto minmax(250px, 1fr) auto;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo {
-    color: #d4af37;
-    font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 4px;
-}
-
-.tagline {
-    color: #999;
-    font-size: 12px;
-    margin-top: 4px;
-}
-
-.searchBox input {
-    width: 100%;
-    height: 44px;
-    padding: 0 18px;
-    border-radius: 24px;
-    border: 1px solid #5a4813;
-    outline: none;
-    background: #111;
-    color: #fff;
-}
-
-.searchBox input:focus {
-    border-color: #d4af37;
-}
-
-.cartBtn {
-    background: #0e0e0e;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-    border-radius: 23px;
-    padding: 11px 17px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.cartBtn:hover {
-    background: #d4af37;
-    color: #000;
-}
-
-/* ================= CATEGORIES ================= */
-
-.categories {
-    border-top: 1px solid #181818;
-    overflow-x: auto;
-    padding: 9px 15px;
-}
-
-.categoryWrap {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    gap: 8px;
-}
-
-.cat {
-    white-space: nowrap;
-    padding: 9px 14px;
-    border-radius: 20px;
-    border: 1px solid #332a0d;
-    background: #101010;
-    color: #bbb;
-}
-
-.cat:hover,
-.cat.active {
-    background: #d4af37;
-    color: #000;
-}
-
-/* ================= SORT ================= */
-
-.sortBox {
-    max-width: 1200px;
-    margin: 10px auto 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-}
-
-.sortBox label {
-    color: #aaa;
-    font-size: 14px;
-}
-
-.sortBox select {
-    background: #101010;
-    color: #d4af37;
-    border: 1px solid #5a4813;
-    border-radius: 8px;
-    padding: 9px 12px;
-}
-
-/* ================= HERO ================= */
-
-.hero {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 50px 25px;
-    border: 1px solid #332a0d;
-    border-radius: 18px;
-
-    background:
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(212,175,55,.20),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #111,
-            #050505
-        );
-}
-
-.hero h1 {
-    color: #d4af37;
-    font-size: 44px;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    max-width: 700px;
-    color: #aaa;
-    line-height: 1.6;
-}
-
-/* ================= PRODUCTS ================= */
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 18px 50px;
-}
-
-.sectionTitle {
-    color: #d4af37;
-    margin: 28px 0 16px;
-    font-size: 24px;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
-.product {
-    background: #101010;
-    border: 1px solid #29220d;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: .2s;
-}
-
-.product:hover {
-    transform: translateY(-3px);
-    border-color: #d4af37;
-}
-
-.productImage {
-    width: 100%;
-    height: 230px;
-    object-fit: cover;
-    display: block;
-    background: #181818;
-}
-
-.productInfo {
-    padding: 14px;
-}
-
-.productName {
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 6px;
-}
-
-.productCat {
-    color: #888;
-    font-size: 12px;
-    margin-bottom: 8px;
-}
-
-.price {
-    color: #d4af37;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.stock {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.stock.in {
-    color: #4caf50;
-}
-
-.stock.low {
-    color: #ff9800;
-}
-
-.stock.out {
-    color: #f44336;
-}
-
-.productActions {
-    display: flex;
-    gap: 8px;
-}
-
-.buyBtn,
-.addBtn {
-    flex: 1;
-    padding: 10px 6px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.buyBtn {
-    background: #d4af37;
-    color: #000;
-    border: 1px solid #d4af37;
-}
-
-.addBtn {
-    background: #171717;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-}
-
-.noProducts {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: #888;
-    padding: 60px 20px;
-}
-
-/* ================= MODALS ================= */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    background: rgba(0,0,0,.88);
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.modalBox {
-    position: relative;
-    max-width: 900px;
-    margin: 20px auto;
-    background: #101010;
-    border: 1px solid #d4af37;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.close {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    z-index: 20;
-
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-    background: #050505;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    font-size: 23px;
-}
-
-/* ================= PRODUCT DETAILS ================= */
-
-.productDetail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.detailImage {
-    width: 100%;
-    height: 480px;
-    object-fit: cover;
-    background: #181818;
-}
-
-.detailInfo {
-    padding: 30px;
-}
-
-.detailInfo h2 {
-    color: #d4af37;
-    font-size: 27px;
-    margin-bottom: 8px;
-    padding-right: 35px;
-}
-
-.detailDescription {
-    color: #aaa;
-    line-height: 1.6;
-    margin: 14px 0 20px;
-}
-
-.field {
-    margin: 15px 0;
-}
-
-.field label {
-    display: block;
-    color: #bbb;
-    font-size: 14px;
-    margin-bottom: 7px;
-}
-
-.field select {
-    width: 100%;
-    padding: 12px;
-    background: #080808;
-    color: #fff;
-    border: 1px solid #403512;
-    border-radius: 8px;
-}
-
-.detailButtons {
-    display: flex;
-    gap: 10px;
-    margin-top: 22px;
-}
-
-.detailBuy,
-.detailAdd {
-    flex: 1;
-    padding: 14px;
-    border-radius: 9px;
-    font-weight: bold;
-}
-
-.detailBuy {
-    background: #d4af37;
-    color: #000;
-    border: 1px solid #d4af37;
-}
-
-.detailAdd {
-    background: #181818;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-}
-
-/* ================= CART ================= */
-
-.checkout {
-    padding: 28px;
-}
-
-.checkout h2 {
-    color: #d4af37;
-    margin-bottom: 18px;
-}
-
-.cartItem {
-    display: grid;
-    grid-template-columns: 75px 1fr auto;
-    gap: 12px;
-    padding: 14px 0;
-    border-bottom: 1px solid #282828;
-}
-
-.cartItem img {
-    width: 75px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.cartName {
-    font-weight: bold;
-}
-
-.cartMeta {
-    color: #999;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-top: 4px;
-}
-
-.qty {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.qty button {
-    width: 28px;
-    height: 28px;
-    border-radius: 5px;
-    background: #222;
-    border: 1px solid #444;
-    color: #fff;
-}
-
-.cartPrice {
-    color: #d4af37;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.cartTotal {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 0;
-    font-size: 20px;
-}
-
-.clearCartBtn {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background: #211;
-    color: #ff7777;
-    border: 1px solid #633;
-    border-radius: 8px;
-}
-
-.checkoutBtn {
-    width: 70%;
-    margin: 15px auto 0;
-    display: block;
-    padding: 12px 18px;
-    border-radius: 8px;
-    background: #d4af37;
-    color: #000;
-    border: none;
-    font-weight: 700;
-}
-
-/* ================= CHECKOUT ================= */
-
-.checkoutGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-.checkoutField label {
-    display: block;
-    color: #aaa;
-    margin-bottom: 7px;
-}
-
-.checkoutField input,
-.checkoutField textarea,
-.checkoutField select {
-    width: 100%;
-    padding: 12px;
-    background: #080808;
-    color: #fff;
-    border: 1px solid #3c3212;
-    border-radius: 8px;
-    outline: none;
-}
-
-.full {
-    grid-column: 1 / -1;
-}
-
-.whatsappBtn {
-    width: 100%;
-    margin-top: 18px;
-    padding: 15px;
-    border: 0;
-    border-radius: 9px;
-    background: #25d366;
-    color: #fff;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.backBtn {
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    background: #222;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 8px;
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-    border-top: 1px solid #29210b;
-    padding: 30px 18px;
-    text-align: center;
-    color: #888;
-}
-
-.gold {
-    color: #d4af37;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 900px) {
-
-    .products {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 700px) {
-
-    .topbar {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-            "brand cart"
-            "search search";
-        gap: 12px;
+    * {
+      box-sizing: border-box;
     }
 
-    .brand {
-        grid-area: brand;
+    :root {
+      --gold: #d4af37;
+      --bg: #070707;
+      --panel: #111111;
+      --panel2: #171717;
+      --line: #2b2b2b;
+      --text: #f5f5f5;
+      --muted: #999999;
+      --green: #63d48c;
+      --red: #ff7777;
+      --orange: #e6c65c;
     }
 
-    .searchBox {
-        grid-area: search;
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    .cartBtn {
-        grid-area: cart;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
     }
 
-    .logo {
-        font-size: 26px;
+    button {
+      cursor: pointer;
     }
 
-    .hero {
-        margin: 14px;
-        padding: 35px 20px;
+    /* ================= LOGIN ================= */
+
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg);
     }
 
-    .hero h1 {
-        font-size: 34px;
+    .loginBox {
+      width: 100%;
+      max-width: 420px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
 
-    .products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    .loginLogo {
+      text-align: center;
+      color: var(--gold);
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      margin-bottom: 8px;
     }
 
-    .productImage {
-        height: 190px;
+    .loginTitle {
+      text-align: center;
+      color: #ffffff;
+      margin: 0 0 25px;
+      font-size: 20px;
     }
 
-    .productActions {
-        flex-direction: column;
+    .loginLabel {
+      display: block;
+      color: #bbbbbb;
+      font-size: 13px;
+      margin-bottom: 7px;
     }
 
-    .productDetail {
-        grid-template-columns: 1fr;
+    .loginInput {
+      width: 100%;
+      padding: 13px;
+      background: #080808;
+      border: 1px solid #3b3b3b;
+      border-radius: 10px;
+      color: white;
+      outline: none;
     }
 
-    .detailImage {
-        height: 300px;
+    .loginInput:focus {
+      border-color: var(--gold);
     }
 
-    .checkoutGrid {
-        grid-template-columns: 1fr;
+    .loginButton {
+      width: 100%;
+      margin-top: 14px;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: var(--gold);
+      color: #080808;
+      font-weight: 800;
+      cursor: pointer;
     }
 
-    .full {
-        grid-column: auto;
+    .loginButton:disabled {
+      opacity: 0.6;
+      cursor: wait;
     }
+
+    #loginMessage {
+      min-height: 22px;
+      margin-top: 12px;
+      color: var(--red);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    /* ================= APP ================= */
+
+    #appPage {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topBar {
+      height: 65px;
+      background: #0e0e0e;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topLogo {
+      color: var(--gold);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .topRight {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .apiStatus {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+      width: 235px;
+      background: #0d0d0d;
+      border-right: 1px solid var(--line);
+      padding: 14px;
+      flex-shrink: 0;
+    }
+
+    .navButton {
+      width: 100%;
+      display: block;
+      padding: 12px 13px;
+      margin: 4px 0;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: #aaaaaa;
+      text-align: left;
+    }
+
+    .navButton:hover {
+      background: #1b1b1b;
+      color: var(--gold);
+    }
+
+    .navButton.active {
+      background: #1c1c1c;
+      color: var(--gold);
+    }
+
+    .mobileMenuButton {
+      display: none;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main {
+      width: 100%;
+      max-width: 1500px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 28px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* ================= CARDS ================= */
+
+    .statsGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .statCard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 18px;
+    }
+
+    .statCard span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .statCard strong {
+      display: block;
+      color: var(--gold);
+      font-size: 29px;
+      margin-top: 8px;
+    }
+
+    /* ================= PANELS ================= */
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 18px;
+    }
+
+    .twoColumns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .button {
+      border: 1px solid #444444;
+      background: #1c1c1c;
+      color: #eeeeee;
+      padding: 10px 14px;
+      border-radius: 9px;
+    }
+
+    .button:hover {
+      border-color: #666666;
+    }
+
+    .button.primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #080808;
+      font-weight: 800;
+    }
+
+    .button.danger {
+      color: var(--red);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    /* ================= SEARCH ================= */
+
+    .searchBar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .searchBar input {
+      flex: 1;
+    }
+
+    /* ================= FORM ================= */
+
+    .formGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .fullWidth {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      color: #bbbbbb;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #090909;
+      color: white;
+      border: 1px solid #383838;
+      border-radius: 9px;
+      padding: 11px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* ================= TABLE ================= */
+
+    .tableContainer {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th,
+    td {
+      padding: 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      color: #aaaaaa;
+      font-size: 12px;
+    }
+
+    td {
+      font-size: 13px;
+    }
+
+    .productThumb {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #222222;
+    }
+
+    /* ================= STOCK ================= */
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .badge.green {
+      background: #143a25;
+      color: var(--green);
+    }
+
+    .badge.orange {
+      background: #3c3012;
+      color: var(--orange);
+    }
+
+    .badge.red {
+      background: #3b1717;
+      color: #ff8b8b;
+    }
+
+    /* ================= CATALOG ================= */
+
+    .catalogGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .catalogCard {
+      background: #111111;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 14px;
+    }
+
+    .catalogImage {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 9px;
+      background: #222222;
+    }
+
+    .catalogCard h3 {
+      margin: 10px 0 5px;
+    }
+
+    .catalogCard p {
+      color: #999999;
+      min-height: 40px;
+    }
+
+    /* ================= VARIANTS ================= */
+
+    .variantBox {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .variantRow {
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    /* ================= MODAL ================= */
 
     .modal {
-        padding: 8px;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 100;
     }
-}
 
-@media (max-width: 380px) {
+    .modalBox {
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #111111;
+      border: 1px solid #383838;
+      border-radius: 15px;
+      padding: 20px;
+    }
 
-    .products {
+    .orderDetail {
+      white-space: pre-wrap;
+      background: #090909;
+      border: 1px solid var(--line);
+      padding: 13px;
+      border-radius: 9px;
+      color: #cccccc;
+    }
+
+    /* ================= NOTICE ================= */
+
+    .notice {
+      padding: 12px;
+      border: 1px solid #3a3320;
+      background: #18150b;
+      border-radius: 9px;
+      color: #d9c57a;
+      margin-bottom: 15px;
+    }
+
+    /* ================= TOAST ================= */
+
+    #toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #1d1d1d;
+      border: 1px solid #444444;
+      padding: 12px 15px;
+      border-radius: 10px;
+      display: none;
+      z-index: 200;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 65px;
+        height: calc(100vh - 65px);
+        z-index: 50;
+        transition: 0.2s;
+      }
+
+      .layout.menuOpen .sidebar {
+        left: 0;
+      }
+
+      .mobileMenuButton {
+        display: block;
+      }
+
+      .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .catalogGrid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .twoColumns {
         grid-template-columns: 1fr;
+      }
     }
 
-    .productImage {
-        height: 230px;
-    }
-}
+    @media (max-width: 600px) {
 
-</style>
+      .main {
+        padding: 15px;
+      }
+
+      .statsGrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .statCard {
+        padding: 13px;
+      }
+
+      .formGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .fullWidth {
+        grid-column: auto;
+      }
+
+      .catalogGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .topBar {
+        padding: 0 12px;
+      }
+
+      .topLogo {
+        font-size: 20px;
+      }
+
+      .topRight .apiStatus {
+        display: none;
+      }
+
+      .searchBar {
+        flex-direction: column;
+      }
+
+      .variantRow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-<header>
+  <!-- ========================================================= -->
+  <!-- LOGIN PAGE -->
+  <!-- ========================================================= -->
 
-    <div class="topbar">
+  <div id="loginPage">
 
-        <div class="brand">
+    <div class="loginBox">
 
-            <div class="logo">
-                RAHA
-            </div>
+      <div class="loginLogo">
+        RAHA
+      </div>
 
-            <div class="tagline">
-                Your Everyday Shopping Destination
-            </div>
+      <h2 class="loginTitle">
+        Admin Dashboard
+      </h2>
 
-        </div>
+      <!-- IMPORTANT: LOGIN IS A REAL FORM -->
+      <form id="loginForm">
 
-        <div class="searchBox">
+        <label class="loginLabel" for="adminPassword">
+          Admin Password
+        </label>
 
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="🔎 Search products..."
-                autocomplete="off"
-                oninput="searchProducts()"
-            >
-
-        </div>
+        <input
+          id="adminPassword"
+          class="loginInput"
+          type="password"
+          placeholder="Enter admin password"
+          autocomplete="current-password"
+          required
+        >
 
         <button
-            class="cartBtn"
-            onclick="openCart()"
+          id="loginButton"
+          class="loginButton"
+          type="submit"
         >
-            🛒 Cart
-            <span id="cartCount">0</span>
+          Login
         </button>
 
+      </form>
+
+      <div id="loginMessage"></div>
+
     </div>
 
+  </div>
 
-    <div class="categories">
 
-        <div
-            class="categoryWrap"
-            id="categoryWrap"
-        ></div>
+  <!-- ========================================================= -->
+  <!-- ADMIN APP -->
+  <!-- ========================================================= -->
 
-        <div class="sortBox">
+  <div id="appPage">
 
-            <label for="sortBy">
-                Sort By:
-            </label>
+    <header class="topBar">
 
-            <select
-                id="sortBy"
-                onchange="changeSort(this.value)"
-            >
+      <div style="display:flex;align-items:center;gap:12px;">
 
-                <option value="recommended">
-                    Recommended
-                </option>
+        <button
+          class="button mobileMenuButton"
+          type="button"
+          id="mobileMenu"
+        >
+          ☰
+        </button>
 
-                <option value="newest">
-                    Newest
-                </option>
-
-                <option value="priceLow">
-                    Price: Low → High
-                </option>
-
-                <option value="priceHigh">
-                    Price: High → Low
-                </option>
-
-                <option value="nameAZ">
-                    Name: A → Z
-                </option>
-
-                <option value="nameZA">
-                    Name: Z → A
-                </option>
-
-                <option value="stock">
-                    Stock: Available First
-                </option>
-
-            </select>
-
+        <div class="topLogo">
+          RAHA
         </div>
 
-    </div>
+      </div>
 
-</header>
+      <div class="topRight">
 
+        <span
+          id="apiStatus"
+          class="apiStatus"
+        >
+          Checking API...
+        </span>
 
-<section class="hero">
+        <button
+          class="button"
+          type="button"
+          id="logoutButton"
+        >
+          Logout
+        </button>
 
-    <h1>
-        RAHA
-    </h1>
+      </div>
 
-    <p>
-        Your Everyday Shopping Destination.
-        Discover jewellery, fashion, gifts,
-        accessories, home & lifestyle,
-        electronics, footwear, beauty,
-        bags, watches and more.
-    </p>
+    </header>
 
-</section>
-
-
-<main class="container">
-
-    <h2
-        class="sectionTitle"
-        id="sectionTitle"
-    >
-        All Products
-    </h2>
 
     <div
-        class="products"
-        id="products"
-    ></div>
+      class="layout"
+      id="layout"
+    >
 
-</main>
+      <!-- ===================================================== -->
+      <!-- SIDEBAR -->
+      <!-- ===================================================== -->
 
-
-<footer>
-
-    <div class="gold">
-        RAHA
-    </div>
-
-    <p>
-        Your Everyday Shopping Destination
-    </p>
-
-    <p style="margin-top:8px;">
-        🇮🇳 All India Delivery
-    </p>
-
-    <p style="margin-top:8px;">
-        WhatsApp Orders: 8903188257
-    </p>
-
-    <p style="margin-top:15px;font-size:12px;">
-        © 2026 RAHA. All rights reserved.
-    </p>
-
-</footer>
-
-
-<!-- ================= PRODUCT MODAL ================= -->
-
-<div
-    class="modal"
-    id="productModal"
->
-
-    <div class="modalBox">
+      <aside class="sidebar">
 
         <button
-            class="close"
-            onclick="closeModal('productModal')"
+          class="navButton active"
+          data-page="dashboard"
         >
-            ×
+          📊 Dashboard
         </button>
 
-        <div class="productDetail">
+        <button
+          class="navButton"
+          data-page="products"
+        >
+          🛍️ Products
+        </button>
+
+        <button
+          class="navButton"
+          data-page="catalogs"
+        >
+          🗂️ Catalogs
+        </button>
+
+        <button
+          class="navButton"
+          data-page="orders"
+        >
+          📦 Orders
+        </button>
+
+        <button
+          class="navButton"
+          data-page="customers"
+        >
+          👥 Customers
+        </button>
+
+        <button
+          class="navButton"
+          data-page="settings"
+        >
+          ⚙️ Settings
+        </button>
+
+      </aside>
+
+
+      <!-- ===================================================== -->
+      <!-- MAIN -->
+      <!-- ===================================================== -->
+
+      <main class="main">
+
+
+        <!-- =================================================== -->
+        <!-- DASHBOARD -->
+        <!-- =================================================== -->
+
+        <section
+          id="dashboard"
+          class="page active"
+        >
+
+          <h1>
+            Dashboard
+          </h1>
+
+          <p class="muted">
+            RAHA store overview
+          </p>
+
+
+          <div class="statsGrid">
+
+            <div class="statCard">
+              <span>
+                Products
+              </span>
+
+              <strong id="statProducts">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Catalogs
+              </span>
+
+              <strong id="statCatalogs">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Total Stock
+              </span>
+
+              <strong id="statStock">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Orders
+              </span>
+
+              <strong id="statOrders">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="twoColumns">
+
+            <div class="panel">
+
+              <h3>
+                Quick Actions
+              </h3>
+
+              <div class="actions">
+
+                <button
+                  class="button primary"
+                  type="button"
+                  id="quickAddProduct"
+                >
+                  + Add Product
+                </button>
+
+                <button
+                  class="button"
+                  type="button"
+                  id="quickAddCatalog"
+                >
+                  + Add Catalog
+                </button>
+
+                <button
+                  class="button"
+                  type="button"
+                  id="quickOrders"
+                >
+                  View Orders
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="panel">
+
+              <h3>
+                System
+              </h3>
+
+              <p
+                id="systemInfo"
+                class="muted"
+              >
+                Loading...
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- PRODUCTS -->
+        <!-- =================================================== -->
+
+        <section
+          id="products"
+          class="page"
+        >
+
+          <h1>
+            Products
+          </h1>
+
+          <p class="muted">
+            Add and manage products in your RAHA store.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="searchBar">
+
+              <input
+                id="productSearch"
+                type="search"
+                placeholder="Search products..."
+              >
+
+              <button
+                class="button primary"
+                type="button"
+                id="addProductButton"
+              >
+                + Add Product
+              </button>
+
+            </div>
+
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Catalog</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Colours</th>
+                    <th>Actions</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="productRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- CATALOGS -->
+        <!-- =================================================== -->
+
+        <section
+          id="catalogs"
+          class="page"
+        >
+
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
 
             <div>
 
-                <img
-                    id="detailImage"
-                    class="detailImage"
-                    alt="Product"
-                >
+              <h1>
+                Catalogs
+              </h1>
+
+              <p class="muted">
+                Create and manage the categories shown in your RAHA store.
+              </p>
 
             </div>
 
-            <div class="detailInfo">
+            <button
+              class="button primary"
+              type="button"
+              id="addCatalogButton"
+            >
+              + Add Catalog
+            </button>
 
-                <h2 id="detailName"></h2>
-
-                <div
-                    class="price"
-                    id="detailPrice"
-                ></div>
-
-                <div
-                    class="stock"
-                    id="detailStock"
-                ></div>
-
-                <div
-                    class="detailDescription"
-                    id="detailDescription"
-                ></div>
+          </div>
 
 
-                <div
-                    class="field"
-                    id="colourField"
+          <div
+            id="catalogEditor"
+            class="panel"
+            style="display:none;margin-top:16px;"
+          >
+
+            <h2 id="catalogTitle">
+              Add Catalog
+            </h2>
+
+
+            <div class="formGrid">
+
+              <div>
+
+                <label>
+                  Catalog Name *
+                </label>
+
+                <input
+                  id="catalogName"
+                  type="text"
+                  placeholder="Example: New Arrivals"
                 >
 
-                    <label>
-                        Colour
-                    </label>
-
-                    <select
-                        id="detailColour"
-                        onchange="changeColourImage()"
-                    ></select>
-
-                </div>
+              </div>
 
 
-                <div
-                    class="field"
-                    id="sizeField"
+              <div>
+
+                <label>
+                  Catalog Image URL
+                </label>
+
+                <input
+                  id="catalogImage"
+                  type="url"
+                  placeholder="https://..."
                 >
 
-                    <label>
-                        Size
-                    </label>
-
-                    <select
-                        id="detailSize"
-                    ></select>
-
-                </div>
+              </div>
 
 
-                <div class="field">
+              <div class="fullWidth">
 
-                    <label>
-                        Quantity
-                    </label>
+                <label>
+                  Description
+                </label>
 
-                    <select
-                        id="detailQuantity"
-                    >
+                <textarea
+                  id="catalogDescription"
+                  placeholder="Short catalog description"
+                ></textarea>
 
-                        <option value="1">
-                            1
-                        </option>
-
-                        <option value="2">
-                            2
-                        </option>
-
-                        <option value="3">
-                            3
-                        </option>
-
-                        <option value="4">
-                            4
-                        </option>
-
-                        <option value="5">
-                            5
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="detailButtons">
-
-                    <button
-                        class="detailBuy"
-                        onclick="buyNowFromDetail()"
-                    >
-                        ⚡ Buy Now
-                    </button>
-
-                    <button
-                        class="detailAdd"
-                        onclick="addFromDetail()"
-                    >
-                        🛒 Add to Cart
-                    </button>
-
-                </div>
+              </div>
 
             </div>
 
-        </div>
+
+            <div class="actions">
+
+              <button
+                class="button primary"
+                type="button"
+                id="saveCatalogButton"
+              >
+                Save Catalog
+              </button>
+
+              <button
+                class="button"
+                type="button"
+                id="cancelCatalogButton"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="catalogGrid"
+            class="catalogGrid"
+          ></div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- ORDERS -->
+        <!-- =================================================== -->
+
+        <section
+          id="orders"
+          class="page"
+        >
+
+          <h1>
+            Orders
+          </h1>
+
+          <p class="muted">
+            Orders received through the RAHA website.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="searchBar">
+
+              <input
+                id="orderSearch"
+                type="search"
+                placeholder="Search order or customer..."
+              >
+
+              <button
+                class="button"
+                type="button"
+                id="refreshOrdersButton"
+              >
+                ↻ Refresh
+              </button>
+
+            </div>
+
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>ID</th>
+                    <th>Order No.</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="orderRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- CUSTOMERS -->
+        <!-- =================================================== -->
+
+        <section
+          id="customers"
+          class="page"
+        >
+
+          <h1>
+            Customers
+          </h1>
+
+          <p class="muted">
+            Customers are automatically collected from orders.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Orders</th>
+                    <th>Total Spent</th>
+                    <th>Latest Order</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="customerRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- SETTINGS -->
+        <!-- =================================================== -->
+
+        <section
+          id="settings"
+          class="page"
+        >
+
+          <h1>
+            Settings
+          </h1>
+
+          <p class="muted">
+            Current RAHA store configuration.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="formGrid">
+
+              <div>
+
+                <label>
+                  Store Name
+                </label>
+
+                <input
+                  value="RAHA"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  Tagline
+                </label>
+
+                <input
+                  value="Your Everyday Shopping Destination"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  WhatsApp Number
+                </label>
+
+                <input
+                  value="8903188257"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  API
+                </label>
+
+                <input
+                  value="https://raha-api.rahastudio14.workers.dev"
+                  readonly
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="notice" style="margin-top:15px;">
+
+              Product, catalog and order data are stored in Cloudflare D1.
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+      </main>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- ================= CART MODAL ================= -->
+  <!-- ========================================================= -->
+  <!-- PRODUCT MODAL -->
+  <!-- ========================================================= -->
 
-<div
+  <div
+    id="productModal"
     class="modal"
-    id="cartModal"
->
+  >
 
     <div class="modalBox">
 
-        <button
-            class="close"
-            onclick="closeModal('cartModal')"
-        >
-            ×
-        </button>
+      <h2 id="productTitle">
+        Add Product
+      </h2>
 
-        <div class="checkout">
 
-            <h2>
-                🛒 Your Cart
-            </h2>
+      <div class="formGrid">
 
-            <div id="cartItems"></div>
 
-            <button
-                class="clearCartBtn"
-                onclick="clearCart()"
-            >
-                🗑️ Clear Cart
-            </button>
+        <div>
 
-            <div class="cartTotal">
+          <label>
+            Product Name *
+          </label>
 
-                <span>
-                    Total
-                </span>
-
-                <strong
-                    class="gold"
-                    id="cartTotal"
-                >
-                    ₹0
-                </strong>
-
-            </div>
-
-            <button
-                class="checkoutBtn"
-                onclick="openCheckout()"
-            >
-                Continue to Checkout
-            </button>
+          <input
+            id="productName"
+            type="text"
+            placeholder="Product name"
+          >
 
         </div>
 
+
+        <div>
+
+          <label>
+            Price ₹ *
+          </label>
+
+          <input
+            id="productPrice"
+            type="number"
+            min="0"
+            step="0.01"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Catalog *
+          </label>
+
+          <select id="productCategory">
+            <option value="">
+              Select a catalog
+            </option>
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Stock *
+          </label>
+
+          <input
+            id="productStock"
+            type="number"
+            min="0"
+            step="1"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Sizes
+          </label>
+
+          <input
+            id="productSizes"
+            placeholder="S, M, L, XL"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Colours
+          </label>
+
+          <input
+            id="productColors"
+            placeholder="Black, White, Blue"
+          >
+
+        </div>
+
+
+        <div class="fullWidth">
+
+          <label>
+            Description
+          </label>
+
+          <textarea
+            id="productDescription"
+            placeholder="Product description"
+          ></textarea>
+
+        </div>
+
+
+        <div class="fullWidth">
+
+          <label>
+            General Images — one URL per line
+          </label>
+
+          <textarea
+            id="productImages"
+            placeholder="https://image1.jpg&#10;https://image2.jpg"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="variantBox">
+
+        <b>
+          🎨 Colour-specific Images
+        </b>
+
+        <p class="muted">
+          Add an image for each colour if required.
+        </p>
+
+
+        <div id="variantRows"></div>
+
+
+        <button
+          class="button"
+          type="button"
+          id="addVariantButton"
+        >
+          + Add Colour Image
+        </button>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="button primary"
+          type="button"
+          id="saveProductButton"
+        >
+          Save Product
+        </button>
+
+        <button
+          class="button"
+          type="button"
+          id="cancelProductButton"
+        >
+          Cancel
+        </button>
+
+      </div>
+
     </div>
 
-</div>
+  </div>
 
 
-<!-- ================= CHECKOUT MODAL ================= -->
+  <!-- ========================================================= -->
+  <!-- ORDER MODAL -->
+  <!-- ========================================================= -->
 
-<div
+  <div
+    id="orderModal"
     class="modal"
-    id="checkoutModal"
->
+  >
 
     <div class="modalBox">
 
+      <h2>
+        Order Details
+      </h2>
+
+      <div
+        id="orderDetail"
+        class="orderDetail"
+      >
+        Loading...
+      </div>
+
+      <div class="actions">
+
         <button
-            class="close"
-            onclick="closeModal('checkoutModal')"
+          class="button"
+          type="button"
+          id="closeOrderButton"
         >
-            ×
+          Close
         </button>
 
-        <div class="checkout">
-
-            <h2>
-                📦 Delivery Details
-            </h2>
-
-            <div class="checkoutGrid">
-
-                <div class="checkoutField">
-
-                    <label>
-                        Full Name
-                    </label>
-
-                    <input
-                        id="customerName"
-                        placeholder="Enter your full name"
-                    >
-
-                </div>
-
-
-                <div class="checkoutField">
-
-                    <label>
-                        Mobile Number
-                    </label>
-
-                    <input
-                        id="customerPhone"
-                        type="tel"
-                        maxlength="10"
-                        inputmode="numeric"
-                        placeholder="10 digit mobile number"
-                    >
-
-                </div>
-
-
-                <div class="checkoutField full">
-
-                    <label>
-                        Full Address
-                    </label>
-
-                    <textarea
-                        id="customerAddress"
-                        rows="3"
-                        placeholder="House number, street, area..."
-                    ></textarea>
-
-                </div>
-
-
-                <div class="checkoutField">
-
-                    <label>
-                        Pincode
-                    </label>
-
-                    <input
-                        id="customerPincode"
-                        maxlength="6"
-                        inputmode="numeric"
-                        placeholder="6 digit pincode"
-                    >
-
-                </div>
-
-
-                <div class="checkoutField">
-
-                    <label>
-                        State / UT
-                    </label>
-
-                    <select
-                        id="customerState"
-                        onchange="loadDistricts()"
-                    >
-
-                        <option value="">
-                            Select State / UT
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="checkoutField">
-
-                    <label>
-                        District
-                    </label>
-
-                    <select
-                        id="customerDistrict"
-                    >
-
-                        <option value="">
-                            Select District
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="whatsappBtn"
-                onclick="sendWhatsAppOrder()"
-            >
-                📱 Order on WhatsApp
-            </button>
-
-
-            <button
-                class="backBtn"
-                onclick="closeModal('checkoutModal')"
-            >
-                Back
-            </button>
-
-        </div>
+      </div>
 
     </div>
 
-</div>
+  </div>
 
 
-<script>
+  <!-- ========================================================= -->
+  <!-- TOAST -->
+  <!-- ========================================================= -->
 
-/* =========================================================
-   RAHA API
-   ========================================================= */
-
-const RAHA_API =
-    "https://raha-api.rahastudio14.workers.dev";
-
-const WHATSAPP_NUMBER =
-    "918903188257";
+  <div id="toast"></div>
 
 
-/* =========================================================
-   DATA
-   ========================================================= */
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================================================= -->
 
-let products = [];
+  <script>
 
-let catalogs = [];
+    /* =========================================================
+       API
+    ========================================================= */
 
-let cart = [];
-
-let currentProduct = null;
-
-let currentCategory = "All";
-
-let currentSort = "recommended";
+    const API =
+      "https://raha-api.rahastudio14.workers.dev";
 
 
-/* =========================================================
-   CART LOAD
-   ========================================================= */
+    /* =========================================================
+       GLOBAL DATA
+    ========================================================= */
 
-try {
+    let token =
+      localStorage.getItem("raha_admin_token") || "";
 
-    const savedCart =
-        JSON.parse(
-            localStorage.getItem("rahaCart") || "[]"
-        );
+    let products = [];
 
-    if (Array.isArray(savedCart)) {
+    let catalogs = [];
 
-        cart = savedCart.map(item => ({
+    let orders = [];
 
-            ...item,
+    let editingProductId = null;
 
-            productId:
-                Number(
-                    item.productId ??
-                    item.id
-                ),
+    let editingCatalogId = null;
 
-            quantity:
-                Number(
-                    item.quantity ??
-                    item.qty ??
-                    1
-                )
 
-        })).filter(
-            item =>
-                Number.isInteger(item.productId)
-        );
+    /* =========================================================
+       SHORT SELECTOR
+    ========================================================= */
 
+    function $(id) {
+      return document.getElementById(id);
     }
 
-} catch (error) {
 
-    cart = [];
+    /* =========================================================
+       ESCAPE HTML
+    ========================================================= */
 
-}
+    function escapeHTML(value) {
 
+      return String(value ?? "").replace(
+        /[&<>"']/g,
+        function (character) {
 
-/* =========================================================
-   NORMALISE LIST
-   ========================================================= */
-
-function listValue(value) {
-
-    if (Array.isArray(value)) {
-
-        return value
-            .map(x => String(x).trim())
-            .filter(Boolean);
-
-    }
-
-    if (!value) {
-        return [];
-    }
-
-    return String(value)
-        .split(",")
-        .map(x => x.trim())
-        .filter(Boolean);
-}
-
-
-/* =========================================================
-   NORMALISE PRODUCT
-   ========================================================= */
-
-function normaliseProduct(product) {
-
-    const colors =
-        listValue(product.colors);
-
-    const images =
-        listValue(product.images);
-
-    const colourImages = {};
-
-    colors.forEach(
-        (colour, index) => {
-
-            colourImages[colour] =
-                images[index] ||
-                images[0] ||
-                "";
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+          }[character];
 
         }
-    );
-
-
-    /*
-     * If there are images but
-     * no colours, still show image.
-     */
-
-    if (
-        !colors.length &&
-        images.length
-    ) {
-
-        colourImages["Default"] =
-            images[0];
+      );
 
     }
 
 
-    return {
+    /* =========================================================
+       TOAST
+    ========================================================= */
 
-        id:
-            Number(product.id),
+    function showToast(message) {
 
-        name:
-            product.name || "Product",
+      $("toast").textContent = message;
 
-        price:
-            Number(product.price || 0),
+      $("toast").style.display = "block";
 
-        category:
-            product.category || "Other",
+      setTimeout(function () {
 
-        description:
-            product.description || "",
+        $("toast").style.display = "none";
 
-        stock:
-            Number(product.stock || 0),
+      }, 2500);
 
-        sizes:
-            listValue(product.sizes),
-
-        colours:
-            colourImages,
-
-        images:
-            images
-
-    };
-
-}
+    }
 
 
-/* =========================================================
-   LOAD CATALOGS
-   ========================================================= */
+    /* =========================================================
+       AUTH HEADERS
+    ========================================================= */
 
-async function loadCatalogs() {
+    function authHeaders(json) {
 
-    try {
+      const headers = {};
+
+      headers["Authorization"] =
+        "Bearer " + token;
+
+      if (json) {
+
+        headers["Content-Type"] =
+          "application/json";
+
+      }
+
+      return headers;
+
+    }
+
+
+    /* =========================================================
+       SHOW ADMIN APP
+    ========================================================= */
+
+    async function showAdminApp() {
+
+      $("loginPage").style.display = "none";
+
+      $("appPage").style.display = "block";
+
+      await loadAllData();
+
+      checkAPI();
+
+    }
+
+
+    /* =========================================================
+       LOGIN
+    ========================================================= */
+
+    async function loginAdmin() {
+
+      const password =
+        $("adminPassword").value.trim();
+
+      const message =
+        $("loginMessage");
+
+      const button =
+        $("loginButton");
+
+
+      message.textContent = "";
+
+
+      if (!password) {
+
+        message.textContent =
+          "Please enter your password.";
+
+        return;
+
+      }
+
+
+      button.disabled = true;
+
+      button.textContent = "Logging in...";
+
+
+      try {
 
         const response =
-            await fetch(
-                `${RAHA_API}/api/catalogs`,
-                {
-                    cache: "no-store"
-                }
-            );
+          await fetch(
+            API + "/api/admin/login",
+            {
+              method: "POST",
 
-        if (!response.ok) {
-            throw new Error(
-                "Catalog API failed"
-            );
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                password: password
+              })
+            }
+          );
+
+
+        let data = {};
+
+        try {
+
+          data = await response.json();
+
+        } catch (error) {
+
+          data = {};
+
         }
 
-        const data =
-            await response.json();
 
         if (
-            data.success &&
-            Array.isArray(data.catalogs)
+          !response.ok ||
+          !data.success ||
+          !data.token
         ) {
 
-            catalogs =
-                data.catalogs;
-
-            renderCategories();
+          throw new Error(
+            data.error ||
+            "Login failed. Check your admin password."
+          );
 
         }
 
-    } catch (error) {
 
-        console.error(
-            "Catalog loading error:",
-            error
+        token = data.token;
+
+
+        localStorage.setItem(
+          "raha_admin_token",
+          token
         );
 
-        renderCategories();
+
+        await showAdminApp();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error.message ||
+          "Unable to login.";
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent = "Login";
+
+      }
 
     }
 
-}
+
+    /* =========================================================
+       LOGOUT
+    ========================================================= */
+
+    function logoutAdmin() {
+
+      localStorage.removeItem(
+        "raha_admin_token"
+      );
+
+      token = "";
+
+      location.reload();
+
+    }
 
 
-/* =========================================================
-   LOAD PRODUCTS
-   ========================================================= */
+    /* =========================================================
+       CHECK API
+    ========================================================= */
 
-async function loadProducts() {
+    async function checkAPI() {
 
-    try {
-
-        showLoading();
+      try {
 
         const response =
-            await fetch(
-                `${RAHA_API}/api/products`,
-                {
-                    cache: "no-store"
-                }
-            );
+          await fetch(API + "/");
 
-        if (!response.ok) {
+        if (response.ok) {
 
-            throw new Error(
-                "Product API request failed"
-            );
+          $("apiStatus").textContent =
+            "● API Connected";
+
+          $("apiStatus").style.color =
+            "#63d48c";
+
+        } else {
+
+          $("apiStatus").textContent =
+            "● API Error";
+
+          $("apiStatus").style.color =
+            "#ff7777";
 
         }
 
-        const data =
-            await response.json();
+      } catch (error) {
+
+        $("apiStatus").textContent =
+          "● API Offline";
+
+        $("apiStatus").style.color =
+          "#ff7777";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       PAGE NAVIGATION
+    ========================================================= */
+
+    function openPage(pageId, clickedButton) {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(function (page) {
+
+          page.classList.remove("active");
+
+        });
+
+
+      const selectedPage =
+        $(pageId);
+
+      if (selectedPage) {
+
+        selectedPage.classList.add("active");
+
+      }
+
+
+      document
+        .querySelectorAll(".navButton")
+        .forEach(function (button) {
+
+          button.classList.remove("active");
+
+        });
+
+
+      if (clickedButton) {
+
+        clickedButton.classList.add("active");
+
+      }
+
+
+      $("layout").classList.remove(
+        "menuOpen"
+      );
+
+
+      if (pageId === "orders") {
+
+        loadOrders();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOAD ALL DATA
+    ========================================================= */
+
+    async function loadAllData() {
+
+      try {
+
+        const productResponse =
+          await fetch(
+            API + "/api/products"
+          );
+
+
+        const catalogResponse =
+          await fetch(
+            API + "/api/catalogs"
+          );
+
+
+        const orderResponse =
+          await fetch(
+            API + "/api/orders",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const productData =
+          await productResponse.json();
+
+
+        const catalogData =
+          await catalogResponse.json();
+
+
+        const orderData =
+          await orderResponse.json();
+
 
         if (
-            !data.success ||
-            !Array.isArray(data.products)
+          !productResponse.ok ||
+          !productData.success
         ) {
 
-            throw new Error(
-                "Invalid product response"
-            );
+          throw new Error(
+            productData.error ||
+            "Could not load products."
+          );
 
         }
 
 
-        /*
-         * IMPORTANT FIX:
-         *
-         * The new Worker returns
-         * images/colors/sizes as arrays.
-         *
-         * This code supports BOTH:
-         *
-         * Array:
-         * ["a.jpg","b.jpg"]
-         *
-         * and old text:
-         * "a.jpg,b.jpg"
-         */
+        if (
+          !catalogResponse.ok ||
+          !catalogData.success
+        ) {
+
+          throw new Error(
+            catalogData.error ||
+            "Could not load catalogs."
+          );
+
+        }
+
 
         products =
-            data.products.map(
-                normaliseProduct
-            );
+          productData.products || [];
 
 
-        renderCategories();
+        catalogs =
+          catalogData.catalogs || [];
+
+
+        if (
+          orderResponse.ok &&
+          orderData.success
+        ) {
+
+          orders =
+            orderData.orders || [];
+
+        } else {
+
+          orders = [];
+
+        }
+
 
         renderProducts();
 
+        renderCatalogs();
 
-    } catch (error) {
+        renderOrders();
 
-        console.error(
-            "RAHA API error:",
-            error
+        renderCustomers();
+
+        fillCatalogSelect();
+
+        updateStatistics();
+
+
+        $("systemInfo").textContent =
+          products.length +
+          " products · " +
+          catalogs.length +
+          " catalogs · " +
+          orders.length +
+          " orders";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Could not load data: " +
+          error.message
         );
 
-        document.getElementById(
-            "products"
-        ).innerHTML = `
-            <div class="noProducts">
-                ⚠️ Products could not be loaded.
-                Please refresh the page.
-            </div>
-        `;
+      }
 
     }
 
-}
+
+    /* =========================================================
+       STATISTICS
+    ========================================================= */
+
+    function updateStatistics() {
+
+      $("statProducts").textContent =
+        products.length;
 
 
-/* =========================================================
-   LOADING
-   ========================================================= */
-
-function showLoading() {
-
-    document.getElementById(
-        "products"
-    ).innerHTML = `
-        <div class="noProducts">
-            ⏳ Loading RAHA products...
-        </div>
-    `;
-
-}
+      $("statCatalogs").textContent =
+        catalogs.length;
 
 
-/* =========================================================
-   CATEGORIES
-   ========================================================= */
+      $("statStock").textContent =
+        products.reduce(
+          function (total, product) {
 
-function renderCategories() {
+            return total +
+              Number(product.stock || 0);
 
-    const wrap =
-        document.getElementById(
-            "categoryWrap"
+          },
+          0
         );
 
-    wrap.innerHTML = "";
+
+      $("statOrders").textContent =
+        orders.length;
+
+    }
 
 
-    const names = [];
+    /* =========================================================
+       CATALOG SELECT
+    ========================================================= */
+
+    function fillCatalogSelect(
+      selectedValue
+    ) {
+
+      const select =
+        $("productCategory");
 
 
-    catalogs.forEach(
-        catalog => {
-
-            if (
-                catalog &&
-                catalog.name
-            ) {
-
-                names.push(
-                    catalog.name
-                );
-
-            }
-
-        }
-    );
+      select.innerHTML =
+        '<option value="">Select a catalog</option>';
 
 
-    /*
-     * Fallback for products if
-     * catalog API has not loaded.
-     */
+      catalogs.forEach(
+        function (catalog) {
 
-    products.forEach(
-        product => {
+          const option =
+            document.createElement("option");
 
-            if (
-                product.category &&
-                !names.includes(
-                    product.category
-                )
-            ) {
 
-                names.push(
-                    product.category
-                );
+          option.value =
+            catalog.name;
 
-            }
+
+          option.textContent =
+            catalog.name;
+
+
+          select.appendChild(option);
 
         }
-    );
+      );
 
 
-    addCategoryButton(
-        wrap,
-        "All"
-    );
+      if (selectedValue) {
+
+        select.value =
+          selectedValue;
+
+      }
+
+    }
 
 
-    names
-        .filter(Boolean)
-        .sort(
-            (a,b) =>
-                a.localeCompare(b)
+    /* =========================================================
+       PRODUCT IMAGE
+    ========================================================= */
+
+    function getProductImage(product) {
+
+      const images =
+        String(
+          product.images || ""
         )
-        .forEach(
-            name =>
-                addCategoryButton(
-                    wrap,
-                    name
-                )
+          .split(",")
+          .map(function (image) {
+
+            return image.trim();
+
+          })
+          .filter(Boolean);
+
+
+      return images.length ?
+        images[0] :
+        "";
+
+    }
+
+
+    /* =========================================================
+       STOCK BADGE
+    ========================================================= */
+
+    function getStockBadge(stock) {
+
+      const value =
+        Number(stock || 0);
+
+
+      if (value <= 0) {
+
+        return (
+          '<span class="badge red">' +
+          'Out of Stock' +
+          '</span>'
         );
 
-}
+      }
 
 
-function addCategoryButton(
-    wrap,
-    name
-) {
+      if (value <= 5) {
 
-    const button =
-        document.createElement(
-            "button"
+        return (
+          '<span class="badge orange">' +
+          'Only ' +
+          value +
+          ' left' +
+          '</span>'
         );
 
-    button.className =
-        "cat" +
-        (
-            currentCategory === name
-                ? " active"
-                : ""
+      }
+
+
+      return (
+        '<span class="badge green">' +
+        'In Stock · ' +
+        value +
+        '</span>'
+      );
+
+    }
+
+
+    /* =========================================================
+       RENDER PRODUCTS
+    ========================================================= */
+
+    function renderProducts() {
+
+      const search =
+        $("productSearch")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const filtered =
+        products.filter(
+          function (product) {
+
+            const text =
+              String(product.name || "") +
+              " " +
+              String(product.category || "") +
+              " " +
+              String(product.description || "");
+
+
+            return text
+              .toLowerCase()
+              .includes(search);
+
+          }
         );
 
-    button.textContent = name;
 
-    button.onclick =
-        function() {
+      $("productRows").innerHTML =
+        filtered.map(
+          function (product) {
 
-            currentCategory =
-                name;
+            const image =
+              getProductImage(product);
 
-            renderCategories();
 
-            renderProducts();
+            return (
+              "<tr>" +
+
+              "<td>" +
+
+              (
+                image
+                  ?
+                  '<img class="productThumb" src="' +
+                  escapeHTML(image) +
+                  '" onerror="this.style.display=\'none\'">'
+                  :
+                  "—"
+              ) +
+
+              "</td>" +
+
+
+              "<td>" +
+
+              "<b>" +
+              escapeHTML(product.name) +
+              "</b>" +
+
+              "<br>" +
+
+              '<span class="muted">ID ' +
+              escapeHTML(product.id) +
+              "</span>" +
+
+              "</td>" +
+
+
+              "<td>" +
+              escapeHTML(product.category) +
+              "</td>" +
+
+
+              "<td>₹" +
+              Number(
+                product.price || 0
+              ).toLocaleString("en-IN") +
+              "</td>" +
+
+
+              "<td>" +
+              getStockBadge(product.stock) +
+              "</td>" +
+
+
+              "<td>" +
+              escapeHTML(
+                product.colors || "—"
+              ) +
+              "</td>" +
+
+
+              "<td>" +
+
+              '<button class="button" type="button" onclick="editProduct(' +
+              product.id +
+              ')">' +
+              "Edit" +
+              "</button> " +
+
+              '<button class="button danger" type="button" onclick="deleteProduct(' +
+              product.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</td>" +
+
+              "</tr>"
+            );
+
+          }
+        ).join("");
+
+
+      if (!filtered.length) {
+
+        $("productRows").innerHTML =
+          '<tr><td colspan="7" class="muted">' +
+          "No products found." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       NEW PRODUCT
+    ========================================================= */
+
+    function newProduct() {
+
+      editingProductId = null;
+
+
+      $("productTitle").textContent =
+        "Add Product";
+
+
+      $("productName").value = "";
+
+      $("productPrice").value = "";
+
+      $("productStock").value = "";
+
+      $("productSizes").value = "";
+
+      $("productColors").value = "";
+
+      $("productDescription").value = "";
+
+      $("productImages").value = "";
+
+
+      fillCatalogSelect();
+
+
+      $("variantRows").innerHTML = "";
+
+
+      $("productModal").style.display =
+        "flex";
+
+    }
+
+
+    /* =========================================================
+       EDIT PRODUCT
+    ========================================================= */
+
+    function editProduct(id) {
+
+      const product =
+        products.find(
+          function (item) {
+
+            return Number(item.id) ===
+              Number(id);
+
+          }
+        );
+
+
+      if (!product) {
+
+        return;
+
+      }
+
+
+      editingProductId =
+        product.id;
+
+
+      $("productTitle").textContent =
+        "Edit Product";
+
+
+      $("productName").value =
+        product.name || "";
+
+
+      $("productPrice").value =
+        product.price || "";
+
+
+      $("productStock").value =
+        product.stock ?? 0;
+
+
+      $("productSizes").value =
+        product.sizes || "";
+
+
+      $("productColors").value =
+        product.colors || "";
+
+
+      $("productDescription").value =
+        product.description || "";
+
+
+      $("productImages").value =
+        String(
+          product.images || ""
+        )
+          .split(",")
+          .filter(Boolean)
+          .join("\n");
+
+
+      fillCatalogSelect(
+        product.category || ""
+      );
+
+
+      $("variantRows").innerHTML =
+        "";
+
+
+      const colors =
+        String(
+          product.colors || ""
+        )
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          })
+          .filter(Boolean);
+
+
+      const images =
+        String(
+          product.images || ""
+        )
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          });
+
+
+      colors.forEach(
+        function (color, index) {
+
+          addVariantRow(
+            color,
+            images[index] || ""
+          );
+
+        }
+      );
+
+
+      $("productModal").style.display =
+        "flex";
+
+    }
+
+
+    /* =========================================================
+       ADD VARIANT ROW
+    ========================================================= */
+
+    function addVariantRow(
+      color,
+      image
+    ) {
+
+      color = color || "";
+
+      image = image || "";
+
+
+      const row =
+        document.createElement("div");
+
+
+      row.className =
+        "variantRow";
+
+
+      const colorInput =
+        document.createElement("input");
+
+
+      colorInput.className =
+        "variantColor";
+
+
+      colorInput.placeholder =
+        "Colour";
+
+
+      colorInput.value =
+        color;
+
+
+      const imageInput =
+        document.createElement("input");
+
+
+      imageInput.className =
+        "variantImage";
+
+
+      imageInput.placeholder =
+        "Image URL";
+
+
+      imageInput.value =
+        image;
+
+
+      const removeButton =
+        document.createElement("button");
+
+
+      removeButton.className =
+        "button danger";
+
+
+      removeButton.type =
+        "button";
+
+
+      removeButton.textContent =
+        "Remove";
+
+
+      removeButton.onclick =
+        function () {
+
+          row.remove();
 
         };
 
-    wrap.appendChild(button);
 
-}
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-function searchProducts() {
-
-    renderProducts();
-
-}
+      row.appendChild(
+        colorInput
+      );
 
 
-/* =========================================================
-   SORT
-   ========================================================= */
-
-function changeSort(value) {
-
-    currentSort = value;
-
-    renderProducts();
-
-}
+      row.appendChild(
+        imageInput
+      );
 
 
-/* =========================================================
-   FILTER
-   ========================================================= */
-
-function getFilteredProducts() {
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+      row.appendChild(
+        removeButton
+      );
 
 
-    let list =
-        products.filter(
-            product => {
-
-                const categoryMatch =
-                    currentCategory === "All" ||
-                    product.category ===
-                        currentCategory;
-
-
-                const searchMatch =
-                    !search ||
-                    product.name
-                        .toLowerCase()
-                        .includes(search) ||
-                    product.category
-                        .toLowerCase()
-                        .includes(search);
-
-
-                return (
-                    categoryMatch &&
-                    searchMatch
-                );
-
-            }
-        );
-
-
-    switch (currentSort) {
-
-        case "newest":
-
-            list.sort(
-                (a,b) =>
-                    b.id - a.id
-            );
-
-            break;
-
-
-        case "priceLow":
-
-            list.sort(
-                (a,b) =>
-                    a.price - b.price
-            );
-
-            break;
-
-
-        case "priceHigh":
-
-            list.sort(
-                (a,b) =>
-                    b.price - a.price
-            );
-
-            break;
-
-
-        case "nameAZ":
-
-            list.sort(
-                (a,b) =>
-                    a.name.localeCompare(
-                        b.name
-                    )
-            );
-
-            break;
-
-
-        case "nameZA":
-
-            list.sort(
-                (a,b) =>
-                    b.name.localeCompare(
-                        a.name
-                    )
-            );
-
-            break;
-
-
-        case "stock":
-
-            list.sort(
-                (a,b) =>
-                    b.stock - a.stock
-            );
-
-            break;
+      $("variantRows")
+        .appendChild(row);
 
     }
 
 
-    return list;
+    /* =========================================================
+       SAVE PRODUCT
+    ========================================================= */
 
-}
+    async function saveProduct() {
 
+      const name =
+        $("productName")
+          .value
+          .trim();
 
-/* =========================================================
-   PRODUCT IMAGE
-   ========================================================= */
 
-function getProductImage(
-    product
-) {
+      const category =
+        $("productCategory")
+          .value
+          .trim();
 
-    const colours =
-        Object.keys(
-            product.colours || {}
-        );
 
-
-    if (
-        colours.length
-    ) {
-
-        const first =
-            product.colours[
-                colours[0]
-            ];
-
-        if (first) {
-            return first;
-        }
-
-    }
-
-
-    if (
-        product.images &&
-        product.images.length
-    ) {
-
-        return product.images[0];
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =========================================================
-   IMAGE FALLBACK
-   ========================================================= */
-
-function imageFallback(
-    image
-) {
-
-    if (!image) {
-
-        return `
-            data:image/svg+xml;charset=UTF-8,
-            ${encodeURIComponent(
-                `
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="600"
-                    height="600"
-                >
-                    <rect
-                        width="100%"
-                        height="100%"
-                        fill="#181818"
-                    />
-                    <text
-                        x="50%"
-                        y="50%"
-                        fill="#777"
-                        text-anchor="middle"
-                        font-size="28"
-                    >
-                        RAHA
-                    </text>
-                </svg>
-                `
-            )}
-        `;
-
-    }
-
-    return image;
-
-}
-
-
-/* =========================================================
-   RENDER PRODUCTS
-   ========================================================= */
-
-function renderProducts() {
-
-    const box =
-        document.getElementById(
-            "products"
-        );
-
-    const list =
-        getFilteredProducts();
-
-
-    document.getElementById(
-        "sectionTitle"
-    ).textContent =
-        currentCategory === "All"
-            ? "All Products"
-            : currentCategory;
-
-
-    box.innerHTML = "";
-
-
-    if (!list.length) {
-
-        box.innerHTML = `
-            <div class="noProducts">
-                🔎 No products found.
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.forEach(
-        product => {
-
-            const image =
-                getProductImage(
-                    product
-                );
-
-
-            let stockClass =
-                "in";
-
-            let stockText =
-                `✓ ${product.stock} available`;
-
-
-            if (
-                product.stock <= 0
-            ) {
-
-                stockClass = "out";
-
-                stockText =
-                    "✕ Out of stock";
-
-            } else if (
-                product.stock <= 5
-            ) {
-
-                stockClass = "low";
-
-                stockText =
-                    `⚠ Only ${product.stock} left`;
-
-            }
-
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "product";
-
-
-            card.onclick =
-                function(event) {
-
-                    if (
-                        event.target.closest(
-                            "button"
-                        )
-                    ) {
-
-                        return;
-
-                    }
-
-                    openProduct(
-                        product.id
-                    );
-
-                };
-
-
-            card.innerHTML = `
-
-                <img
-                    class="productImage"
-                    src="${imageFallback(image)}"
-                    alt="${escapeHTML(product.name)}"
-                    onerror="this.onerror=null;this.src=imageFallback('')"
-                >
-
-                <div class="productInfo">
-
-                    <div class="productName">
-                        ${escapeHTML(product.name)}
-                    </div>
-
-                    <div class="productCat">
-                        ${escapeHTML(product.category)}
-                    </div>
-
-                    <div class="price">
-                        ₹${formatPrice(product.price)}
-                    </div>
-
-                    <div class="stock ${stockClass}">
-                        ${stockText}
-                    </div>
-
-                    <div class="productActions">
-
-                        <button
-                            class="buyBtn"
-                            onclick="buyNowFromCard(${product.id})"
-                        >
-                            ⚡ Buy Now
-                        </button>
-
-                        <button
-                            class="addBtn"
-                            onclick="addFromCard(${product.id})"
-                        >
-                            🛒 Add to Cart
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-
-
-            box.appendChild(card);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHTML(
-    value
-) {
-
-    return String(value || "")
-        .replace(
-            /[&<>"']/g,
-            character => ({
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#039;"
-            }[character])
-        );
-
-}
-
-
-/* =========================================================
-   PRICE
-   ========================================================= */
-
-function formatPrice(
-    value
-) {
-
-    return Number(
-        value || 0
-    ).toLocaleString(
-        "en-IN"
-    );
-
-}
-
-
-/* =========================================================
-   OPEN PRODUCT
-   ========================================================= */
-
-function openProduct(id) {
-
-    currentProduct =
-        products.find(
-            product =>
-                Number(product.id) ===
-                Number(id)
-        );
-
-
-    if (!currentProduct) {
-        return;
-    }
-
-
-    document.getElementById(
-        "detailName"
-    ).textContent =
-        currentProduct.name;
-
-
-    document.getElementById(
-        "detailPrice"
-    ).textContent =
-        "₹" +
-        formatPrice(
-            currentProduct.price
-        );
-
-
-    document.getElementById(
-        "detailDescription"
-    ).textContent =
-        currentProduct.description ||
-        "RAHA product";
-
-
-    const stock =
-        document.getElementById(
-            "detailStock"
-        );
-
-
-    if (
-        currentProduct.stock <= 0
-    ) {
-
-        stock.className =
-            "stock out";
-
-        stock.textContent =
-            "✕ Out of stock";
-
-    } else if (
-        currentProduct.stock <= 5
-    ) {
-
-        stock.className =
-            "stock low";
-
-        stock.textContent =
-            `⚠ Only ${currentProduct.stock} left`;
-
-    } else {
-
-        stock.className =
-            "stock in";
-
-        stock.textContent =
-            `✓ ${currentProduct.stock} available`;
-
-    }
-
-
-    const colourSelect =
-        document.getElementById(
-            "detailColour"
-        );
-
-    const sizeSelect =
-        document.getElementById(
-            "detailSize"
-        );
-
-
-    colourSelect.innerHTML = "";
-
-    sizeSelect.innerHTML = "";
-
-
-    const colours =
-        Object.keys(
-            currentProduct.colours || {}
-        );
-
-
-    if (
-        colours.length
-    ) {
-
-        document.getElementById(
-            "colourField"
-        ).style.display =
-            "block";
-
-
-        colours.forEach(
-            colour => {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    colour;
-
-                option.textContent =
-                    colour;
-
-                colourSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-    } else {
-
-        document.getElementById(
-            "colourField"
-        ).style.display =
-            "none";
-
-    }
-
-
-    const sizes =
-        currentProduct.sizes &&
-        currentProduct.sizes.length
-            ? currentProduct.sizes
-            : ["Free Size"];
-
-
-    if (
-        sizes.length
-    ) {
-
-        document.getElementById(
-            "sizeField"
-        ).style.display =
-            "block";
-
-
-        sizes.forEach(
-            size => {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    size;
-
-                option.textContent =
-                    size;
-
-                sizeSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-    }
-
-
-    document.getElementById(
-        "detailQuantity"
-    ).value = "1";
-
-
-    changeColourImage();
-
-
-    document.getElementById(
-        "productModal"
-    ).style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   COLOUR IMAGE
-   ========================================================= */
-
-function changeColourImage() {
-
-    if (!currentProduct) {
-        return;
-    }
-
-
-    const colour =
-        document.getElementById(
-            "detailColour"
-        ).value;
-
-
-    let image =
-        currentProduct.colours &&
-        currentProduct.colours[
-            colour
-        ];
-
-
-    if (!image) {
-
-        image =
-            getProductImage(
-                currentProduct
-            );
-
-    }
-
-
-    document.getElementById(
-        "detailImage"
-    ).src =
-        imageFallback(image);
-
-}
-
-
-/* =========================================================
-   SELECTED PRODUCT
-   ========================================================= */
-
-function getSelectedProductOptions() {
-
-    if (!currentProduct) {
-        return null;
-    }
-
-
-    const colour =
-        document.getElementById(
-            "detailColour"
-        ).value || "";
-
-
-    const size =
-        document.getElementById(
-            "detailSize"
-        ).value || "Free Size";
-
-
-    const quantity =
+      const price =
         Number(
-            document.getElementById(
-                "detailQuantity"
-            ).value
+          $("productPrice").value
         );
 
 
-    const image =
-        (
-            currentProduct.colours &&
-            currentProduct.colours[
-                colour
-            ]
-        ) ||
-        getProductImage(
-            currentProduct
+      const stock =
+        Number(
+          $("productStock").value
         );
 
 
-    return {
-
-        productId:
-            Number(
-                currentProduct.id
-            ),
-
-        name:
-            currentProduct.name,
-
-        price:
-            Number(
-                currentProduct.price
-            ),
-
-        colour:
-            colour,
-
-        size:
-            size,
-
-        image:
-            image,
-
-        quantity:
-            quantity
-
-    };
-
-}
-
-
-/* =========================================================
-   ADD FROM DETAIL
-   ========================================================= */
-
-function addFromDetail() {
-
-    const item =
-        getSelectedProductOptions();
-
-
-    if (!item) {
-        return;
-    }
-
-
-    if (
-        currentProduct.stock <= 0
-    ) {
-
-        alert(
-            "Sorry, this product is out of stock."
-        );
-
-        return;
-
-    }
-
-
-    addItemToCart(item);
-
-    closeModal(
-        "productModal"
-    );
-
-
-    showToast(
-        "✓ " +
-        currentProduct.name +
-        " added to cart"
-    );
-
-}
-
-
-/* =========================================================
-   ADD ITEM
-   ========================================================= */
-
-function addItemToCart(
-    item
-) {
-
-    const existing =
-        cart.find(
-            existingItem =>
-                Number(
-                    existingItem.productId
-                ) ===
-                Number(
-                    item.productId
-                ) &&
-                existingItem.colour ===
-                    item.colour &&
-                existingItem.size ===
-                    item.size
-        );
-
-
-    if (existing) {
-
-        existing.quantity =
-            Number(
-                existing.quantity
-            ) +
-            Number(
-                item.quantity
-            );
-
-    } else {
-
-        cart.push(item);
-
-    }
-
-
-    saveCart();
-
-}
-
-
-/* =========================================================
-   CARD ADD
-   ========================================================= */
-
-function addFromCard(id) {
-
-    openProduct(id);
-
-}
-
-
-/* =========================================================
-   CARD BUY
-   ========================================================= */
-
-function buyNowFromCard(id) {
-
-    openProduct(id);
-
-}
-
-
-/* =========================================================
-   BUY NOW
-   ========================================================= */
-
-function buyNowFromDetail() {
-
-    const item =
-        getSelectedProductOptions();
-
-
-    if (!item) {
-        return;
-    }
-
-
-    if (
-        currentProduct.stock <= 0
-    ) {
-
-        alert(
-            "Sorry, this product is out of stock."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        item.quantity >
-        currentProduct.stock
-    ) {
-
-        alert(
-            `Only ${currentProduct.stock} item(s) are available.`
-        );
-
-        return;
-
-    }
-
-
-    cart = [item];
-
-    saveCart();
-
-    closeModal(
-        "productModal"
-    );
-
-    openCheckout();
-
-}
-
-
-/* =========================================================
-   SAVE CART
-   ========================================================= */
-
-function saveCart() {
-
-    localStorage.setItem(
-        "rahaCart",
-        JSON.stringify(cart)
-    );
-
-    updateCartCount();
-
-}
-
-
-/* =========================================================
-   CART COUNT
-   ========================================================= */
-
-function updateCartCount() {
-
-    const count =
-        cart.reduce(
-            (
-                total,
-                item
-            ) =>
-                total +
-                Number(
-                    item.quantity || 0
-                ),
-            0
-        );
-
-
-    document.getElementById(
-        "cartCount"
-    ).textContent =
-        count;
-
-}
-
-
-/* =========================================================
-   CART TOTAL
-   ========================================================= */
-
-function cartTotalValue() {
-
-    return cart.reduce(
-        (
-            total,
-            item
-        ) =>
-            total +
-            Number(item.price || 0) *
-            Number(item.quantity || 0),
-        0
-    );
-
-}
-
-
-/* =========================================================
-   OPEN CART
-   ========================================================= */
-
-function openCart() {
-
-    renderCart();
-
-    document.getElementById(
-        "cartModal"
-    ).style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   RENDER CART
-   ========================================================= */
-
-function renderCart() {
-
-    const box =
-        document.getElementById(
-            "cartItems"
-        );
-
-
-    box.innerHTML = "";
-
-
-    if (!cart.length) {
-
-        box.innerHTML = `
-            <div class="noProducts">
-                🛒 Your cart is empty.
-            </div>
-        `;
-
-
-        document.getElementById(
-            "cartTotal"
-        ).textContent =
-            "₹0";
-
-
-        return;
-
-    }
-
-
-    cart.forEach(
-        (
-            item,
-            index
-        ) => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "cartItem";
-
-
-            row.innerHTML = `
-
-                <img
-                    src="${imageFallback(item.image)}"
-                    alt="${escapeHTML(item.name)}"
-                    onerror="this.onerror=null;this.src=imageFallback('')"
-                >
-
-                <div>
-
-                    <div class="cartName">
-                        ${escapeHTML(item.name)}
-                    </div>
-
-                    <div class="cartMeta">
-
-                        Colour:
-                        ${escapeHTML(item.colour || "N/A")}
-
-                        <br>
-
-                        Size:
-                        ${escapeHTML(item.size || "Free Size")}
-
-                    </div>
-
-                    <div class="qty">
-
-                        <button
-                            onclick="changeQty(${index},-1)"
-                        >
-                            −
-                        </button>
-
-                        <span>
-                            ${item.quantity}
-                        </span>
-
-                        <button
-                            onclick="changeQty(${index},1)"
-                        >
-                            +
-                        </button>
-
-                        <button
-                            onclick="removeCartItem(${index})"
-                            style="
-                                margin-left:7px;
-                                color:#ff7777;
-                            "
-                        >
-                            ×
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="cartPrice">
-                    ₹${formatPrice(
-                        Number(item.price) *
-                        Number(item.quantity)
-                    )}
-                </div>
-
-            `;
-
-
-            box.appendChild(row);
-
-        }
-    );
-
-
-    document.getElementById(
-        "cartTotal"
-    ).textContent =
-        "₹" +
-        formatPrice(
-            cartTotalValue()
-        );
-
-}
-
-
-/* =========================================================
-   QUANTITY
-   ========================================================= */
-
-function changeQty(
-    index,
-    change
-) {
-
-    if (!cart[index]) {
-        return;
-    }
-
-
-    const item =
-        cart[index];
-
-
-    const product =
-        products.find(
-            p =>
-                Number(p.id) ===
-                Number(item.productId)
-        );
-
-
-    const newQuantity =
-        Number(item.quantity) +
-        Number(change);
-
-
-    if (
-        newQuantity <= 0
-    ) {
-
-        cart.splice(
-            index,
-            1
-        );
-
-    } else {
-
-        if (
-            product &&
-            newQuantity >
-                Number(product.stock)
-        ) {
-
-            alert(
-                `Only ${product.stock} item(s) are available.`
-            );
-
-            return;
-
-        }
-
-
-        item.quantity =
-            newQuantity;
-
-    }
-
-
-    saveCart();
-
-    renderCart();
-
-}
-
-
-/* =========================================================
-   REMOVE
-   ========================================================= */
-
-function removeCartItem(
-    index
-) {
-
-    cart.splice(
-        index,
-        1
-    );
-
-    saveCart();
-
-    renderCart();
-
-}
-
-
-/* =========================================================
-   CLEAR CART
-   ========================================================= */
-
-function clearCart() {
-
-    if (!cart.length) {
+      if (
+        !name ||
+        !category ||
+        !Number.isFinite(price) ||
+        price < 0 ||
+        !Number.isInteger(stock) ||
+        stock < 0
+      ) {
 
         showToast(
-            "Cart is already empty"
+          "Fill name, catalog, price and valid stock."
         );
 
         return;
 
-    }
+      }
 
 
-    cart = [];
+      const variantColors = [];
 
-    saveCart();
+      const variantImages = [];
 
-    renderCart();
 
-    showToast(
-        "✓ Cart cleared"
-    );
-
-}
-
-
-/* =========================================================
-   CHECKOUT
-   ========================================================= */
-
-function openCheckout() {
-
-    if (!cart.length) {
-
-        alert(
-            "Your cart is empty."
-        );
-
-        return;
-
-    }
-
-
-    closeModal(
-        "cartModal"
-    );
-
-
-    document.getElementById(
-        "checkoutModal"
-    ).style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   INDIA STATES + DISTRICTS
-   ========================================================= */
-
-const indiaLocations = {
-
-    "Andaman and Nicobar Islands": [
-        "Nicobar",
-        "North and Middle Andaman",
-        "South Andaman"
-    ],
-
-    "Andhra Pradesh": [
-        "Alluri Sitharama Raju",
-        "Anakapalli",
-        "Ananthapuramu",
-        "Annamayya",
-        "Bapatla",
-        "Chittoor",
-        "East Godavari",
-        "Eluru",
-        "Guntur",
-        "Kakinada",
-        "Krishna",
-        "Kurnool",
-        "Nandyal",
-        "NTR",
-        "Palnadu",
-        "Prakasam",
-        "Sri Potti Sriramulu Nellore",
-        "Sri Sathya Sai",
-        "Srikakulam",
-        "Tirupati",
-        "Visakhapatnam",
-        "Vizianagaram",
-        "West Godavari",
-        "YSR"
-    ],
-
-    "Arunachal Pradesh": [
-        "Anjaw",
-        "Changlang",
-        "East Kameng",
-        "East Siang",
-        "Itanagar",
-        "Lohit",
-        "Longding",
-        "Lower Dibang Valley",
-        "Lower Siang",
-        "Lower Subansiri",
-        "Namsai",
-        "Papum Pare",
-        "Tawang",
-        "Tirap",
-        "Upper Siang",
-        "Upper Subansiri",
-        "West Kameng",
-        "West Siang"
-    ],
-
-    "Assam": [
-        "Baksa",
-        "Barpeta",
-        "Biswanath",
-        "Bongaigaon",
-        "Cachar",
-        "Charaideo",
-        "Darrang",
-        "Dhemaji",
-        "Dhubri",
-        "Dibrugarh",
-        "Goalpara",
-        "Golaghat",
-        "Hailakandi",
-        "Jorhat",
-        "Kamrup",
-        "Kamrup Metropolitan",
-        "Karbi Anglong",
-        "Lakhimpur",
-        "Majuli",
-        "Morigaon",
-        "Nagaon",
-        "Nalbari",
-        "Sivasagar",
-        "Sonitpur",
-        "Tinsukia",
-        "Udalguri"
-    ],
-
-    "Bihar": [
-        "Araria",
-        "Arwal",
-        "Aurangabad",
-        "Banka",
-        "Begusarai",
-        "Bhagalpur",
-        "Bhojpur",
-        "Buxar",
-        "Darbhanga",
-        "Gaya",
-        "Gopalganj",
-        "Jamui",
-        "Jehanabad",
-        "Katihar",
-        "Khagaria",
-        "Kishanganj",
-        "Lakhisarai",
-        "Madhepura",
-        "Madhubani",
-        "Munger",
-        "Muzaffarpur",
-        "Nalanda",
-        "Nawada",
-        "Patna",
-        "Purnia",
-        "Rohtas",
-        "Saharsa",
-        "Samastipur",
-        "Saran",
-        "Sheikhpura",
-        "Sheohar",
-        "Sitamarhi",
-        "Siwan",
-        "Supaul",
-        "Vaishali"
-    ],
-
-    "Chandigarh": [
-        "Chandigarh"
-    ],
-
-    "Chhattisgarh": [
-        "Balod",
-        "Baloda Bazar",
-        "Bastar",
-        "Bemetara",
-        "Bijapur",
-        "Bilaspur",
-        "Dantewada",
-        "Dhamtari",
-        "Durg",
-        "Korba",
-        "Raigarh",
-        "Raipur",
-        "Rajnandgaon",
-        "Surajpur",
-        "Surguja"
-    ],
-
-    "Delhi": [
-        "Central Delhi",
-        "East Delhi",
-        "New Delhi",
-        "North Delhi",
-        "North East Delhi",
-        "North West Delhi",
-        "Shahdara",
-        "South Delhi",
-        "South East Delhi",
-        "South West Delhi",
-        "West Delhi"
-    ],
-
-    "Goa": [
-        "North Goa",
-        "South Goa"
-    ],
-
-    "Gujarat": [
-        "Ahmedabad",
-        "Amreli",
-        "Anand",
-        "Bharuch",
-        "Bhavnagar",
-        "Gandhinagar",
-        "Jamnagar",
-        "Junagadh",
-        "Kachchh",
-        "Kheda",
-        "Mehsana",
-        "Rajkot",
-        "Surat",
-        "Vadodara",
-        "Valsad"
-    ],
-
-    "Haryana": [
-        "Ambala",
-        "Bhiwani",
-        "Faridabad",
-        "Fatehabad",
-        "Gurugram",
-        "Hisar",
-        "Jhajjar",
-        "Jind",
-        "Kaithal",
-        "Karnal",
-        "Kurukshetra",
-        "Panipat",
-        "Rewari",
-        "Rohtak",
-        "Sirsa",
-        "Sonipat"
-    ],
-
-    "Himachal Pradesh": [
-        "Bilaspur",
-        "Chamba",
-        "Hamirpur",
-        "Kangra",
-        "Kinnaur",
-        "Kullu",
-        "Mandi",
-        "Shimla",
-        "Sirmaur",
-        "Solan",
-        "Una"
-    ],
-
-    "Jammu and Kashmir": [
-        "Anantnag",
-        "Bandipore",
-        "Baramulla",
-        "Budgam",
-        "Doda",
-        "Ganderbal",
-        "Jammu",
-        "Kathua",
-        "Kishtwar",
-        "Kulgam",
-        "Kupwara",
-        "Poonch",
-        "Pulwama",
-        "Rajouri",
-        "Ramban",
-        "Reasi",
-        "Samba",
-        "Shopian",
-        "Srinagar",
-        "Udhampur"
-    ],
-
-    "Jharkhand": [
-        "Bokaro",
-        "Chatra",
-        "Deoghar",
-        "Dhanbad",
-        "Dumka",
-        "East Singhbhum",
-        "Garhwa",
-        "Giridih",
-        "Godda",
-        "Gumla",
-        "Hazaribagh",
-        "Jamtara",
-        "Khunti",
-        "Koderma",
-        "Latehar",
-        "Lohardaga",
-        "Palamu",
-        "Ranchi",
-        "Ramgarh",
-        "Sahibganj",
-        "Simdega",
-        "West Singhbhum"
-    ],
-
-    "Karnataka": [
-        "Bagalkot",
-        "Ballari",
-        "Belagavi",
-        "Bengaluru Rural",
-        "Bengaluru Urban",
-        "Bidar",
-        "Chamarajanagar",
-        "Chikkaballapura",
-        "Chikkamagaluru",
-        "Chitradurga",
-        "Dakshina Kannada",
-        "Davanagere",
-        "Dharwad",
-        "Gadag",
-        "Hassan",
-        "Haveri",
-        "Kalaburagi",
-        "Kodagu",
-        "Kolar",
-        "Koppal",
-        "Mandya",
-        "Mysuru",
-        "Raichur",
-        "Ramanagara",
-        "Shivamogga",
-        "Tumakuru",
-        "Udupi",
-        "Uttara Kannada",
-        "Vijayapura",
-        "Yadgir"
-    ],
-
-    "Kerala": [
-        "Alappuzha",
-        "Ernakulam",
-        "Idukki",
-        "Kannur",
-        "Kasaragod",
-        "Kollam",
-        "Kottayam",
-        "Kozhikode",
-        "Malappuram",
-        "Palakkad",
-        "Pathanamthitta",
-        "Thiruvananthapuram",
-        "Thrissur",
-        "Wayanad"
-    ],
-
-    "Madhya Pradesh": [
-        "Bhopal",
-        "Indore",
-        "Jabalpur",
-        "Gwalior",
-        "Ujjain",
-        "Sagar",
-        "Rewa",
-        "Satna",
-        "Dewas",
-        "Ratlam"
-    ],
-
-    "Maharashtra": [
-        "Ahmednagar",
-        "Akola",
-        "Amravati",
-        "Aurangabad",
-        "Beed",
-        "Bhandara",
-        "Buldhana",
-        "Chandrapur",
-        "Dhule",
-        "Gadchiroli",
-        "Gondia",
-        "Jalgaon",
-        "Jalna",
-        "Kolhapur",
-        "Latur",
-        "Mumbai City",
-        "Mumbai Suburban",
-        "Nagpur",
-        "Nanded",
-        "Nandurbar",
-        "Nashik",
-        "Osmanabad",
-        "Palghar",
-        "Parbhani",
-        "Pune",
-        "Raigad",
-        "Ratnagiri",
-        "Sangli",
-        "Satara",
-        "Solapur",
-        "Thane",
-        "Wardha",
-        "Washim",
-        "Yavatmal"
-    ],
-
-    "Odisha": [
-        "Angul",
-        "Balangir",
-        "Balasore",
-        "Bargarh",
-        "Bhadrak",
-        "Cuttack",
-        "Dhenkanal",
-        "Gajapati",
-        "Ganjam",
-        "Jagatsinghpur",
-        "Jajpur",
-        "Jharsuguda",
-        "Kalahandi",
-        "Kandhamal",
-        "Kendrapara",
-        "Kendujhar",
-        "Khordha",
-        "Koraput",
-        "Mayurbhanj",
-        "Nabarangpur",
-        "Nayagarh",
-        "Puri",
-        "Rayagada",
-        "Sambalpur",
-        "Sundargarh"
-    ],
-
-    "Punjab": [
-        "Amritsar",
-        "Bathinda",
-        "Faridkot",
-        "Fatehgarh Sahib",
-        "Fazilka",
-        "Ferozepur",
-        "Gurdaspur",
-        "Hoshiarpur",
-        "Jalandhar",
-        "Kapurthala",
-        "Ludhiana",
-        "Mansa",
-        "Moga",
-        "Muktsar",
-        "Patiala",
-        "Pathankot",
-        "Rupnagar",
-        "Sangrur"
-    ],
-
-    "Rajasthan": [
-        "Ajmer",
-        "Alwar",
-        "Banswara",
-        "Baran",
-        "Barmer",
-        "Bharatpur",
-        "Bhilwara",
-        "Bikaner",
-        "Bundi",
-        "Chittorgarh",
-        "Churu",
-        "Dausa",
-        "Dholpur",
-        "Dungarpur",
-        "Hanumangarh",
-        "Jaipur",
-        "Jaisalmer",
-        "Jalore",
-        "Jhalawar",
-        "Jhunjhunu",
-        "Jodhpur",
-        "Karauli",
-        "Kota",
-        "Nagaur",
-        "Pali",
-        "Rajsamand",
-        "Sawai Madhopur",
-        "Sikar",
-        "Sirohi",
-        "Sri Ganganagar",
-        "Tonk",
-        "Udaipur"
-    ],
-
-    "Tamil Nadu": [
-        "Ariyalur",
-        "Chengalpattu",
-        "Chennai",
-        "Coimbatore",
-        "Cuddalore",
-        "Dharmapuri",
-        "Dindigul",
-        "Erode",
-        "Kallakurichi",
-        "Kancheepuram",
-        "Karur",
-        "Krishnagiri",
-        "Madurai",
-        "Mayiladuthurai",
-        "Nagapattinam",
-        "Namakkal",
-        "Nilgiris",
-        "Perambalur",
-        "Pudukkottai",
-        "Ramanathapuram",
-        "Ranipet",
-        "Salem",
-        "Sivaganga",
-        "Tenkasi",
-        "Thanjavur",
-        "Theni",
-        "Thoothukudi",
-        "Tiruchirappalli",
-        "Tirunelveli",
-        "Tirupathur",
-        "Tiruppur",
-        "Tiruvallur",
-        "Tiruvannamalai",
-        "Tiruvarur",
-        "Vellore",
-        "Viluppuram",
-        "Virudhunagar"
-    ],
-
-    "Telangana": [
-        "Adilabad",
-        "Bhadradri Kothagudem",
-        "Hyderabad",
-        "Jagtial",
-        "Jangaon",
-        "Jayashankar Bhupalapally",
-        "Jogulamba Gadwal",
-        "Kamareddy",
-        "Karimnagar",
-        "Khammam",
-        "Komaram Bheem",
-        "Mahabubabad",
-        "Mahbubnagar",
-        "Mancherial",
-        "Medak",
-        "Medchal-Malkajgiri",
-        "Nalgonda",
-        "Nirmal",
-        "Nizamabad",
-        "Peddapalli",
-        "Rajanna Sircilla",
-        "Rangareddy",
-        "Sangareddy",
-        "Siddipet",
-        "Suryapet",
-        "Vikarabad",
-        "Wanaparthy",
-        "Warangal",
-        "Yadadri Bhuvanagiri"
-    ],
-
-    "Uttar Pradesh": [
-        "Agra",
-        "Aligarh",
-        "Allahabad",
-        "Azamgarh",
-        "Bareilly",
-        "Ghaziabad",
-        "Gorakhpur",
-        "Kanpur Nagar",
-        "Lucknow",
-        "Mathura",
-        "Meerut",
-        "Moradabad",
-        "Noida",
-        "Prayagraj",
-        "Varanasi"
-    ],
-
-    "Uttarakhand": [
-        "Almora",
-        "Bageshwar",
-        "Chamoli",
-        "Champawat",
-        "Dehradun",
-        "Haridwar",
-        "Nainital",
-        "Pauri Garhwal",
-        "Pithoragarh",
-        "Rudraprayag",
-        "Tehri Garhwal",
-        "Udham Singh Nagar",
-        "Uttarkashi"
-    ],
-
-    "West Bengal": [
-        "Alipurduar",
-        "Bankura",
-        "Birbhum",
-        "Cooch Behar",
-        "Darjeeling",
-        "Hooghly",
-        "Howrah",
-        "Jalpaiguri",
-        "Jhargram",
-        "Kalimpong",
-        "Kolkata",
-        "Malda",
-        "Murshidabad",
-        "Nadia",
-        "North 24 Parganas",
-        "Paschim Bardhaman",
-        "Paschim Medinipur",
-        "Purba Bardhaman",
-        "Purba Medinipur",
-        "South 24 Parganas",
-        "Uttar Dinajpur"
-    ]
-
-};
-
-
-/* =========================================================
-   LOAD STATES
-   ========================================================= */
-
-function loadStates() {
-
-    const stateSelect =
-        document.getElementById(
-            "customerState"
-        );
-
-
-    stateSelect.innerHTML = `
-        <option value="">
-            Select State / UT
-        </option>
-    `;
-
-
-    Object.keys(
-        indiaLocations
-    )
-    .sort()
-    .forEach(
-        state => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                state;
-
-            option.textContent =
-                state;
-
-            stateSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD DISTRICTS
-   ========================================================= */
-
-function loadDistricts() {
-
-    const state =
-        document.getElementById(
-            "customerState"
-        ).value;
-
-
-    const districtSelect =
-        document.getElementById(
-            "customerDistrict"
-        );
-
-
-    districtSelect.innerHTML = `
-        <option value="">
-            Select District
-        </option>
-    `;
-
-
-    if (!state) {
-        return;
-    }
-
-
-    const districts =
-        indiaLocations[
-            state
-        ] || [];
-
-
-    districts
-        .slice()
-        .sort()
+      document
+        .querySelectorAll(".variantRow")
         .forEach(
-            district => {
+          function (row) {
 
-                const option =
-                    document.createElement(
-                        "option"
-                    );
+            const color =
+              row
+                .querySelector(".variantColor")
+                .value
+                .trim();
 
-                option.value =
-                    district;
 
-                option.textContent =
-                    district;
+            const image =
+              row
+                .querySelector(".variantImage")
+                .value
+                .trim();
 
-                districtSelect.appendChild(
-                    option
-                );
+
+            if (color) {
+
+              variantColors.push(
+                color
+              );
+
+              variantImages.push(
+                image
+              );
 
             }
+
+          }
         );
 
-}
+
+      const fallbackColors =
+        $("productColors")
+          .value
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          })
+          .filter(Boolean);
 
 
-/* =========================================================
-   WHATSAPP ORDER
-   ========================================================= */
+      const generalImages =
+        $("productImages")
+          .value
+          .split(/\n|,/)
+          .map(function (value) {
 
-async function sendWhatsAppOrder() {
+            return value.trim();
 
-    if (!cart.length) {
-
-        alert(
-            "Your cart is empty."
-        );
-
-        return;
-
-    }
+          })
+          .filter(Boolean);
 
 
-    const name =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
+      const body = {
+
+        name: name,
+
+        category: category,
+
+        price: price,
+
+        stock: stock,
+
+        sizes:
+          $("productSizes")
+            .value
+            .trim(),
+
+        colors:
+          (
+            variantColors.length
+              ?
+              variantColors
+              :
+              fallbackColors
+          ).join(","),
+
+        description:
+          $("productDescription")
+            .value
+            .trim(),
+
+        images:
+          (
+            variantImages.some(
+              function (image) {
+
+                return image !== "";
+
+              }
+            )
+              ?
+              variantImages
+              :
+              generalImages
+          ).join(",")
+
+      };
 
 
-    const phone =
-        document.getElementById(
-            "customerPhone"
-        ).value.trim();
+      try {
 
+        const url =
+          API +
+          "/api/products" +
+          (
+            editingProductId
+              ?
+              "/" + editingProductId
+              :
+              ""
+          );
 
-    const address =
-        document.getElementById(
-            "customerAddress"
-        ).value.trim();
-
-
-    const pincode =
-        document.getElementById(
-            "customerPincode"
-        ).value.trim();
-
-
-    const state =
-        document.getElementById(
-            "customerState"
-        ).value;
-
-
-    const district =
-        document.getElementById(
-            "customerDistrict"
-        ).value;
-
-
-    if (!name) {
-
-        alert(
-            "Please enter your name."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !/^[0-9]{10}$/.test(phone)
-    ) {
-
-        alert(
-            "Please enter a valid 10 digit mobile number."
-        );
-
-        return;
-
-    }
-
-
-    if (!address) {
-
-        alert(
-            "Please enter your full address."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !/^[0-9]{6}$/.test(pincode)
-    ) {
-
-        alert(
-            "Please enter a valid 6 digit pincode."
-        );
-
-        return;
-
-    }
-
-
-    if (!state) {
-
-        alert(
-            "Please select your State / UT."
-        );
-
-        return;
-
-    }
-
-
-    if (!district) {
-
-        alert(
-            "Please select your District."
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Re-check stock from the Worker
-     * before sending the order.
-     */
-
-    try {
 
         const response =
-            await fetch(
-                `${RAHA_API}/api/products`,
-                {
-                    cache: "no-store"
-                }
+          await fetch(
+            url,
+            {
+              method:
+                editingProductId
+                  ?
+                  "PUT"
+                  :
+                  "POST",
+
+              headers:
+                authHeaders(true),
+
+              body:
+                JSON.stringify(body)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not save product."
+          );
+
+        }
+
+
+        showToast(
+          editingProductId
+            ?
+            "Product updated."
+            :
+            "Product added."
+        );
+
+
+        closeProductModal();
+
+
+        await loadAllData();
+
+
+        openPage(
+          "products",
+          document.querySelector(
+            '[data-page="products"]'
+          )
+        );
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       DELETE PRODUCT
+    ========================================================= */
+
+    async function deleteProduct(id) {
+
+      if (
+        !confirm(
+          "Delete this product?"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/products/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete product."
+          );
+
+        }
+
+
+        showToast(
+          "Product deleted."
+        );
+
+
+        await loadAllData();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CLOSE PRODUCT MODAL
+    ========================================================= */
+
+    function closeProductModal() {
+
+      $("productModal").style.display =
+        "none";
+
+    }
+
+
+    /* =========================================================
+       RENDER CATALOGS
+    ========================================================= */
+
+    function renderCatalogs() {
+
+      $("catalogGrid").innerHTML =
+        catalogs.map(
+          function (catalog) {
+
+            return (
+
+              '<div class="catalogCard">' +
+
+              (
+                catalog.image
+                  ?
+                  '<img class="catalogImage" src="' +
+                  escapeHTML(catalog.image) +
+                  '" onerror="this.style.display=\'none\'">'
+                  :
+                  ""
+              ) +
+
+              "<h3>" +
+              escapeHTML(catalog.name) +
+              "</h3>" +
+
+              "<p>" +
+              escapeHTML(
+                catalog.description ||
+                "No description"
+              ) +
+              "</p>" +
+
+              '<small class="muted">' +
+              "Catalog ID: " +
+              escapeHTML(catalog.id) +
+              "</small>" +
+
+              '<div class="actions">' +
+
+              '<button class="button" type="button" onclick="editCatalog(' +
+              catalog.id +
+              ')">' +
+              "Edit" +
+              "</button>" +
+
+              '<button class="button danger" type="button" onclick="deleteCatalog(' +
+              catalog.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</div>" +
+
+              "</div>"
+
             );
+
+          }
+        ).join("");
+
+
+      if (!catalogs.length) {
+
+        $("catalogGrid").innerHTML =
+          '<div class="panel">' +
+          '<p class="muted">' +
+          "No catalogs yet. Create your first catalog." +
+          "</p>" +
+          "</div>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       NEW CATALOG
+    ========================================================= */
+
+    function newCatalog() {
+
+      editingCatalogId = null;
+
+
+      $("catalogTitle").textContent =
+        "Add Catalog";
+
+
+      $("catalogName").value = "";
+
+      $("catalogImage").value = "";
+
+      $("catalogDescription").value = "";
+
+
+      $("catalogEditor").style.display =
+        "block";
+
+
+      $("catalogName").focus();
+
+    }
+
+
+    /* =========================================================
+       EDIT CATALOG
+    ========================================================= */
+
+    function editCatalog(id) {
+
+      const catalog =
+        catalogs.find(
+          function (item) {
+
+            return Number(item.id) ===
+              Number(id);
+
+          }
+        );
+
+
+      if (!catalog) {
+
+        return;
+
+      }
+
+
+      editingCatalogId =
+        catalog.id;
+
+
+      $("catalogTitle").textContent =
+        "Edit Catalog";
+
+
+      $("catalogName").value =
+        catalog.name || "";
+
+
+      $("catalogImage").value =
+        catalog.image || "";
+
+
+      $("catalogDescription").value =
+        catalog.description || "";
+
+
+      $("catalogEditor").style.display =
+        "block";
+
+
+      $("catalogName").focus();
+
+    }
+
+
+    /* =========================================================
+       CANCEL CATALOG
+    ========================================================= */
+
+    function cancelCatalog() {
+
+      editingCatalogId = null;
+
+      $("catalogEditor").style.display =
+        "none";
+
+    }
+
+
+    /* =========================================================
+       SAVE CATALOG
+    ========================================================= */
+
+    async function saveCatalog() {
+
+      const name =
+        $("catalogName")
+          .value
+          .trim();
+
+
+      if (!name) {
+
+        showToast(
+          "Catalog name is required."
+        );
+
+        return;
+
+      }
+
+
+      const body = {
+
+        name: name,
+
+        image:
+          $("catalogImage")
+            .value
+            .trim(),
+
+        description:
+          $("catalogDescription")
+            .value
+            .trim()
+
+      };
+
+
+      try {
+
+        const url =
+          API +
+          "/api/catalogs" +
+          (
+            editingCatalogId
+              ?
+              "/" + editingCatalogId
+              :
+              ""
+          );
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              method:
+                editingCatalogId
+                  ?
+                  "PUT"
+                  :
+                  "POST",
+
+              headers:
+                authHeaders(true),
+
+              body:
+                JSON.stringify(body)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not save catalog."
+          );
+
+        }
+
+
+        showToast(
+          editingCatalogId
+            ?
+            "Catalog updated."
+            :
+            "Catalog created."
+        );
+
+
+        cancelCatalog();
+
+
+        await loadAllData();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       DELETE CATALOG
+    ========================================================= */
+
+    async function deleteCatalog(id) {
+
+      if (
+        !confirm(
+          "Delete this catalog? Products using it must be moved first."
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/catalogs/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete catalog."
+          );
+
+        }
+
+
+        showToast(
+          "Catalog deleted."
+        );
+
+
+        await loadAllData();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       RENDER ORDERS
+    ========================================================= */
+
+    function renderOrders() {
+
+      const search =
+        $("orderSearch")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const filtered =
+        orders.filter(
+          function (order) {
+
+            const text =
+              String(
+                order.order_number || ""
+              ) +
+              " " +
+              String(
+                order.customer_name || ""
+              ) +
+              " " +
+              String(
+                order.customer_phone || ""
+              );
+
+
+            return text
+              .toLowerCase()
+              .includes(search);
+
+          }
+        );
+
+
+      $("orderRows").innerHTML =
+        filtered.map(
+          function (order) {
+
+            return (
+
+              "<tr>" +
+
+              "<td>" +
+              escapeHTML(order.id) +
+              "</td>" +
+
+              "<td><b>" +
+              escapeHTML(
+                order.order_number
+              ) +
+              "</b></td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.customer_name
+              ) +
+              "<br>" +
+              '<span class="muted">' +
+              escapeHTML(
+                order.customer_phone
+              ) +
+              "</span>" +
+              "</td>" +
+
+              "<td>₹" +
+              Number(
+                order.total || 0
+              ).toLocaleString("en-IN") +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.status || "New"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.payment_status ||
+                "Pending"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.created_at || ""
+              ) +
+              "</td>" +
+
+              "<td>" +
+
+              '<button class="button" type="button" onclick="viewOrder(' +
+              order.id +
+              ')">' +
+              "View" +
+              "</button> " +
+
+              '<button class="button danger" type="button" onclick="deleteOrder(' +
+              order.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</td>" +
+
+              "</tr>"
+
+            );
+
+          }
+        ).join("");
+
+
+      if (!filtered.length) {
+
+        $("orderRows").innerHTML =
+          '<tr><td colspan="8" class="muted">' +
+          "No orders found." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOAD ORDERS
+    ========================================================= */
+
+    async function loadOrders() {
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/api/orders",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not load orders."
+          );
+
+        }
+
+
+        orders =
+          data.orders || [];
+
+
+        renderOrders();
+
+        renderCustomers();
+
+        updateStatistics();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       VIEW ORDER
+    ========================================================= */
+
+    async function viewOrder(id) {
+
+      $("orderModal").style.display =
+        "flex";
+
+
+      $("orderDetail").textContent =
+        "Loading...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/orders/" +
+            id,
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not load order."
+          );
+
+        }
+
+
+        const order =
+          data.order;
+
+
+        let items = [];
+
+
+        try {
+
+          items =
+            JSON.parse(
+              order.items || "[]"
+            );
+
+        } catch (error) {
+
+          items = [];
+
+        }
+
+
+        let text = "";
+
+
+        text +=
+          "ORDER: " +
+          (order.order_number || "") +
+          "\n\n";
+
+
+        text +=
+          "CUSTOMER\n";
+
+
+        text +=
+          "Name: " +
+          (order.customer_name || "") +
+          "\n";
+
+
+        text +=
+          "Phone: " +
+          (order.customer_phone || "") +
+          "\n";
+
+
+        text +=
+          "Address: " +
+          (order.customer_address || "") +
+          "\n";
+
+
+        text +=
+          "Pincode: " +
+          (order.customer_pincode || "") +
+          "\n";
+
+
+        text +=
+          "State: " +
+          (order.customer_state || "") +
+          "\n";
+
+
+        text +=
+          "District: " +
+          (order.customer_district || "") +
+          "\n\n";
+
+
+        text +=
+          "ITEMS\n";
+
+
+        items.forEach(
+          function (item, index) {
+
+            text +=
+              (index + 1) +
+              ". " +
+              (item.name || "") +
+              " × " +
+              (item.quantity || 0) +
+              " — ₹" +
+              (
+                Number(item.price || 0) *
+                Number(item.quantity || 0)
+              );
+
+
+            if (item.colour) {
+
+              text +=
+                " — " +
+                item.colour;
+
+            }
+
+
+            if (item.size) {
+
+              text +=
+                " — " +
+                item.size;
+
+            }
+
+
+            text += "\n";
+
+          }
+        );
+
+
+        text +=
+          "\nSubtotal: ₹" +
+          Number(
+            order.subtotal || 0
+          );
+
+
+        text +=
+          "\nDelivery: ₹" +
+          Number(
+            order.delivery_charge || 0
+          );
+
+
+        text +=
+          "\nDiscount: ₹" +
+          Number(
+            order.discount || 0
+          );
+
+
+        text +=
+          "\nTOTAL: ₹" +
+          Number(
+            order.total || 0
+          );
+
+
+        text +=
+          "\n\nStatus: " +
+          (
+            order.status ||
+            "New"
+          );
+
+
+        text +=
+          "\nPayment: " +
+          (
+            order.payment_status ||
+            "Pending"
+          );
+
+
+        $("orderDetail").textContent =
+          text;
+
+
+      } catch (error) {
+
+        $("orderDetail").textContent =
+          error.message;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       DELETE ORDER
+    ========================================================= */
+
+    async function deleteOrder(id) {
+
+      if (
+        !confirm(
+          "Delete this order?"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/orders/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete order."
+          );
+
+        }
+
+
+        showToast(
+          "Order deleted."
+        );
+
+
+        await loadOrders();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CUSTOMERS
+    ========================================================= */
+
+    function renderCustomers() {
+
+      const customerMap = {};
+
+
+      orders.forEach(
+        function (order) {
+
+          const key =
+            String(
+              order.customer_phone ||
+              order.customer_name ||
+              ""
+            );
+
+
+          if (!customerMap[key]) {
+
+            customerMap[key] = {
+
+              name:
+                order.customer_name || "",
+
+              phone:
+                order.customer_phone || "",
+
+              orders: 0,
+
+              total: 0,
+
+              latest:
+                order.created_at || ""
+
+            };
+
+          }
+
+
+          customerMap[key].orders += 1;
+
+
+          customerMap[key].total +=
+            Number(
+              order.total || 0
+            );
+
+
+          if (
+            String(
+              order.created_at || ""
+            ) >
+            String(
+              customerMap[key].latest || ""
+            )
+          ) {
+
+            customerMap[key].latest =
+              order.created_at || "";
+
+          }
+
+        }
+      );
+
+
+      const customers =
+        Object.values(
+          customerMap
+        );
+
+
+      $("customerRows").innerHTML =
+        customers.map(
+          function (customer) {
+
+            return (
+
+              "<tr>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.name
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.phone
+              ) +
+              "</td>" +
+
+              "<td>" +
+              customer.orders +
+              "</td>" +
+
+              "<td>₹" +
+              customer.total.toLocaleString(
+                "en-IN"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.latest
+              ) +
+              "</td>" +
+
+              "</tr>"
+
+            );
+
+          }
+        ).join("");
+
+
+      if (!customers.length) {
+
+        $("customerRows").innerHTML =
+          '<tr><td colspan="5" class="muted">' +
+          "No customers yet." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE BUTTONS
+    ========================================================= */
+
+    function initializeEvents() {
+
+
+      /* LOGIN FORM */
+
+      $("loginForm").addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+          loginAdmin();
+
+        }
+      );
+
+
+      /* LOGOUT */
+
+      $("logoutButton").addEventListener(
+        "click",
+        function () {
+
+          logoutAdmin();
+
+        }
+      );
+
+
+      /* MOBILE MENU */
+
+      $("mobileMenu").addEventListener(
+        "click",
+        function () {
+
+          $("layout")
+            .classList
+            .toggle("menuOpen");
+
+        }
+      );
+
+
+      /* NAVIGATION */
+
+      document
+        .querySelectorAll(".navButton")
+        .forEach(
+          function (button) {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                openPage(
+                  button.dataset.page,
+                  button
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+      /* QUICK ACTIONS */
+
+      $("quickAddProduct")
+        .addEventListener(
+          "click",
+          newProduct
+        );
+
+
+      $("quickAddCatalog")
+        .addEventListener(
+          "click",
+          newCatalog
+        );
+
+
+      $("quickOrders")
+        .addEventListener(
+          "click",
+          function () {
+
+            openPage(
+              "orders",
+              document.querySelector(
+                '[data-page="orders"]'
+              )
+            );
+
+          }
+        );
+
+
+      /* PRODUCTS */
+
+      $("addProductButton")
+        .addEventListener(
+          "click",
+          newProduct
+        );
+
+
+      $("productSearch")
+        .addEventListener(
+          "input",
+          renderProducts
+        );
+
+
+      $("saveProductButton")
+        .addEventListener(
+          "click",
+          saveProduct
+        );
+
+
+      $("cancelProductButton")
+        .addEventListener(
+          "click",
+          closeProductModal
+        );
+
+
+      $("addVariantButton")
+        .addEventListener(
+          "click",
+          function () {
+
+            addVariantRow();
+
+          }
+        );
+
+
+      /* CATALOGS */
+
+      $("addCatalogButton")
+        .addEventListener(
+          "click",
+          newCatalog
+        );
+
+
+      $("saveCatalogButton")
+        .addEventListener(
+          "click",
+          saveCatalog
+        );
+
+
+      $("cancelCatalogButton")
+        .addEventListener(
+          "click",
+          cancelCatalog
+        );
+
+
+      /* ORDERS */
+
+      $("orderSearch")
+        .addEventListener(
+          "input",
+          renderOrders
+        );
+
+
+      $("refreshOrdersButton")
+        .addEventListener(
+          "click",
+          loadOrders
+        );
+
+
+      $("closeOrderButton")
+        .addEventListener(
+          "click",
+          function () {
+
+            $("orderModal").style.display =
+              "none";
+
+          }
+        );
+
+
+      /* MODALS */
+
+      window.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            event.target.classList
+              .contains("modal")
+          ) {
+
+            event.target.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       AUTO LOGIN WITH SAVED TOKEN
+    ========================================================= */
+
+    async function checkSavedLogin() {
+
+      if (!token) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/api/admin/check",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
 
 
         if (response.ok) {
 
-            const data =
-                await response.json();
+          await showAdminApp();
 
+        } else {
 
-            if (
-                data.success &&
-                Array.isArray(
-                    data.products
-                )
-            ) {
+          localStorage.removeItem(
+            "raha_admin_token"
+          );
 
-                const latestProducts =
-                    data.products.map(
-                        normaliseProduct
-                    );
-
-
-                for (
-                    const item of cart
-                ) {
-
-                    const latest =
-                        latestProducts.find(
-                            product =>
-                                Number(
-                                    product.id
-                                ) ===
-                                Number(
-                                    item.productId
-                                )
-                        );
-
-
-                    if (!latest) {
-
-                        alert(
-                            `${item.name} is no longer available.`
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        Number(
-                            latest.stock
-                        ) <
-                        Number(
-                            item.quantity
-                        )
-                    ) {
-
-                        alert(
-                            `${item.name} has only ${latest.stock} item(s) available.`
-                        );
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * Update current price
-                     * and image from latest data.
-                     */
-
-                    item.price =
-                        latest.price;
-
-
-                    const colourImage =
-                        latest.colours &&
-                        latest.colours[
-                            item.colour
-                        ];
-
-
-                    if (colourImage) {
-
-                        item.image =
-                            colourImage;
-
-                    }
-
-                }
-
-            }
+          token = "";
 
         }
 
-    } catch (error) {
+      } catch (error) {
 
-        console.error(
-            "Stock verification error:",
-            error
+        console.log(
+          "Saved login check failed:",
+          error
         );
+
+      }
 
     }
 
 
-    /*
-     * First create the order
-     * in D1.
-     */
+    /* =========================================================
+       START
+    ========================================================= */
 
-    try {
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
 
-        const response =
-            await fetch(
-                `${RAHA_API}/api/orders`,
-                {
+        initializeEvents();
 
-                    method: "POST",
+        await checkSavedLogin();
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            customerName:
-                                name,
-
-                            customerPhone:
-                                phone,
-
-                            customerAddress:
-                                address,
-
-                            customerPincode:
-                                pincode,
-
-                            customerState:
-                                state,
-
-                            customerDistrict:
-                                district,
-
-                            items:
-                                cart.map(
-                                    item => ({
-                                        productId:
-                                            Number(
-                                                item.productId
-                                            ),
-
-                                        quantity:
-                                            Number(
-                                                item.quantity
-                                            ),
-
-                                        size:
-                                            item.size ||
-                                            "",
-
-                                        color:
-                                            item.colour ||
-                                            "",
-
-                                        image:
-                                            item.image ||
-                                            ""
-                                    })
-                                ),
-
-                            paymentMethod:
-                                "UPI_WHATSAPP"
-
-                        })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            alert(
-                data.message ||
-                "Unable to create order. Please try again."
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Build WhatsApp message.
-         */
-
-        let message =
-            "🛍️ *RAHA NEW ORDER*%0A%0A";
-
-
-        message +=
-            "*ORDER NUMBER:* " +
-            encodeURIComponent(
-                data.orderNumber ||
-                ""
-            ) +
-            "%0A%0A";
-
-
-        message +=
-            "*CUSTOMER DETAILS*%0A";
-
-
-        message +=
-            "Name: " +
-            encodeURIComponent(
-                name
-            ) +
-            "%0A";
-
-
-        message +=
-            "Mobile: " +
-            encodeURIComponent(
-                phone
-            ) +
-            "%0A";
-
-
-        message +=
-            "Address: " +
-            encodeURIComponent(
-                address
-            ) +
-            "%0A";
-
-
-        message +=
-            "Pincode: " +
-            encodeURIComponent(
-                pincode
-            ) +
-            "%0A";
-
-
-        message +=
-            "State: " +
-            encodeURIComponent(
-                state
-            ) +
-            "%0A";
-
-
-        message +=
-            "District: " +
-            encodeURIComponent(
-                district
-            ) +
-            "%0A%0A";
-
-
-        message +=
-            "*ORDER ITEMS*%0A";
-
-
-        cart.forEach(
-            (
-                item,
-                index
-            ) => {
-
-                message +=
-                    "%0A" +
-                    (index + 1) +
-                    ". " +
-                    encodeURIComponent(
-                        item.name
-                    ) +
-                    "%0A";
-
-
-                message +=
-                    "Quantity: " +
-                    item.quantity +
-                    "%0A";
-
-
-                message +=
-                    "Colour: " +
-                    encodeURIComponent(
-                        item.colour ||
-                        "N/A"
-                    ) +
-                    "%0A";
-
-
-                message +=
-                    "Size: " +
-                    encodeURIComponent(
-                        item.size ||
-                        "Free Size"
-                    ) +
-                    "%0A";
-
-
-                message +=
-                    "Price: ₹" +
-                    (
-                        Number(
-                            item.price
-                        ) *
-                        Number(
-                            item.quantity
-                        )
-                    ) +
-                    "%0A";
-
-            }
-        );
-
-
-        message +=
-            "%0A*PRODUCT TOTAL: ₹" +
-            cartTotalValue() +
-            "*";
-
-
-        message +=
-            "%0A%0A📦 Delivery charge: To be confirmed";
-
-
-        message +=
-            "%0A💳 Payment: UPI after WhatsApp confirmation";
-
-
-        message +=
-            "%0A%0APlease confirm availability and final delivery charge.";
-
-
-        const whatsappURL =
-            "https://wa.me/" +
-            WHATSAPP_NUMBER +
-            "?text=" +
-            message;
-
-
-        /*
-         * Open WhatsApp.
-         */
-
-        window.open(
-            whatsappURL,
-            "_blank"
-        );
-
-
-        /*
-         * Clear cart only after
-         * successful D1 order creation.
-         */
-
-        cart = [];
-
-        saveCart();
-
-        renderCart();
-
-
-        closeModal(
-            "checkoutModal"
-        );
-
-
-        showToast(
-            "✓ Order created successfully"
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Order creation error:",
-            error
-        );
-
-
-        alert(
-            "Could not connect to RAHA server. Please try again."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-   ========================================================= */
-
-function closeModal(
-    id
-) {
-
-    const modal =
-        document.getElementById(
-            id
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =========================================================
-   OUTSIDE MODAL CLICK
-   ========================================================= */
-
-window.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target.classList.contains(
-                "modal"
-            )
-        ) {
-
-            event.target.style.display =
-                "none";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-function showToast(
-    message
-) {
-
-    const old =
-        document.getElementById(
-            "rahaToast"
-        );
-
-
-    if (old) {
-        old.remove();
-    }
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-
-    toast.id =
-        "rahaToast";
-
-
-    toast.textContent =
-        message;
-
-
-    toast.style.position =
-        "fixed";
-
-    toast.style.bottom =
-        "25px";
-
-    toast.style.left =
-        "50%";
-
-    toast.style.transform =
-        "translateX(-50%)";
-
-    toast.style.background =
-        "#111";
-
-    toast.style.color =
-        "#d4af37";
-
-    toast.style.padding =
-        "14px 22px";
-
-    toast.style.borderRadius =
-        "10px";
-
-    toast.style.border =
-        "1px solid #d4af37";
-
-    toast.style.zIndex =
-        "99999";
-
-    toast.style.fontWeight =
-        "600";
-
-
-    document.body.appendChild(
-        toast
+      }
     );
 
-
-    setTimeout(
-        () => {
-
-            toast.remove();
-
-        },
-        2500
-    );
-
-}
-
-
-/* =========================================================
-   INITIALISE
-   ========================================================= */
-
-loadStates();
-
-updateCartCount();
-
-renderCategories();
-
-loadCatalogs();
-
-loadProducts();
-
-
-/* =========================================================
-   SCROLL RESTORATION
-   ========================================================= */
-
-if (
-    "scrollRestoration"
-    in history
-) {
-
-    history.scrollRestoration =
-        "manual";
-
-}
-
-
-const RAHA_SCROLL_KEY =
-    "rahaScrollY";
-
-
-window.addEventListener(
-    "scroll",
-    function() {
-
-        sessionStorage.setItem(
-            RAHA_SCROLL_KEY,
-            String(
-                window.scrollY
-            )
-        );
-
-    },
-    {
-        passive: true
-    }
-);
-
-
-window.addEventListener(
-    "load",
-    function() {
-
-        const savedPosition =
-            sessionStorage.getItem(
-                RAHA_SCROLL_KEY
-            );
-
-
-        if (
-            savedPosition !== null
-        ) {
-
-            requestAnimationFrame(
-                () => {
-
-                    window.scrollTo(
-                        0,
-                        Number(
-                            savedPosition
-                        )
-                    );
-
-                }
-            );
-
-        }
-
-    }
-);
-
-</script>
+  </script>
 
 </body>
+
 </html>
