@@ -535,12 +535,41 @@ async function login(){
 }
 
 
-function checkLogin(){
+async function checkLogin(){
 
-  if(
-    sessionStorage.getItem("rahaAdmin")
-    === "true"
-  ){
+  const token =
+    localStorage.getItem("rahaAdminToken");
+
+  if(!token){
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        API + "/api/admin/check",
+        {
+          method:"GET",
+          headers:{
+            "Authorization":
+              "Bearer " + token
+          }
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      localStorage.removeItem(
+        "rahaAdminToken"
+      );
+
+      return;
+
+    }
 
     document
       .getElementById("loginBox")
@@ -554,15 +583,13 @@ function checkLogin(){
 
     loadProducts();
 
+  }catch(error){
+
+    localStorage.removeItem(
+      "rahaAdminToken"
+    );
+
   }
-
-}
-
-
-function goStore(){
-
-  window.location.href =
-    "index.html";
 
 }
 
@@ -1286,9 +1313,11 @@ async function saveProduct(){
             method:"PUT",
 
             headers:{
-              "Content-Type":
-                "application/json"
-            },
+  "Content-Type":"application/json",
+  "Authorization":
+    "Bearer " +
+    localStorage.getItem("rahaAdminToken")
+},
 
             body:
               JSON.stringify(product)
@@ -1305,9 +1334,11 @@ async function saveProduct(){
             method:"POST",
 
             headers:{
-              "Content-Type":
-                "application/json"
-            },
+  "Content-Type":"application/json",
+  "Authorization":
+    "Bearer " +
+    localStorage.getItem("rahaAdminToken")
+},
 
             body:
               JSON.stringify(product)
@@ -1327,8 +1358,9 @@ async function saveProduct(){
     ){
 
       throw new Error(
-        data.message ||
-        "Could not save product."
+        data.error ||
+data.message ||
+"Could not save product."
       );
 
     }
@@ -1385,7 +1417,13 @@ async function deleteProduct(id){
         "/api/products/" +
         id,
         {
-          method:"DELETE"
+          method:"DELETE",
+
+headers:{
+  "Authorization":
+    "Bearer " +
+    localStorage.getItem("rahaAdminToken")
+}
         }
       );
 
@@ -1400,8 +1438,9 @@ async function deleteProduct(id){
     ){
 
       throw new Error(
-        data.message ||
-        "Could not delete product."
+        data.error ||
+data.message ||
+"Could not delete product."
       );
 
     }
