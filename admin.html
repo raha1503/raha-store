@@ -2971,28 +2971,30 @@
     ========================================================= */
 
     function newCatalog() {
+  editingCatalogId = null;
 
-      editingCatalogId = null;
+  // Open Catalogs page first
+  const catalogsButton = document.querySelector(
+    '[data-page="catalogs"]'
+  );
 
+  openPage("catalogs", catalogsButton);
 
-      $("catalogTitle").textContent =
-        "Add Catalog";
+  $("catalogTitle").textContent = "Add Catalog";
 
+  $("catalogName").value = "";
+  $("catalogImage").value = "";
+  $("catalogDescription").value = "";
 
-      $("catalogName").value = "";
+  $("catalogEditor").style.display = "block";
 
-      $("catalogImage").value = "";
+  $("catalogName").focus();
 
-      $("catalogDescription").value = "";
-
-
-      $("catalogEditor").style.display =
-        "block";
-
-
-      $("catalogName").focus();
-
-    }
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 
 
     /* =========================================================
@@ -3067,117 +3069,85 @@
     ========================================================= */
 
     async function saveCatalog() {
+  const name =
+    $("catalogName").value.trim();
 
-      const name =
-        $("catalogName")
-          .value
-          .trim();
+  if (!name) {
+    showToast("Catalog name is required.");
+    return;
+  }
 
+  const body = {
+    name: name,
+    image:
+      $("catalogImage").value.trim(),
+    description:
+      $("catalogDescription").value.trim()
+  };
 
-      if (!name) {
+  try {
+    const url =
+      API +
+      "/api/catalogs" +
+      (
+        editingCatalogId
+          ? "/" + editingCatalogId
+          : ""
+      );
 
-        showToast(
-          "Catalog name is required."
-        );
-
-        return;
-
-      }
-
-
-      const body = {
-
-        name: name,
-
-        image:
-          $("catalogImage")
-            .value
-            .trim(),
-
-        description:
-          $("catalogDescription")
-            .value
-            .trim()
-
-      };
-
-
-      try {
-
-        const url =
-          API +
-          "/api/catalogs" +
-          (
-            editingCatalogId
-              ?
-              "/" + editingCatalogId
-              :
-              ""
-          );
-
-
-        const response =
-          await fetch(
-            url,
-            {
-              method:
-                editingCatalogId
-                  ?
-                  "PUT"
-                  :
-                  "POST",
-
-              headers:
-                authHeaders(true),
-
-              body:
-                JSON.stringify(body)
-
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (
-          !response.ok ||
-          !data.success
-        ) {
-
-          throw new Error(
-            data.error ||
-            "Could not save catalog."
-          );
-
-        }
-
-
-        showToast(
+    const response =
+      await fetch(url, {
+        method:
           editingCatalogId
-            ?
-            "Catalog updated."
-            :
-            "Catalog created."
-        );
+            ? "PUT"
+            : "POST",
+        headers:
+          authHeaders(true),
+        body:
+          JSON.stringify(body)
+      });
 
+    let data = {};
 
-        cancelCatalog();
-
-
-        await loadAllData();
-
-
-      } catch (error) {
-
-        showToast(
-          error.message
-        );
-
-      }
-
+    try {
+      data = await response.json();
+    } catch (error) {
+      data = {};
     }
+
+    if (
+      !response.ok ||
+      !data.success
+    ) {
+      throw new Error(
+        data.message ||
+        data.error ||
+        "Could not save catalog."
+      );
+    }
+
+    showToast(
+      editingCatalogId
+        ? "Catalog updated."
+        : "Catalog created."
+    );
+
+    cancelCatalog();
+
+    await loadAllData();
+
+  } catch (error) {
+    console.error(
+      "Catalog save error:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Could not save catalog."
+    );
+  }
+}
 
 
     /* =========================================================
