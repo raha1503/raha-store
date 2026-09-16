@@ -101,17 +101,33 @@ header {
 
 /* ================= CATEGORIES ================= */
 
-.categories {
-    border-top: 1px solid #181818;
-    overflow-x: auto;
-    padding: 9px 15px;
+.categories{
+  border-top:1px solid #181818;
+  overflow:visible;
+  padding:9px 0 0;
 }
 
-.categoryWrap {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    gap: 8px;
+.categoryWrap{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:0 15px 9px;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-x;
+}
+
+.categoryWrap::-webkit-scrollbar{
+  display:none;
+}
+
+.cat{
+  flex:0 0 auto;
+  white-space:nowrap;
 }
 
 .cat {
