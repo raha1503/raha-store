@@ -1,0 +1,4114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RAHA Admin Dashboard</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #d4af37;
+      --bg: #070707;
+      --panel: #111111;
+      --panel2: #171717;
+      --line: #2b2b2b;
+      --text: #f5f5f5;
+      --muted: #999999;
+      --green: #63d48c;
+      --red: #ff7777;
+      --orange: #e6c65c;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ================= LOGIN ================= */
+
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg);
+    }
+
+    .loginBox {
+      width: 100%;
+      max-width: 420px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .loginLogo {
+      text-align: center;
+      color: var(--gold);
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      margin-bottom: 8px;
+    }
+
+    .loginTitle {
+      text-align: center;
+      color: #ffffff;
+      margin: 0 0 25px;
+      font-size: 20px;
+    }
+
+    .loginLabel {
+      display: block;
+      color: #bbbbbb;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .loginInput {
+      width: 100%;
+      padding: 13px;
+      background: #080808;
+      border: 1px solid #3b3b3b;
+      border-radius: 10px;
+      color: white;
+      outline: none;
+    }
+
+    .loginInput:focus {
+      border-color: var(--gold);
+    }
+
+    .loginButton {
+      width: 100%;
+      margin-top: 14px;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: var(--gold);
+      color: #080808;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .loginButton:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #loginMessage {
+      min-height: 22px;
+      margin-top: 12px;
+      color: var(--red);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    /* ================= APP ================= */
+
+    #appPage {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topBar {
+      height: 65px;
+      background: #0e0e0e;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topLogo {
+      color: var(--gold);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .topRight {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .apiStatus {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+      width: 235px;
+      background: #0d0d0d;
+      border-right: 1px solid var(--line);
+      padding: 14px;
+      flex-shrink: 0;
+    }
+
+    .navButton {
+      width: 100%;
+      display: block;
+      padding: 12px 13px;
+      margin: 4px 0;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: #aaaaaa;
+      text-align: left;
+    }
+
+    .navButton:hover {
+      background: #1b1b1b;
+      color: var(--gold);
+    }
+
+    .navButton.active {
+      background: #1c1c1c;
+      color: var(--gold);
+    }
+
+    .mobileMenuButton {
+      display: none;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main {
+      width: 100%;
+      max-width: 1500px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 28px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* ================= CARDS ================= */
+
+    .statsGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .statCard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 18px;
+    }
+
+    .statCard span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .statCard strong {
+      display: block;
+      color: var(--gold);
+      font-size: 29px;
+      margin-top: 8px;
+    }
+
+    /* ================= PANELS ================= */
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 18px;
+    }
+
+    .twoColumns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .button {
+      border: 1px solid #444444;
+      background: #1c1c1c;
+      color: #eeeeee;
+      padding: 10px 14px;
+      border-radius: 9px;
+    }
+
+    .button:hover {
+      border-color: #666666;
+    }
+
+    .button.primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #080808;
+      font-weight: 800;
+    }
+
+    .button.danger {
+      color: var(--red);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    /* ================= SEARCH ================= */
+
+    .searchBar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .searchBar input {
+      flex: 1;
+    }
+
+    /* ================= FORM ================= */
+
+    .formGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .fullWidth {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      color: #bbbbbb;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #090909;
+      color: white;
+      border: 1px solid #383838;
+      border-radius: 9px;
+      padding: 11px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* ================= TABLE ================= */
+
+    .tableContainer {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th,
+    td {
+      padding: 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      color: #aaaaaa;
+      font-size: 12px;
+    }
+
+    td {
+      font-size: 13px;
+    }
+
+    .productThumb {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #222222;
+    }
+
+    /* ================= STOCK ================= */
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .badge.green {
+      background: #143a25;
+      color: var(--green);
+    }
+
+    .badge.orange {
+      background: #3c3012;
+      color: var(--orange);
+    }
+
+    .badge.red {
+      background: #3b1717;
+      color: #ff8b8b;
+    }
+
+    /* ================= CATALOG ================= */
+
+    .catalogGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .catalogCard {
+      background: #111111;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 14px;
+    }
+
+    .catalogImage {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 9px;
+      background: #222222;
+    }
+
+    .catalogCard h3 {
+      margin: 10px 0 5px;
+    }
+
+    .catalogCard p {
+      color: #999999;
+      min-height: 40px;
+    }
+
+    /* ================= VARIANTS ================= */
+
+    .variantBox {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .variantRow {
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    /* ================= MODAL ================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 100;
+    }
+
+    .modalBox {
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #111111;
+      border: 1px solid #383838;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .orderDetail {
+      white-space: pre-wrap;
+      background: #090909;
+      border: 1px solid var(--line);
+      padding: 13px;
+      border-radius: 9px;
+      color: #cccccc;
+    }
+
+    /* ================= NOTICE ================= */
+
+    .notice {
+      padding: 12px;
+      border: 1px solid #3a3320;
+      background: #18150b;
+      border-radius: 9px;
+      color: #d9c57a;
+      margin-bottom: 15px;
+    }
+
+    /* ================= TOAST ================= */
+
+    #toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #1d1d1d;
+      border: 1px solid #444444;
+      padding: 12px 15px;
+      border-radius: 10px;
+      display: none;
+      z-index: 200;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 65px;
+        height: calc(100vh - 65px);
+        z-index: 50;
+        transition: 0.2s;
+      }
+
+      .layout.menuOpen .sidebar {
+        left: 0;
+      }
+
+      .mobileMenuButton {
+        display: block;
+      }
+
+      .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .catalogGrid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .twoColumns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .main {
+        padding: 15px;
+      }
+
+      .statsGrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .statCard {
+        padding: 13px;
+      }
+
+      .formGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .fullWidth {
+        grid-column: auto;
+      }
+
+      .catalogGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .topBar {
+        padding: 0 12px;
+      }
+
+      .topLogo {
+        font-size: 20px;
+      }
+
+      .topRight .apiStatus {
+        display: none;
+      }
+
+      .searchBar {
+        flex-direction: column;
+      }
+
+      .variantRow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ========================================================= -->
+  <!-- LOGIN PAGE -->
+  <!-- ========================================================= -->
+
+  <div id="loginPage">
+
+    <div class="loginBox">
+
+      <div class="loginLogo">
+        RAHA
+      </div>
+
+      <h2 class="loginTitle">
+        Admin Dashboard
+      </h2>
+
+      <!-- IMPORTANT: LOGIN IS A REAL FORM -->
+      <form id="loginForm">
+
+        <label class="loginLabel" for="adminPassword">
+          Admin Password
+        </label>
+
+        <input
+          id="adminPassword"
+          class="loginInput"
+          type="password"
+          placeholder="Enter admin password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button
+          id="loginButton"
+          class="loginButton"
+          type="submit"
+        >
+          Login
+        </button>
+
+      </form>
+
+      <div id="loginMessage"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- ADMIN APP -->
+  <!-- ========================================================= -->
+
+  <div id="appPage">
+
+    <header class="topBar">
+
+      <div style="display:flex;align-items:center;gap:12px;">
+
+        <button
+          class="button mobileMenuButton"
+          type="button"
+          id="mobileMenu"
+        >
+          ☰
+        </button>
+
+        <div class="topLogo">
+          RAHA
+        </div>
+
+      </div>
+
+      <div class="topRight">
+
+        <span
+          id="apiStatus"
+          class="apiStatus"
+        >
+          Checking API...
+        </span>
+
+        <button
+          class="button"
+          type="button"
+          id="logoutButton"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <div
+      class="layout"
+      id="layout"
+    >
+
+      <!-- ===================================================== -->
+      <!-- SIDEBAR -->
+      <!-- ===================================================== -->
+
+      <aside class="sidebar">
+
+        <button
+          class="navButton active"
+          data-page="dashboard"
+        >
+          📊 Dashboard
+        </button>
+
+        <button
+          class="navButton"
+          data-page="products"
+        >
+          🛍️ Products
+        </button>
+
+        <button
+          class="navButton"
+          data-page="catalogs"
+        >
+          🗂️ Catalogs
+        </button>
+
+        <button
+          class="navButton"
+          data-page="orders"
+        >
+          📦 Orders
+        </button>
+
+        <button
+          class="navButton"
+          data-page="customers"
+        >
+          👥 Customers
+        </button>
+
+        <button
+          class="navButton"
+          data-page="settings"
+        >
+          ⚙️ Settings
+        </button>
+
+      </aside>
+
+
+      <!-- ===================================================== -->
+      <!-- MAIN -->
+      <!-- ===================================================== -->
+
+      <main class="main">
+
+
+        <!-- =================================================== -->
+        <!-- DASHBOARD -->
+        <!-- =================================================== -->
+
+        <section
+          id="dashboard"
+          class="page active"
+        >
+
+          <h1>
+            Dashboard
+          </h1>
+
+          <p class="muted">
+            RAHA store overview
+          </p>
+
+
+          <div class="statsGrid">
+
+            <div class="statCard">
+              <span>
+                Products
+              </span>
+
+              <strong id="statProducts">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Catalogs
+              </span>
+
+              <strong id="statCatalogs">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Total Stock
+              </span>
+
+              <strong id="statStock">
+                0
+              </strong>
+            </div>
+
+
+            <div class="statCard">
+              <span>
+                Orders
+              </span>
+
+              <strong id="statOrders">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="twoColumns">
+
+            <div class="panel">
+
+              <h3>
+                Quick Actions
+              </h3>
+
+              <div class="actions">
+
+                <button
+                  class="button primary"
+                  type="button"
+                  id="quickAddProduct"
+                >
+                  + Add Product
+                </button>
+
+                <button
+                  class="button"
+                  type="button"
+                  id="quickAddCatalog"
+                >
+                  + Add Catalog
+                </button>
+
+                <button
+                  class="button"
+                  type="button"
+                  id="quickOrders"
+                >
+                  View Orders
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="panel">
+
+              <h3>
+                System
+              </h3>
+
+              <p
+                id="systemInfo"
+                class="muted"
+              >
+                Loading...
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- PRODUCTS -->
+        <!-- =================================================== -->
+
+        <section
+          id="products"
+          class="page"
+        >
+
+          <h1>
+            Products
+          </h1>
+
+          <p class="muted">
+            Add and manage products in your RAHA store.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="searchBar">
+
+              <input
+                id="productSearch"
+                type="search"
+                placeholder="Search products..."
+              >
+
+              <button
+                class="button primary"
+                type="button"
+                id="addProductButton"
+              >
+                + Add Product
+              </button>
+
+            </div>
+
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Catalog</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Colours</th>
+                    <th>Actions</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="productRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- CATALOGS -->
+        <!-- =================================================== -->
+
+        <section
+          id="catalogs"
+          class="page"
+        >
+
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
+
+            <div>
+
+              <h1>
+                Catalogs
+              </h1>
+
+              <p class="muted">
+                Create and manage the categories shown in your RAHA store.
+              </p>
+
+            </div>
+
+            <button
+              class="button primary"
+              type="button"
+              id="addCatalogButton"
+            >
+              + Add Catalog
+            </button>
+
+          </div>
+
+
+          <div
+            id="catalogEditor"
+            class="panel"
+            style="display:none;margin-top:16px;"
+          >
+
+            <h2 id="catalogTitle">
+              Add Catalog
+            </h2>
+
+
+            <div class="formGrid">
+
+              <div>
+
+                <label>
+                  Catalog Name *
+                </label>
+
+                <input
+                  id="catalogName"
+                  type="text"
+                  placeholder="Example: New Arrivals"
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  Catalog Image URL
+                </label>
+
+                <input
+                  id="catalogImage"
+                  type="url"
+                  placeholder="https://..."
+                >
+
+              </div>
+
+
+              <div class="fullWidth">
+
+                <label>
+                  Description
+                </label>
+
+                <textarea
+                  id="catalogDescription"
+                  placeholder="Short catalog description"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                class="button primary"
+                type="button"
+                id="saveCatalogButton"
+              >
+                Save Catalog
+              </button>
+
+              <button
+                class="button"
+                type="button"
+                id="cancelCatalogButton"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="catalogGrid"
+            class="catalogGrid"
+          ></div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- ORDERS -->
+        <!-- =================================================== -->
+
+        <section
+          id="orders"
+          class="page"
+        >
+
+          <h1>
+            Orders
+          </h1>
+
+          <p class="muted">
+            Orders received through the RAHA website.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="searchBar">
+
+              <input
+                id="orderSearch"
+                type="search"
+                placeholder="Search order or customer..."
+              >
+
+              <button
+                class="button"
+                type="button"
+                id="refreshOrdersButton"
+              >
+                ↻ Refresh
+              </button>
+
+            </div>
+
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>ID</th>
+                    <th>Order No.</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="orderRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- CUSTOMERS -->
+        <!-- =================================================== -->
+
+        <section
+          id="customers"
+          class="page"
+        >
+
+          <h1>
+            Customers
+          </h1>
+
+          <p class="muted">
+            Customers are automatically collected from orders.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="tableContainer">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Orders</th>
+                    <th>Total Spent</th>
+                    <th>Latest Order</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="customerRows"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================== -->
+        <!-- SETTINGS -->
+        <!-- =================================================== -->
+
+        <section
+          id="settings"
+          class="page"
+        >
+
+          <h1>
+            Settings
+          </h1>
+
+          <p class="muted">
+            Current RAHA store configuration.
+          </p>
+
+
+          <div class="panel">
+
+            <div class="formGrid">
+
+              <div>
+
+                <label>
+                  Store Name
+                </label>
+
+                <input
+                  value="RAHA"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  Tagline
+                </label>
+
+                <input
+                  value="Your Everyday Shopping Destination"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  WhatsApp Number
+                </label>
+
+                <input
+                  value="8903188257"
+                  readonly
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  API
+                </label>
+
+                <input
+                  value="https://raha-api.rahastudio14.workers.dev"
+                  readonly
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="notice" style="margin-top:15px;">
+
+              Product, catalog and order data are stored in Cloudflare D1.
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- PRODUCT MODAL -->
+  <!-- ========================================================= -->
+
+  <div
+    id="productModal"
+    class="modal"
+  >
+
+    <div class="modalBox">
+
+      <h2 id="productTitle">
+        Add Product
+      </h2>
+
+
+      <div class="formGrid">
+
+
+        <div>
+
+          <label>
+            Product Name *
+          </label>
+
+          <input
+            id="productName"
+            type="text"
+            placeholder="Product name"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Price ₹ *
+          </label>
+
+          <input
+            id="productPrice"
+            type="number"
+            min="0"
+            step="0.01"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Catalog *
+          </label>
+
+          <select id="productCategory">
+            <option value="">
+              Select a catalog
+            </option>
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Stock *
+          </label>
+
+          <input
+            id="productStock"
+            type="number"
+            min="0"
+            step="1"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Sizes
+          </label>
+
+          <input
+            id="productSizes"
+            placeholder="S, M, L, XL"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Colours
+          </label>
+
+          <input
+            id="productColors"
+            placeholder="Black, White, Blue"
+          >
+
+        </div>
+
+
+        <div class="fullWidth">
+
+          <label>
+            Description
+          </label>
+
+          <textarea
+            id="productDescription"
+            placeholder="Product description"
+          ></textarea>
+
+        </div>
+
+
+        <div class="fullWidth">
+
+          <label>
+            General Images — one URL per line
+          </label>
+
+          <textarea
+            id="productImages"
+            placeholder="https://image1.jpg&#10;https://image2.jpg"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="variantBox">
+
+        <b>
+          🎨 Colour-specific Images
+        </b>
+
+        <p class="muted">
+          Add an image for each colour if required.
+        </p>
+
+
+        <div id="variantRows"></div>
+
+
+        <button
+          class="button"
+          type="button"
+          id="addVariantButton"
+        >
+          + Add Colour Image
+        </button>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="button primary"
+          type="button"
+          id="saveProductButton"
+        >
+          Save Product
+        </button>
+
+        <button
+          class="button"
+          type="button"
+          id="cancelProductButton"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- ORDER MODAL -->
+  <!-- ========================================================= -->
+
+  <div
+    id="orderModal"
+    class="modal"
+  >
+
+    <div class="modalBox">
+
+      <h2>
+        Order Details
+      </h2>
+
+      <div
+        id="orderDetail"
+        class="orderDetail"
+      >
+        Loading...
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="button"
+          type="button"
+          id="closeOrderButton"
+        >
+          Close
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- TOAST -->
+  <!-- ========================================================= -->
+
+  <div id="toast"></div>
+
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================================================= -->
+
+  <script>
+
+    /* =========================================================
+       API
+    ========================================================= */
+
+    const API =
+      "https://raha-api.rahastudio14.workers.dev";
+
+
+    /* =========================================================
+       GLOBAL DATA
+    ========================================================= */
+
+    let token =
+      localStorage.getItem("raha_admin_token") || "";
+
+    let products = [];
+
+    let catalogs = [];
+
+    let orders = [];
+
+    let editingProductId = null;
+
+    let editingCatalogId = null;
+
+
+    /* =========================================================
+       SHORT SELECTOR
+    ========================================================= */
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+
+    /* =========================================================
+       ESCAPE HTML
+    ========================================================= */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "").replace(
+        /[&<>"']/g,
+        function (character) {
+
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+          }[character];
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    function showToast(message) {
+
+      $("toast").textContent = message;
+
+      $("toast").style.display = "block";
+
+      setTimeout(function () {
+
+        $("toast").style.display = "none";
+
+      }, 2500);
+
+    }
+
+
+    /* =========================================================
+       AUTH HEADERS
+    ========================================================= */
+
+    function authHeaders(json) {
+
+      const headers = {};
+
+      headers["Authorization"] =
+        "Bearer " + token;
+
+      if (json) {
+
+        headers["Content-Type"] =
+          "application/json";
+
+      }
+
+      return headers;
+
+    }
+
+
+    /* =========================================================
+       SHOW ADMIN APP
+    ========================================================= */
+
+    async function showAdminApp() {
+
+      $("loginPage").style.display = "none";
+
+      $("appPage").style.display = "block";
+
+      await loadAllData();
+
+      checkAPI();
+
+    }
+
+
+    /* =========================================================
+       LOGIN
+    ========================================================= */
+
+    async function loginAdmin() {
+
+      const password =
+        $("adminPassword").value.trim();
+
+      const message =
+        $("loginMessage");
+
+      const button =
+        $("loginButton");
+
+
+      message.textContent = "";
+
+
+      if (!password) {
+
+        message.textContent =
+          "Please enter your password.";
+
+        return;
+
+      }
+
+
+      button.disabled = true;
+
+      button.textContent = "Logging in...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/api/admin/login",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                password: password
+              })
+            }
+          );
+
+
+        let data = {};
+
+        try {
+
+          data = await response.json();
+
+        } catch (error) {
+
+          data = {};
+
+        }
+
+
+        if (
+          !response.ok ||
+          !data.success ||
+          !data.token
+        ) {
+
+          throw new Error(
+    data.message ||
+    data.error ||
+    "Could not save catalog."
+);
+
+        }
+
+
+        token = data.token;
+
+
+        localStorage.setItem(
+          "raha_admin_token",
+          token
+        );
+
+
+        await showAdminApp();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error.message ||
+          "Unable to login.";
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent = "Login";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+    ========================================================= */
+
+    function logoutAdmin() {
+
+      localStorage.removeItem(
+        "raha_admin_token"
+      );
+
+      token = "";
+
+      location.reload();
+
+    }
+
+
+    /* =========================================================
+       CHECK API
+    ========================================================= */
+
+    async function checkAPI() {
+
+      try {
+
+        const response =
+          await fetch(API + "/");
+
+        if (response.ok) {
+
+          $("apiStatus").textContent =
+            "● API Connected";
+
+          $("apiStatus").style.color =
+            "#63d48c";
+
+        } else {
+
+          $("apiStatus").textContent =
+            "● API Error";
+
+          $("apiStatus").style.color =
+            "#ff7777";
+
+        }
+
+      } catch (error) {
+
+        $("apiStatus").textContent =
+          "● API Offline";
+
+        $("apiStatus").style.color =
+          "#ff7777";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       PAGE NAVIGATION
+    ========================================================= */
+
+    function openPage(pageId, clickedButton) {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(function (page) {
+
+          page.classList.remove("active");
+
+        });
+
+
+      const selectedPage =
+        $(pageId);
+
+      if (selectedPage) {
+
+        selectedPage.classList.add("active");
+
+      }
+
+
+      document
+        .querySelectorAll(".navButton")
+        .forEach(function (button) {
+
+          button.classList.remove("active");
+
+        });
+
+
+      if (clickedButton) {
+
+        clickedButton.classList.add("active");
+
+      }
+
+
+      $("layout").classList.remove(
+        "menuOpen"
+      );
+
+
+      if (pageId === "orders") {
+
+        loadOrders();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOAD ALL DATA
+    ========================================================= */
+
+    async function loadAllData() {
+
+      try {
+
+        const productResponse =
+          await fetch(
+            API + "/api/products"
+          );
+
+
+        const catalogResponse =
+          await fetch(
+            API + "/api/catalogs"
+          );
+
+
+        const orderResponse =
+          await fetch(
+            API + "/api/orders",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const productData =
+          await productResponse.json();
+
+
+        const catalogData =
+          await catalogResponse.json();
+
+
+        const orderData =
+          await orderResponse.json();
+
+
+        if (
+          !productResponse.ok ||
+          !productData.success
+        ) {
+
+          throw new Error(
+            productData.error ||
+            "Could not load products."
+          );
+
+        }
+
+
+        if (
+          !catalogResponse.ok ||
+          !catalogData.success
+        ) {
+
+          throw new Error(
+            catalogData.error ||
+            "Could not load catalogs."
+          );
+
+        }
+
+
+        products =
+          productData.products || [];
+
+
+        catalogs =
+          catalogData.catalogs || [];
+
+
+        if (
+          orderResponse.ok &&
+          orderData.success
+        ) {
+
+          orders =
+            orderData.orders || [];
+
+        } else {
+
+          orders = [];
+
+        }
+
+
+        renderProducts();
+
+        renderCatalogs();
+
+        renderOrders();
+
+        renderCustomers();
+
+        fillCatalogSelect();
+
+        updateStatistics();
+
+
+        $("systemInfo").textContent =
+          products.length +
+          " products · " +
+          catalogs.length +
+          " catalogs · " +
+          orders.length +
+          " orders";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Could not load data: " +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       STATISTICS
+    ========================================================= */
+
+    function updateStatistics() {
+
+      $("statProducts").textContent =
+        products.length;
+
+
+      $("statCatalogs").textContent =
+        catalogs.length;
+
+
+      $("statStock").textContent =
+        products.reduce(
+          function (total, product) {
+
+            return total +
+              Number(product.stock || 0);
+
+          },
+          0
+        );
+
+
+      $("statOrders").textContent =
+        orders.length;
+
+    }
+
+
+    /* =========================================================
+       CATALOG SELECT
+    ========================================================= */
+
+    function fillCatalogSelect(
+      selectedValue
+    ) {
+
+      const select =
+        $("productCategory");
+
+
+      select.innerHTML =
+        '<option value="">Select a catalog</option>';
+
+
+      catalogs.forEach(
+        function (catalog) {
+
+          const option =
+            document.createElement("option");
+
+
+          option.value =
+            catalog.name;
+
+
+          option.textContent =
+            catalog.name;
+
+
+          select.appendChild(option);
+
+        }
+      );
+
+
+      if (selectedValue) {
+
+        select.value =
+          selectedValue;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       PRODUCT IMAGE
+    ========================================================= */
+
+    function getProductImage(product) {
+
+      const images =
+        String(
+          product.images || ""
+        )
+          .split(",")
+          .map(function (image) {
+
+            return image.trim();
+
+          })
+          .filter(Boolean);
+
+
+      return images.length ?
+        images[0] :
+        "";
+
+    }
+
+
+    /* =========================================================
+       STOCK BADGE
+    ========================================================= */
+
+    function getStockBadge(stock) {
+
+      const value =
+        Number(stock || 0);
+
+
+      if (value <= 0) {
+
+        return (
+          '<span class="badge red">' +
+          'Out of Stock' +
+          '</span>'
+        );
+
+      }
+
+
+      if (value <= 5) {
+
+        return (
+          '<span class="badge orange">' +
+          'Only ' +
+          value +
+          ' left' +
+          '</span>'
+        );
+
+      }
+
+
+      return (
+        '<span class="badge green">' +
+        'In Stock · ' +
+        value +
+        '</span>'
+      );
+
+    }
+
+
+    /* =========================================================
+       RENDER PRODUCTS
+    ========================================================= */
+
+    function renderProducts() {
+
+      const search =
+        $("productSearch")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const filtered =
+        products.filter(
+          function (product) {
+
+            const text =
+              String(product.name || "") +
+              " " +
+              String(product.category || "") +
+              " " +
+              String(product.description || "");
+
+
+            return text
+              .toLowerCase()
+              .includes(search);
+
+          }
+        );
+
+
+      $("productRows").innerHTML =
+        filtered.map(
+          function (product) {
+
+            const image =
+              getProductImage(product);
+
+
+            return (
+              "<tr>" +
+
+              "<td>" +
+
+              (
+                image
+                  ?
+                  '<img class="productThumb" src="' +
+                  escapeHTML(image) +
+                  '" onerror="this.style.display=\'none\'">'
+                  :
+                  "—"
+              ) +
+
+              "</td>" +
+
+
+              "<td>" +
+
+              "<b>" +
+              escapeHTML(product.name) +
+              "</b>" +
+
+              "<br>" +
+
+              '<span class="muted">ID ' +
+              escapeHTML(product.id) +
+              "</span>" +
+
+              "</td>" +
+
+
+              "<td>" +
+              escapeHTML(product.category) +
+              "</td>" +
+
+
+              "<td>₹" +
+              Number(
+                product.price || 0
+              ).toLocaleString("en-IN") +
+              "</td>" +
+
+
+              "<td>" +
+              getStockBadge(product.stock) +
+              "</td>" +
+
+
+              "<td>" +
+              escapeHTML(
+                product.colors || "—"
+              ) +
+              "</td>" +
+
+
+              "<td>" +
+
+              '<button class="button" type="button" onclick="editProduct(' +
+              product.id +
+              ')">' +
+              "Edit" +
+              "</button> " +
+
+              '<button class="button danger" type="button" onclick="deleteProduct(' +
+              product.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</td>" +
+
+              "</tr>"
+            );
+
+          }
+        ).join("");
+
+
+      if (!filtered.length) {
+
+        $("productRows").innerHTML =
+          '<tr><td colspan="7" class="muted">' +
+          "No products found." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       NEW PRODUCT
+    ========================================================= */
+
+    function newProduct() {
+
+      editingProductId = null;
+
+
+      $("productTitle").textContent =
+        "Add Product";
+
+
+      $("productName").value = "";
+
+      $("productPrice").value = "";
+
+      $("productStock").value = "";
+
+      $("productSizes").value = "";
+
+      $("productColors").value = "";
+
+      $("productDescription").value = "";
+
+      $("productImages").value = "";
+
+
+      fillCatalogSelect();
+
+
+      $("variantRows").innerHTML = "";
+
+
+      $("productModal").style.display =
+        "flex";
+
+    }
+
+
+    /* =========================================================
+       EDIT PRODUCT
+    ========================================================= */
+
+    function editProduct(id) {
+
+      const product =
+        products.find(
+          function (item) {
+
+            return Number(item.id) ===
+              Number(id);
+
+          }
+        );
+
+
+      if (!product) {
+
+        return;
+
+      }
+
+
+      editingProductId =
+        product.id;
+
+
+      $("productTitle").textContent =
+        "Edit Product";
+
+
+      $("productName").value =
+        product.name || "";
+
+
+      $("productPrice").value =
+        product.price || "";
+
+
+      $("productStock").value =
+        product.stock ?? 0;
+
+
+      $("productSizes").value =
+        product.sizes || "";
+
+
+      $("productColors").value =
+        product.colors || "";
+
+
+      $("productDescription").value =
+        product.description || "";
+
+
+      $("productImages").value =
+        String(
+          product.images || ""
+        )
+          .split(",")
+          .filter(Boolean)
+          .join("\n");
+
+
+      fillCatalogSelect(
+        product.category || ""
+      );
+
+
+      $("variantRows").innerHTML =
+        "";
+
+
+      const colors =
+        String(
+          product.colors || ""
+        )
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          })
+          .filter(Boolean);
+
+
+      const images =
+        String(
+          product.images || ""
+        )
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          });
+
+
+      colors.forEach(
+        function (color, index) {
+
+          addVariantRow(
+            color,
+            images[index] || ""
+          );
+
+        }
+      );
+
+
+      $("productModal").style.display =
+        "flex";
+
+    }
+
+
+    /* =========================================================
+       ADD VARIANT ROW
+    ========================================================= */
+
+    function addVariantRow(
+      color,
+      image
+    ) {
+
+      color = color || "";
+
+      image = image || "";
+
+
+      const row =
+        document.createElement("div");
+
+
+      row.className =
+        "variantRow";
+
+
+      const colorInput =
+        document.createElement("input");
+
+
+      colorInput.className =
+        "variantColor";
+
+
+      colorInput.placeholder =
+        "Colour";
+
+
+      colorInput.value =
+        color;
+
+
+      const imageInput =
+        document.createElement("input");
+
+
+      imageInput.className =
+        "variantImage";
+
+
+      imageInput.placeholder =
+        "Image URL";
+
+
+      imageInput.value =
+        image;
+
+
+      const removeButton =
+        document.createElement("button");
+
+
+      removeButton.className =
+        "button danger";
+
+
+      removeButton.type =
+        "button";
+
+
+      removeButton.textContent =
+        "Remove";
+
+
+      removeButton.onclick =
+        function () {
+
+          row.remove();
+
+        };
+
+
+      row.appendChild(
+        colorInput
+      );
+
+
+      row.appendChild(
+        imageInput
+      );
+
+
+      row.appendChild(
+        removeButton
+      );
+
+
+      $("variantRows")
+        .appendChild(row);
+
+    }
+
+
+    /* =========================================================
+       SAVE PRODUCT
+    ========================================================= */
+
+    async function saveProduct() {
+
+      const name =
+        $("productName")
+          .value
+          .trim();
+
+
+      const category =
+        $("productCategory")
+          .value
+          .trim();
+
+
+      const price =
+        Number(
+          $("productPrice").value
+        );
+
+
+      const stock =
+        Number(
+          $("productStock").value
+        );
+
+
+      if (
+        !name ||
+        !category ||
+        !Number.isFinite(price) ||
+        price < 0 ||
+        !Number.isInteger(stock) ||
+        stock < 0
+      ) {
+
+        showToast(
+          "Fill name, catalog, price and valid stock."
+        );
+
+        return;
+
+      }
+
+
+      const variantColors = [];
+
+      const variantImages = [];
+
+
+      document
+        .querySelectorAll(".variantRow")
+        .forEach(
+          function (row) {
+
+            const color =
+              row
+                .querySelector(".variantColor")
+                .value
+                .trim();
+
+
+            const image =
+              row
+                .querySelector(".variantImage")
+                .value
+                .trim();
+
+
+            if (color) {
+
+              variantColors.push(
+                color
+              );
+
+              variantImages.push(
+                image
+              );
+
+            }
+
+          }
+        );
+
+
+      const fallbackColors =
+        $("productColors")
+          .value
+          .split(",")
+          .map(function (value) {
+
+            return value.trim();
+
+          })
+          .filter(Boolean);
+
+
+      const generalImages =
+        $("productImages")
+          .value
+          .split(/\n|,/)
+          .map(function (value) {
+
+            return value.trim();
+
+          })
+          .filter(Boolean);
+
+
+      const body = {
+
+        name: name,
+
+        category: category,
+
+        price: price,
+
+        stock: stock,
+
+        sizes:
+          $("productSizes")
+            .value
+            .trim(),
+
+        colors:
+          (
+            variantColors.length
+              ?
+              variantColors
+              :
+              fallbackColors
+          ).join(","),
+
+        description:
+          $("productDescription")
+            .value
+            .trim(),
+
+        images:
+          (
+            variantImages.some(
+              function (image) {
+
+                return image !== "";
+
+              }
+            )
+              ?
+              variantImages
+              :
+              generalImages
+          ).join(",")
+
+      };
+
+
+      try {
+
+        const url =
+          API +
+          "/api/products" +
+          (
+            editingProductId
+              ?
+              "/" + editingProductId
+              :
+              ""
+          );
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              method:
+                editingProductId
+                  ?
+                  "PUT"
+                  :
+                  "POST",
+
+              headers:
+                authHeaders(true),
+
+              body:
+                JSON.stringify(body)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not save product."
+          );
+
+        }
+
+
+        showToast(
+          editingProductId
+            ?
+            "Product updated."
+            :
+            "Product added."
+        );
+
+
+        closeProductModal();
+
+
+        await loadAllData();
+
+
+        openPage(
+          "products",
+          document.querySelector(
+            '[data-page="products"]'
+          )
+        );
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       DELETE PRODUCT
+    ========================================================= */
+
+    async function deleteProduct(id) {
+
+      if (
+        !confirm(
+          "Delete this product?"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/products/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete product."
+          );
+
+        }
+
+
+        showToast(
+          "Product deleted."
+        );
+
+
+        await loadAllData();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CLOSE PRODUCT MODAL
+    ========================================================= */
+
+    function closeProductModal() {
+
+      $("productModal").style.display =
+        "none";
+
+    }
+
+
+    /* =========================================================
+       RENDER CATALOGS
+    ========================================================= */
+
+    function renderCatalogs() {
+
+      $("catalogGrid").innerHTML =
+        catalogs.map(
+          function (catalog) {
+
+            return (
+
+              '<div class="catalogCard">' +
+
+              (
+                catalog.image
+                  ?
+                  '<img class="catalogImage" src="' +
+                  escapeHTML(catalog.image) +
+                  '" onerror="this.style.display=\'none\'">'
+                  :
+                  ""
+              ) +
+
+              "<h3>" +
+              escapeHTML(catalog.name) +
+              "</h3>" +
+
+              "<p>" +
+              escapeHTML(
+                catalog.description ||
+                "No description"
+              ) +
+              "</p>" +
+
+              '<small class="muted">' +
+              "Catalog ID: " +
+              escapeHTML(catalog.id) +
+              "</small>" +
+
+              '<div class="actions">' +
+
+              '<button class="button" type="button" onclick="editCatalog(' +
+              catalog.id +
+              ')">' +
+              "Edit" +
+              "</button>" +
+
+              '<button class="button danger" type="button" onclick="deleteCatalog(' +
+              catalog.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</div>" +
+
+              "</div>"
+
+            );
+
+          }
+        ).join("");
+
+
+      if (!catalogs.length) {
+
+        $("catalogGrid").innerHTML =
+          '<div class="panel">' +
+          '<p class="muted">' +
+          "No catalogs yet. Create your first catalog." +
+          "</p>" +
+          "</div>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       NEW CATALOG
+    ========================================================= */
+
+    function newCatalog() {
+  editingCatalogId = null;
+
+  // Open Catalogs page first
+  const catalogsButton = document.querySelector(
+    '[data-page="catalogs"]'
+  );
+
+  openPage("catalogs", catalogsButton);
+
+  $("catalogTitle").textContent = "Add Catalog";
+
+  $("catalogName").value = "";
+  $("catalogImage").value = "";
+  $("catalogDescription").value = "";
+
+  $("catalogEditor").style.display = "block";
+
+  $("catalogName").focus();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+    /* =========================================================
+       EDIT CATALOG
+    ========================================================= */
+
+    function editCatalog(id) {
+
+      const catalog =
+        catalogs.find(
+          function (item) {
+
+            return Number(item.id) ===
+              Number(id);
+
+          }
+        );
+
+
+      if (!catalog) {
+
+        return;
+
+      }
+
+
+      editingCatalogId =
+        catalog.id;
+
+
+      $("catalogTitle").textContent =
+        "Edit Catalog";
+
+
+      $("catalogName").value =
+        catalog.name || "";
+
+
+      $("catalogImage").value =
+        catalog.image || "";
+
+
+      $("catalogDescription").value =
+        catalog.description || "";
+
+
+      $("catalogEditor").style.display =
+        "block";
+
+
+      $("catalogName").focus();
+
+    }
+
+
+    /* =========================================================
+       CANCEL CATALOG
+    ========================================================= */
+
+    function cancelCatalog() {
+
+      editingCatalogId = null;
+
+      $("catalogEditor").style.display =
+        "none";
+
+    }
+
+
+    /* =========================================================
+       SAVE CATALOG
+    ========================================================= */
+
+    async function saveCatalog() {
+  const name =
+    $("catalogName").value.trim();
+
+  if (!name) {
+    showToast("Catalog name is required.");
+    return;
+  }
+
+  const body = {
+    name: name,
+    image:
+      $("catalogImage").value.trim(),
+    description:
+      $("catalogDescription").value.trim()
+  };
+
+  try {
+    const url =
+      API +
+      "/api/catalogs" +
+      (
+        editingCatalogId
+          ? "/" + editingCatalogId
+          : ""
+      );
+
+    const response =
+      await fetch(url, {
+        method:
+          editingCatalogId
+            ? "PUT"
+            : "POST",
+        headers:
+          authHeaders(true),
+        body:
+          JSON.stringify(body)
+      });
+
+    let data = {};
+
+    try {
+      data = await response.json();
+    } catch (error) {
+      data = {};
+    }
+
+    if (
+      !response.ok ||
+      !data.success
+    ) {
+      throw new Error(
+        data.message ||
+        data.error ||
+        "Could not save catalog."
+      );
+    }
+
+    showToast(
+      editingCatalogId
+        ? "Catalog updated."
+        : "Catalog created."
+    );
+
+    cancelCatalog();
+
+    await loadAllData();
+
+  } catch (error) {
+    console.error(
+      "Catalog save error:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Could not save catalog."
+    );
+  }
+}
+
+
+    /* =========================================================
+       DELETE CATALOG
+    ========================================================= */
+
+    async function deleteCatalog(id) {
+
+      if (
+        !confirm(
+          "Delete this catalog? Products using it must be moved first."
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/catalogs/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete catalog."
+          );
+
+        }
+
+
+        showToast(
+          "Catalog deleted."
+        );
+
+
+        await loadAllData();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       RENDER ORDERS
+    ========================================================= */
+
+    function renderOrders() {
+
+      const search =
+        $("orderSearch")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const filtered =
+        orders.filter(
+          function (order) {
+
+            const text =
+              String(
+                order.order_number || ""
+              ) +
+              " " +
+              String(
+                order.customer_name || ""
+              ) +
+              " " +
+              String(
+                order.customer_phone || ""
+              );
+
+
+            return text
+              .toLowerCase()
+              .includes(search);
+
+          }
+        );
+
+
+      $("orderRows").innerHTML =
+        filtered.map(
+          function (order) {
+
+            return (
+
+              "<tr>" +
+
+              "<td>" +
+              escapeHTML(order.id) +
+              "</td>" +
+
+              "<td><b>" +
+              escapeHTML(
+                order.order_number
+              ) +
+              "</b></td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.customer_name
+              ) +
+              "<br>" +
+              '<span class="muted">' +
+              escapeHTML(
+                order.customer_phone
+              ) +
+              "</span>" +
+              "</td>" +
+
+              "<td>₹" +
+              Number(
+                order.total || 0
+              ).toLocaleString("en-IN") +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.status || "New"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.payment_status ||
+                "Pending"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                order.created_at || ""
+              ) +
+              "</td>" +
+
+              "<td>" +
+
+              '<button class="button" type="button" onclick="viewOrder(' +
+              order.id +
+              ')">' +
+              "View" +
+              "</button> " +
+
+              '<button class="button danger" type="button" onclick="deleteOrder(' +
+              order.id +
+              ')">' +
+              "Delete" +
+              "</button>" +
+
+              "</td>" +
+
+              "</tr>"
+
+            );
+
+          }
+        ).join("");
+
+
+      if (!filtered.length) {
+
+        $("orderRows").innerHTML =
+          '<tr><td colspan="8" class="muted">' +
+          "No orders found." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOAD ORDERS
+    ========================================================= */
+
+    async function loadOrders() {
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/api/orders",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not load orders."
+          );
+
+        }
+
+
+        orders =
+          data.orders || [];
+
+
+        renderOrders();
+
+        renderCustomers();
+
+        updateStatistics();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       VIEW ORDER
+    ========================================================= */
+
+    async function viewOrder(id) {
+
+      $("orderModal").style.display =
+        "flex";
+
+
+      $("orderDetail").textContent =
+        "Loading...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/orders/" +
+            id,
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not load order."
+          );
+
+        }
+
+
+        const order =
+          data.order;
+
+
+        let items = [];
+
+
+        try {
+
+          items =
+            JSON.parse(
+              order.items || "[]"
+            );
+
+        } catch (error) {
+
+          items = [];
+
+        }
+
+
+        let text = "";
+
+
+        text +=
+          "ORDER: " +
+          (order.order_number || "") +
+          "\n\n";
+
+
+        text +=
+          "CUSTOMER\n";
+
+
+        text +=
+          "Name: " +
+          (order.customer_name || "") +
+          "\n";
+
+
+        text +=
+          "Phone: " +
+          (order.customer_phone || "") +
+          "\n";
+
+
+        text +=
+          "Address: " +
+          (order.customer_address || "") +
+          "\n";
+
+
+        text +=
+          "Pincode: " +
+          (order.customer_pincode || "") +
+          "\n";
+
+
+        text +=
+          "State: " +
+          (order.customer_state || "") +
+          "\n";
+
+
+        text +=
+          "District: " +
+          (order.customer_district || "") +
+          "\n\n";
+
+
+        text +=
+          "ITEMS\n";
+
+
+        items.forEach(
+          function (item, index) {
+
+            text +=
+              (index + 1) +
+              ". " +
+              (item.name || "") +
+              " × " +
+              (item.quantity || 0) +
+              " — ₹" +
+              (
+                Number(item.price || 0) *
+                Number(item.quantity || 0)
+              );
+
+
+            if (item.colour) {
+
+              text +=
+                " — " +
+                item.colour;
+
+            }
+
+
+            if (item.size) {
+
+              text +=
+                " — " +
+                item.size;
+
+            }
+
+
+            text += "\n";
+
+          }
+        );
+
+
+        text +=
+          "\nSubtotal: ₹" +
+          Number(
+            order.subtotal || 0
+          );
+
+
+        text +=
+          "\nDelivery: ₹" +
+          Number(
+            order.delivery_charge || 0
+          );
+
+
+        text +=
+          "\nDiscount: ₹" +
+          Number(
+            order.discount || 0
+          );
+
+
+        text +=
+          "\nTOTAL: ₹" +
+          Number(
+            order.total || 0
+          );
+
+
+        text +=
+          "\n\nStatus: " +
+          (
+            order.status ||
+            "New"
+          );
+
+
+        text +=
+          "\nPayment: " +
+          (
+            order.payment_status ||
+            "Pending"
+          );
+
+
+        $("orderDetail").textContent =
+          text;
+
+
+      } catch (error) {
+
+        $("orderDetail").textContent =
+          error.message;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       DELETE ORDER
+    ========================================================= */
+
+    async function deleteOrder(id) {
+
+      if (
+        !confirm(
+          "Delete this order?"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/api/orders/" +
+            id,
+            {
+              method: "DELETE",
+
+              headers:
+                authHeaders(false)
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Could not delete order."
+          );
+
+        }
+
+
+        showToast(
+          "Order deleted."
+        );
+
+
+        await loadOrders();
+
+
+      } catch (error) {
+
+        showToast(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CUSTOMERS
+    ========================================================= */
+
+    function renderCustomers() {
+
+      const customerMap = {};
+
+
+      orders.forEach(
+        function (order) {
+
+          const key =
+            String(
+              order.customer_phone ||
+              order.customer_name ||
+              ""
+            );
+
+
+          if (!customerMap[key]) {
+
+            customerMap[key] = {
+
+              name:
+                order.customer_name || "",
+
+              phone:
+                order.customer_phone || "",
+
+              orders: 0,
+
+              total: 0,
+
+              latest:
+                order.created_at || ""
+
+            };
+
+          }
+
+
+          customerMap[key].orders += 1;
+
+
+          customerMap[key].total +=
+            Number(
+              order.total || 0
+            );
+
+
+          if (
+            String(
+              order.created_at || ""
+            ) >
+            String(
+              customerMap[key].latest || ""
+            )
+          ) {
+
+            customerMap[key].latest =
+              order.created_at || "";
+
+          }
+
+        }
+      );
+
+
+      const customers =
+        Object.values(
+          customerMap
+        );
+
+
+      $("customerRows").innerHTML =
+        customers.map(
+          function (customer) {
+
+            return (
+
+              "<tr>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.name
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.phone
+              ) +
+              "</td>" +
+
+              "<td>" +
+              customer.orders +
+              "</td>" +
+
+              "<td>₹" +
+              customer.total.toLocaleString(
+                "en-IN"
+              ) +
+              "</td>" +
+
+              "<td>" +
+              escapeHTML(
+                customer.latest
+              ) +
+              "</td>" +
+
+              "</tr>"
+
+            );
+
+          }
+        ).join("");
+
+
+      if (!customers.length) {
+
+        $("customerRows").innerHTML =
+          '<tr><td colspan="5" class="muted">' +
+          "No customers yet." +
+          "</td></tr>";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE BUTTONS
+    ========================================================= */
+
+    function initializeEvents() {
+
+
+      /* LOGIN FORM */
+
+      $("loginForm").addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+          loginAdmin();
+
+        }
+      );
+
+
+      /* LOGOUT */
+
+      $("logoutButton").addEventListener(
+        "click",
+        function () {
+
+          logoutAdmin();
+
+        }
+      );
+
+
+      /* MOBILE MENU */
+
+      $("mobileMenu").addEventListener(
+        "click",
+        function () {
+
+          $("layout")
+            .classList
+            .toggle("menuOpen");
+
+        }
+      );
+
+
+      /* NAVIGATION */
+
+      document
+        .querySelectorAll(".navButton")
+        .forEach(
+          function (button) {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                openPage(
+                  button.dataset.page,
+                  button
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+      /* QUICK ACTIONS */
+
+      $("quickAddProduct")
+        .addEventListener(
+          "click",
+          newProduct
+        );
+
+
+      $("quickAddCatalog")
+        .addEventListener(
+          "click",
+          newCatalog
+        );
+
+
+      $("quickOrders")
+        .addEventListener(
+          "click",
+          function () {
+
+            openPage(
+              "orders",
+              document.querySelector(
+                '[data-page="orders"]'
+              )
+            );
+
+          }
+        );
+
+
+      /* PRODUCTS */
+
+      $("addProductButton")
+        .addEventListener(
+          "click",
+          newProduct
+        );
+
+
+      $("productSearch")
+        .addEventListener(
+          "input",
+          renderProducts
+        );
+
+
+      $("saveProductButton")
+        .addEventListener(
+          "click",
+          saveProduct
+        );
+
+
+      $("cancelProductButton")
+        .addEventListener(
+          "click",
+          closeProductModal
+        );
+
+
+      $("addVariantButton")
+        .addEventListener(
+          "click",
+          function () {
+
+            addVariantRow();
+
+          }
+        );
+
+
+      /* CATALOGS */
+
+      $("addCatalogButton")
+        .addEventListener(
+          "click",
+          newCatalog
+        );
+
+
+      $("saveCatalogButton")
+        .addEventListener(
+          "click",
+          saveCatalog
+        );
+
+
+      $("cancelCatalogButton")
+        .addEventListener(
+          "click",
+          cancelCatalog
+        );
+
+
+      /* ORDERS */
+
+      $("orderSearch")
+        .addEventListener(
+          "input",
+          renderOrders
+        );
+
+
+      $("refreshOrdersButton")
+        .addEventListener(
+          "click",
+          loadOrders
+        );
+
+
+      $("closeOrderButton")
+        .addEventListener(
+          "click",
+          function () {
+
+            $("orderModal").style.display =
+              "none";
+
+          }
+        );
+
+
+      /* MODALS */
+
+      window.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            event.target.classList
+              .contains("modal")
+          ) {
+
+            event.target.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       AUTO LOGIN WITH SAVED TOKEN
+    ========================================================= */
+
+    async function checkSavedLogin() {
+
+      if (!token) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/api/admin/check",
+            {
+              headers:
+                authHeaders(false)
+            }
+          );
+
+
+        if (response.ok) {
+
+          await showAdminApp();
+
+        } else {
+
+          localStorage.removeItem(
+            "raha_admin_token"
+          );
+
+          token = "";
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Saved login check failed:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       START
+    ========================================================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+        initializeEvents();
+
+        await checkSavedLogin();
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
